@@ -1,0 +1,92 @@
+﻿node : 
+node:events:486
+En línea: 1 
+Carácter: 1
++ node server.js 
+2>&1 | Out-File 
+-Encoding utf8 
+error8.txt
++ 
+~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo  
+            : NotS  
+  pecified: (node   
+ :events:486:Str    
+ing) [], Remote    
+Exception
+    + FullyQualifie 
+   dErrorId : Nati  
+  veCommandError
+ 
+      throw er; // 
+Unhandled 'error' 
+event
+      ^
+
+Error: listen 
+EADDRINUSE: address 
+already in use 
+:::3001
+    at Server.setupL
+istenHandle [as 
+_listen2] 
+(node:net:1940:16)
+    at 
+listenInCluster 
+(node:net:1997:12)
+    at 
+Server.listen 
+(node:net:2102:7)
+    at app.listen (C
+:\Users\dpast\.gemin
+i\antigravity\scratc
+h\videogame-club-das
+hboard\server\node_m
+odules\express\lib\a
+pplication.js:635:24
+)
+    at 
+Object.<anonymous> (
+C:\Users\dpast\.gemi
+ni\antigravity\scrat
+ch\videogame-club-da
+shboard\server\serve
+r.js:52:5)
+    at 
+Module._compile (nod
+e:internal/modules/c
+js/loader:1761:14)
+    at Object..js (n
+ode:internal/modules
+/cjs/loader:1893:10)
+    at Module.load (
+node:internal/module
+s/cjs/loader:1481:32
+)
+    at Module._load 
+(node:internal/modul
+es/cjs/loader:1300:1
+2)
+    at TracingChanne
+l.traceSync (node:di
+agnostics_channel:32
+8:14)
+Emitted 'error' 
+event on Server 
+instance at:
+    at emitErrorNT 
+(node:net:1976:8)
+    at process.proce
+ssTicksAndRejections
+ (node:internal/proc
+ess/task_queues:89:2
+1) {
+  code: 
+'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v24.11.1

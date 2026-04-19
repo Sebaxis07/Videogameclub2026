@@ -1,0 +1,316 @@
+[
+  {
+    "id": 1,
+    "pregunta": "¿Qué campeón de League of Legends es conocido como 'El Explorador Pródigo'?",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Garen",
+      "Ezreal",
+      "Teemo",
+      "Yasuo"
+    ],
+    "respuesta_correcta": 1
+  },
+  {
+    "id": 16,
+    "pregunta": "¿En qué fecha se celebra tradicionalmente la chilenidad y la Primera Junta Nacional de Gobierno (Fiestas Patrias)?",
+    "categoria": "Cultura Chilena",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "18 de Octubre",
+      "21 de Mayo",
+      "18 de Septiembre",
+      "19 de Septiembre"
+    ],
+    "respuesta_correcta": 2
+  },
+  {
+    "id": 5,
+    "pregunta": "¿Qué rol en League of Legends se juega habitualmente en la línea central (Mid)?",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Mago/Asesino",
+      "Tirador (ADC)",
+      "Tanque/Luchador",
+      "Curandero (Support)"
+    ],
+    "respuesta_correcta": 0
+  },
+  {
+    "id": 8,
+    "pregunta": "¿Pikachu evolucionó a Raichu usando una Piedra Trueno en la serie original acompañando a Ash?",
+    "categoria": "Pokemon",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "verdadero_falso",
+    "opciones": [
+      "Verdadero",
+      "Falso"
+    ],
+    "respuesta_correcta": 1
+  },
+  {
+    "id": 17,
+    "pregunta": "¿Cómo se llama el ave voladora que figura como símbolo de fuerza en el Escudo Nacional de Chile?",
+    "categoria": "Cultura Chilena",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Águila Mora",
+      "Pudú",
+      "Tiuque",
+      "Cóndor"
+    ],
+    "respuesta_correcta": 3
+  },
+  {
+    "id": 15,
+    "pregunta": "¿Cuántos stacks (acumulaciones máximas) puede llevar un jugador de Minecraft de Ender Pearls por casilla?",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Competitiva",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "16",
+      "64",
+      "99",
+      "12"
+    ],
+    "respuesta_correcta": 0
+  },
+  {
+    "id": 3,
+    "pregunta": "¿En Ultrakill, la sangre funciona como combustible y barra de curación para el protagonista V1?",
+    "categoria": "Ultrakill",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "verdadero_falso",
+    "opciones": [
+      "Verdadero",
+      "Falso"
+    ],
+    "respuesta_correcta": 0
+  },
+  {
+    "id": 4,
+    "pregunta": "¿Cuál es el nombre del mapa principal en el modo clásico de Mobile Legends?",
+    "categoria": "Mobile Legends",
+    "tipo_dificultad": "Competitiva",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Tierra del Amanecer",
+      "Grieta del Invocador",
+      "Valle de los Reyes",
+      "Cuenca Estelar"
+    ],
+    "respuesta_correcta": 0
+  },
+  {
+    "id": 18,
+    "pregunta": "El conocido personaje de historietas 'Condorito', fue creado originalmente por el dibujante chileno Pepo.",
+    "categoria": "Cultura Chilena",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "verdadero_falso",
+    "opciones": [
+      "Verdadero",
+      "Falso"
+    ],
+    "respuesta_correcta": 0
+  },
+  {
+    "id": 9,
+    "pregunta": "¿Qué clase en Team Fortress 2 puede hacerse invisible y disfrazarse del equipo enemigo?",
+    "categoria": "Team Fortress 2",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Sniper",
+      "Medic",
+      "Spy",
+      "Scout"
+    ],
+    "respuesta_correcta": 2
+  },
+  {
+    "pregunta": "¿Como se llama el lider del club de videojuegos?",
+    "categoria": "Club",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Sebastian Rojas",
+      "Sebastian Vasquez",
+      "Sebastian Callejas",
+      "Marcelo Leiva"
+    ],
+    "respuesta_correcta": 1,
+    "id": 21
+  },
+  {
+    "id": 12,
+    "pregunta": "¿Cómo se llamaba la moneda virtual original de Roblox que podía conseguirse gratis antes de ser eliminada?",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Competitiva",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Tix (Tickets)",
+      "Roblox Coins",
+      "Blox Bux",
+      "R-Points"
+    ],
+    "respuesta_correcta": 0
+  },
+  {
+    "id": 2,
+    "pregunta": "¿En qué año se lanzó originalmente Mortal Kombat XL?",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Competitiva",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "2014",
+      "2015",
+      "2016",
+      "2017"
+    ],
+    "respuesta_correcta": 2
+  },
+  {
+    "id": 6,
+    "pregunta": "¿Qué material es necesario para crear una Mesa de Encantamientos en Minecraft?",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Hierro, Diamante, Libro",
+      "Oro, Redstone, Libro",
+      "Obsidiana, Diamante, Libro",
+      "Piedra, Carbón, Libro"
+    ],
+    "respuesta_correcta": 2
+  },
+  {
+    "id": 13,
+    "pregunta": "¿Qué juego se lanzó primero de manera oficial entre estas populares opciones?",
+    "categoria": "Overwatch / LoL / TF2",
+    "tipo_dificultad": "Competitiva",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "League of Legends",
+      "Team Fortress 2",
+      "Overwatch",
+      "Valorant"
+    ],
+    "respuesta_correcta": 1
+  },
+  {
+    "id": 11,
+    "pregunta": "¿Marvel Rivals es un juego de disparos en primera persona (FPS) idéntico a la cámara de Valorant?",
+    "categoria": "Marvel Rivals",
+    "tipo_dificultad": "Competitiva",
+    "tipo_pregunta": "verdadero_falso",
+    "opciones": [
+      "Verdadero",
+      "Falso"
+    ],
+    "respuesta_correcta": 1
+  },
+  {
+    "id": 10,
+    "pregunta": "¿Cómo se llama el primer jefe nocturno (un globo ocular gigante con colmillos) en Terraria?",
+    "categoria": "Terraria",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Cerebro de Cthulhu",
+      "Rey Slime",
+      "Ovalo Demoniaco",
+      "Ojo de Cthulhu"
+    ],
+    "respuesta_correcta": 3
+  },
+  {
+    "id": 20,
+    "pregunta": "Aproximadamente, ¿cuál es la longitud total del territorio continental de Chile medida de norte a sur en kilómetros?",
+    "categoria": "Cultura Chilena",
+    "tipo_dificultad": "Competitiva",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "4.300 km",
+      "2.100 km",
+      "7.000 km",
+      "1.500 km"
+    ],
+    "respuesta_correcta": 0
+  },
+  {
+    "id": 7,
+    "pregunta": "¿Cuántos créditos cuesta un rifle francotirador Operator en Valorant?",
+    "categoria": "Valorant",
+    "tipo_dificultad": "Competitiva",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "4500",
+      "4700",
+      "5000",
+      "4900"
+    ],
+    "respuesta_correcta": 1
+  },
+  {
+    "id": 14,
+    "pregunta": "¿Cuál es el nombre de la agente de Valorant, especializada en sanación y muros de jade?",
+    "categoria": "Valorant",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Jett",
+      "Reyna",
+      "Killjoy",
+      "Sage"
+    ],
+    "respuesta_correcta": 3
+  },
+  {
+    "id": 19,
+    "pregunta": "¿Cuál de las siguientes ciudades de Chile está ubicada más al norte?",
+    "categoria": "Cultura Chilena",
+    "tipo_dificultad": "Competitiva",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Santiago",
+      "Antofagasta",
+      "Concepción",
+      "Iquique"
+    ],
+    "respuesta_correcta": 3
+  },
+  {
+    "pregunta": "¿Cuál es la dirección oficial de la sede INACAP Antofagasta?",
+    "categoria": "Inacap",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Av. Angamos #601",
+      "Av. Universidad de Antofagasta #02800",
+      "Av. Edmundo Pérez Zujovic #11092",
+      "Av. Grecia #1702"
+    ],
+    "respuesta_correcta": 2,
+    "id": 22
+  },
+  {
+    "pregunta": "El acrónimo INACAP significa:",
+    "categoria": "Inacap",
+    "tipo_dificultad": "Casual",
+    "tipo_pregunta": "alternativas",
+    "opciones": [
+      "Instituto Nacional  de Capacitacion",
+      "ndustrias Nacionales de Capacitación y Perfeccionamiento",
+      "Instituto Nacional de Ciencias Aplicadas y Profesionales",
+      "Instituto de Nivelación Académica y Capacitación Profesional"
+    ],
+    "respuesta_correcta": 0,
+    "id": 23
+  }
+]

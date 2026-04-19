@@ -1,0 +1,2789 @@
+[
+  {
+    "id": "12d59a51-ba03-4e00-93a0-98b77e320850",
+    "date": "2026-04-10",
+    "startedAt": "2026-04-10T21:54:03.015Z",
+    "endedAt": null,
+    "status": "active",
+    "game": "",
+    "notes": "",
+    "universityEquipment": [],
+    "peerLoans": [],
+    "attendance": [
+      {
+        "playerName": "matías cortes",
+        "present": true,
+        "arrivedAt": "2026-04-10T21:54:05.061Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Miguel aguilera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Angel Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Tomas Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Carmen Huaman",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Eileen Bracamonte",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Carvajal",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Sebastian Alexander Anabalon Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Sebastián Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Rodrigo Cofre Barra",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Bastian Rodríguez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Richard peña",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Fraga",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Gato",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Deyanira Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Test",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Tast",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Derek Gallardo",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "francisco ribeiro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valery Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "bergy mmonardes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "041a3b49-6017-45b4-9117-6daed0c8a680",
+    "date": "2026-04-04",
+    "startedAt": "2026-04-04T03:13:04.102Z",
+    "endedAt": "2026-04-04T03:13:56.776Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "universityEquipment": [],
+    "peerLoans": [
+      {
+        "id": "7d136c80-d631-430a-a8fc-ef15f77806ef",
+        "providerName": "Richard peña",
+        "borrowerName": "Torneo / Evento Oficial",
+        "item": "PC",
+        "equipmentId": "7db71e6c-e54a-45e1-872f-58e362992738",
+        "status": "Devuelto",
+        "loanedAt": "2026-04-04T03:13:48.180Z",
+        "returnedAt": "2026-04-04T03:13:51.988Z"
+      }
+    ],
+    "attendance": [
+      {
+        "playerName": "matías cortes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Miguel aguilera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Angel Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Tomas Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Carmen Huaman",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Eileen Bracamonte",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Carvajal",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Sebastian Alexander Anabalon Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Sebastián Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Rodrigo Cofre Barra",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Bastian Rodríguez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Richard peña",
+        "present": true,
+        "arrivedAt": "2026-04-04T03:13:15.939Z",
+        "equipment": [
+          {
+            "id": "7db71e6c-e54a-45e1-872f-58e362992738",
+            "type": "PC",
+            "brand": "",
+            "model": "",
+            "serial": "",
+            "description": "",
+            "universityOwned": false,
+            "addedAt": "2026-04-04T03:13:28.792Z",
+            "returnedAt": "2026-04-04T03:13:53.352Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Diego Fraga",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Gato",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Deyanira Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Test",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "835340cf-b01b-428b-8ce2-2520ba390710",
+    "date": "2026-04-04",
+    "startedAt": "2026-04-04T02:50:09.498Z",
+    "endedAt": "2026-04-04T02:50:17.180Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "universityEquipment": [],
+    "peerLoans": [],
+    "attendance": [
+      {
+        "playerName": "matías cortes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Miguel aguilera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Angel Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Tomas Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Carmen Huaman",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Eileen Bracamonte",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Carvajal",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Sebastian Alexander Anabalon Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Sebastián Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Rodrigo Cofre Barra",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Bastian Rodríguez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Richard peña",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Fraga",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Gato",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Deyanira Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Test",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "9e881daa-43ce-4f38-a9c7-2ca0c6d7c887",
+    "date": "2026-04-01",
+    "startedAt": "2026-04-01T22:53:44.714Z",
+    "endedAt": "2026-04-02T19:09:35.442Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "universityEquipment": [],
+    "peerLoans": [],
+    "attendance": [
+      {
+        "playerName": "matías cortes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Miguel aguilera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Angel Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Tomas Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Carmen Huaman",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Eileen Bracamonte",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Carvajal",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Sebastian Alexander Anabalon Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Sebastián Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Rodrigo Cofre Barra",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Bastian Rodríguez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "428d2907-5b67-4286-afa6-c46fe20f1c27",
+    "date": "2026-04-01",
+    "startedAt": "2026-04-01T20:21:51.542Z",
+    "endedAt": "2026-04-01T21:19:19.860Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "universityEquipment": [],
+    "peerLoans": [],
+    "attendance": [
+      {
+        "playerName": "22022482-1",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "22169741-3",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "24.763951-9",
+        "present": true,
+        "arrivedAt": "2026-04-01T20:22:48.991Z",
+        "equipment": [
+          {
+            "id": "1458e637-e63b-4f8d-9d84-7c31d3d1d0c9",
+            "type": "Otro",
+            "brand": "",
+            "model": "",
+            "serial": "",
+            "description": "",
+            "universityOwned": false,
+            "addedAt": "2026-04-01T20:23:07.740Z",
+            "returnedAt": "2026-04-01T21:19:19.860Z"
+          }
+        ]
+      },
+      {
+        "playerName": "22090451-2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "28832015-2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "21828051-K",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "21411204-3",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "a60ee984-f81c-4b5d-aa01-69488015fb42",
+    "date": "2026-04-01",
+    "startedAt": "2026-04-01T18:51:32.090Z",
+    "endedAt": "2026-04-01T18:51:37.935Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "universityEquipment": [],
+    "peerLoans": [],
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "luis vasquez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "sas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "03e120c7-ba38-405c-84ac-92e0e3aab3fa",
+    "date": "2026-04-01",
+    "startedAt": "2026-04-01T01:07:38.195Z",
+    "endedAt": "2026-04-01T17:37:49.033Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "universityEquipment": [],
+    "peerLoans": [
+      {
+        "id": "8c1e4d69-cc94-45f7-b449-d4f36d69f505",
+        "providerName": "sebastian",
+        "borrowerName": "luis vasquez",
+        "item": "Periférico sadsads dadsada",
+        "equipmentId": "557a9fcd-8b61-45a5-8427-ff8d85413d7f",
+        "status": "Devuelto",
+        "loanedAt": "2026-04-01T01:18:42.290Z",
+        "returnedAt": "2026-04-01T01:19:56.397Z"
+      }
+    ],
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": true,
+        "arrivedAt": "2026-04-01T01:07:39.638Z",
+        "equipment": [
+          {
+            "id": "557a9fcd-8b61-45a5-8427-ff8d85413d7f",
+            "type": "Periférico",
+            "brand": "sadsads",
+            "model": "dadsada",
+            "serial": "",
+            "description": "",
+            "universityOwned": false,
+            "addedAt": "2026-04-01T01:07:44.925Z",
+            "returnedAt": "2026-04-01T17:37:49.033Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "luis vasquez",
+        "present": true,
+        "arrivedAt": "2026-04-01T01:18:10.305Z",
+        "equipment": []
+      },
+      {
+        "playerName": "sas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "4ab37ce5-2b38-4241-bfb2-0e2396a1320d",
+    "date": "2026-03-31",
+    "startedAt": "2026-03-31T05:02:45.847Z",
+    "endedAt": "2026-03-31T18:29:26.804Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "universityEquipment": [],
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": true,
+        "arrivedAt": "2026-03-31T18:29:18.350Z",
+        "equipment": [
+          {
+            "id": "d3ce6e3d-5f6a-4a45-9315-5acad43ac3b0",
+            "type": "PC",
+            "brand": "menend",
+            "model": "kdkd",
+            "serial": "",
+            "description": "",
+            "universityOwned": false,
+            "addedAt": "2026-03-31T18:29:25.197Z",
+            "returnedAt": "2026-03-31T18:29:26.804Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "luis vasquez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "sas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "d4e93b85-b4b2-4064-ae41-2b5d8d0391ff",
+    "date": "2026-03-31",
+    "startedAt": "2026-03-31T04:48:11.688Z",
+    "endedAt": "2026-03-31T04:59:19.499Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "universityEquipment": [],
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "luis vasquez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "sas",
+        "present": true,
+        "arrivedAt": "2026-03-31T04:48:14.542Z",
+        "equipment": [
+          {
+            "id": "3ec35363-8f9a-421c-9403-4c8ae9a9cd82",
+            "type": "PC",
+            "brand": "",
+            "model": "",
+            "serial": "",
+            "description": "",
+            "universityOwned": false,
+            "addedAt": "2026-03-31T04:48:33.139Z",
+            "returnedAt": "2026-03-31T04:59:19.499Z"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2003cde4-f10d-4bcc-bd93-e80b30e0e8ab",
+    "date": "2026-03-31",
+    "startedAt": "2026-03-31T04:15:25.679Z",
+    "endedAt": "2026-03-31T04:36:04.641Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "universityEquipment": [
+      {
+        "id": "f7b6d184-57c7-4d69-9cfb-de6dfbba4836",
+        "type": "Periférico",
+        "brand": "sdfsdf",
+        "model": "dfsf",
+        "serial": "",
+        "description": "",
+        "addedAt": "2026-03-31T04:15:30.979Z",
+        "returnedAt": "2026-03-31T04:15:35.500Z"
+      }
+    ],
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": true,
+        "arrivedAt": "2026-03-31T04:35:55.042Z",
+        "equipment": [
+          {
+            "id": "ae2ebd50-db15-4b08-9331-cb35323cc904",
+            "type": "Consola",
+            "brand": "mdkdd",
+            "model": "kdkdkd",
+            "serial": "",
+            "description": "",
+            "universityOwned": false,
+            "addedAt": "2026-03-31T04:36:00.464Z",
+            "returnedAt": "2026-03-31T04:36:04.641Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "luis vasquez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "0c15ea03-d5fa-455c-bed7-33f1e4e3eebe",
+    "date": "2026-03-31",
+    "startedAt": "2026-03-31T02:38:28.322Z",
+    "endedAt": "2026-03-31T02:56:52.374Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "universityEquipment": [
+      {
+        "id": "421c0eed-ffed-4be9-9dc4-38b4fd2c56b1",
+        "type": "Televisión",
+        "brand": "dsa",
+        "model": "sadsad",
+        "serial": "dsad",
+        "description": "",
+        "addedAt": "2026-03-31T02:39:07.193Z",
+        "returnedAt": "2026-03-31T02:56:52.374Z"
+      },
+      {
+        "id": "1fde4b3b-6316-4ae7-94a7-2f5e56718c68",
+        "type": "Periférico",
+        "brand": "sdasdasd",
+        "model": "dsdsadasd",
+        "serial": "",
+        "description": "",
+        "addedAt": "2026-03-31T02:39:14.250Z",
+        "returnedAt": "2026-03-31T02:56:52.374Z"
+      }
+    ],
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:56:47.548Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:56:46.945Z",
+        "equipment": [
+          {
+            "id": "8edf73fd-130d-42a7-9ac9-1258ff77b28a",
+            "type": "Periférico",
+            "brand": "",
+            "model": "",
+            "serial": "",
+            "description": "",
+            "universityOwned": false,
+            "addedAt": "2026-03-31T02:56:50.216Z",
+            "returnedAt": "2026-03-31T02:56:52.374Z"
+          }
+        ]
+      },
+      {
+        "playerName": "luis vasquez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "89908f76-535f-4b02-802d-0e58061910a2",
+    "date": "2026-03-31",
+    "startedAt": "2026-03-31T02:36:59.974Z",
+    "endedAt": "2026-03-31T02:37:07.946Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "universityEquipment": [],
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:37:03.031Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "luis vasquez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "55d68274-147e-487e-810f-2a06c1db0187",
+    "date": "2026-03-31",
+    "startedAt": "2026-03-31T02:33:32.354Z",
+    "endedAt": "2026-03-31T02:36:50.709Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "luis vasquez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "076f74c4-4ba3-45cf-a65d-419f0ab4196b",
+    "date": "2026-03-31",
+    "startedAt": "2026-03-31T02:30:49.052Z",
+    "endedAt": "2026-03-31T02:31:11.803Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "luis vasquez",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:30:50.463Z",
+        "equipment": [
+          {
+            "id": "6c1a2ce5-4a97-406a-bc52-fe70b0a70582",
+            "type": "Consola",
+            "brand": "",
+            "model": "",
+            "serial": "",
+            "description": "",
+            "addedAt": "2026-03-31T02:30:58.398Z",
+            "returnedAt": "2026-03-31T02:31:11.803Z"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "8fa110b5-abcc-4695-b520-682a754f879f",
+    "date": "2026-03-31",
+    "startedAt": "2026-03-31T02:29:27.239Z",
+    "endedAt": "2026-03-31T02:30:39.647Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:28.997Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:30.129Z",
+        "equipment": [
+          {
+            "id": "10c96285-55b7-4ce9-8a0c-25d8f71e33b5",
+            "type": "Periférico",
+            "brand": "sadsad",
+            "model": "sdsad",
+            "serial": "sadad",
+            "description": "asdas",
+            "addedAt": "2026-03-31T02:29:35.750Z",
+            "returnedAt": "2026-03-31T02:30:39.647Z"
+          },
+          {
+            "id": "7e641d67-368f-4f80-b15b-5d2503390575",
+            "type": "Televisión",
+            "brand": "sdsad",
+            "model": "asdsad",
+            "serial": "asdasd",
+            "description": "sadada",
+            "addedAt": "2026-03-31T02:29:41.089Z",
+            "returnedAt": "2026-03-31T02:30:39.647Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:29.778Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:43.275Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:43.552Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:44.202Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:45.176Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:45.462Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:46.340Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:46.681Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:47.106Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:47.969Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:48.307Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:48.841Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:50.148Z",
+        "equipment": [
+          {
+            "id": "ab78a162-8b4a-4536-a854-4fec8d9e51c3",
+            "type": "PC",
+            "brand": "sdasd",
+            "model": "dasdas",
+            "serial": "asdad",
+            "description": "dasda",
+            "addedAt": "2026-03-31T02:29:55.904Z",
+            "returnedAt": "2026-03-31T02:30:39.647Z"
+          }
+        ]
+      },
+      {
+        "playerName": "luis vasquez",
+        "present": true,
+        "arrivedAt": "2026-03-31T02:29:49.761Z",
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "ea468d21-739d-457e-8dcd-4f9c0ed0a96e",
+    "date": "2026-03-31",
+    "startedAt": "2026-03-31T00:14:48.006Z",
+    "endedAt": "2026-03-31T00:15:15.839Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": true,
+        "arrivedAt": "2026-03-31T00:14:50.727Z",
+        "equipment": [
+          {
+            "id": "2d4ac28b-906b-478b-8a65-57bb347b9b93",
+            "type": "Periférico",
+            "brand": "fgdg",
+            "model": "fdgdg",
+            "serial": "fdgdfg",
+            "description": "dfgdfg",
+            "addedAt": "2026-03-31T00:15:13.219Z",
+            "returnedAt": "2026-03-31T00:15:15.839Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "f6690546-3082-47c5-8c8c-f4659de3fa28",
+    "date": "2026-03-30",
+    "startedAt": "2026-03-30T23:13:17.359Z",
+    "endedAt": "2026-03-30T23:13:42.702Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": true,
+        "arrivedAt": "2026-03-30T23:13:19.910Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": true,
+        "arrivedAt": "2026-03-30T23:13:29.520Z",
+        "equipment": [
+          {
+            "id": "ea6d9922-6357-4482-9f8e-51c53f47718e",
+            "type": "Periférico",
+            "brand": "gfdhg",
+            "model": "hgfhf",
+            "serial": "",
+            "description": "",
+            "addedAt": "2026-03-30T23:13:33.727Z",
+            "returnedAt": "2026-03-30T23:13:42.702Z"
+          },
+          {
+            "id": "a4023a12-befe-427a-84de-9474a2f46101",
+            "type": "PC",
+            "brand": "fghgfhhfg",
+            "model": "fghgfh",
+            "serial": "",
+            "description": "",
+            "addedAt": "2026-03-30T23:13:39.694Z",
+            "returnedAt": "2026-03-30T23:13:42.702Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "5820e736-b166-4c39-85a0-fe27c91f01e0",
+    "date": "2026-03-30",
+    "startedAt": "2026-03-30T21:44:25.349Z",
+    "endedAt": "2026-03-30T21:45:18.927Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": true,
+        "arrivedAt": "2026-03-30T21:44:43.997Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": true,
+        "arrivedAt": "2026-03-30T21:45:02.934Z",
+        "equipment": [
+          {
+            "id": "2a01cdf1-4c7c-4d4c-8173-d618fa05f9a8",
+            "type": "Consola",
+            "brand": "asdadasd",
+            "model": "sadasdsad",
+            "serial": "",
+            "description": "",
+            "addedAt": "2026-03-30T21:45:08.289Z",
+            "returnedAt": "2026-03-30T21:45:18.927Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": true,
+        "arrivedAt": "2026-03-30T21:45:10.286Z",
+        "equipment": [
+          {
+            "id": "09005886-b688-49df-aa14-7fae8ab365a2",
+            "type": "Consola",
+            "brand": "dsadas",
+            "model": "sdadad",
+            "serial": "",
+            "description": "",
+            "addedAt": "2026-03-30T21:45:15.442Z",
+            "returnedAt": "2026-03-30T21:45:18.927Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "a0b73bdb-8200-4e76-bf15-f2ab999f5f22",
+    "date": "2026-03-30",
+    "startedAt": "2026-03-30T21:28:48.116Z",
+    "endedAt": "2026-03-30T21:28:58.604Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Profe Giorgina",
+        "present": true,
+        "arrivedAt": "2026-03-30T21:28:50.537Z",
+        "equipment": [
+          {
+            "id": "d495a823-18c2-4038-b1cf-1e88b1994741",
+            "type": "PC",
+            "brand": "sdas",
+            "model": "dasda",
+            "serial": "",
+            "description": "",
+            "addedAt": "2026-03-30T21:28:55.974Z",
+            "returnedAt": "2026-03-30T21:28:58.604Z"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "76681791-9550-46a0-ba09-d00061ebab09",
+    "date": "2026-03-30",
+    "startedAt": "2026-03-30T20:31:08.780Z",
+    "endedAt": "2026-03-30T21:20:51.739Z",
+    "status": "ended",
+    "game": "Fortnite",
+    "notes": "",
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:09.901Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:10.779Z",
+        "equipment": [
+          {
+            "id": "ce218798-3ca5-4bf1-b2db-fd4bdc13ad54",
+            "type": "Consola",
+            "brand": "sadasd",
+            "model": "sdasd",
+            "serial": "",
+            "description": "",
+            "addedAt": "2026-03-30T20:31:25.188Z",
+            "returnedAt": "2026-03-30T21:20:51.739Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:11.202Z",
+        "equipment": [
+          {
+            "id": "af0c844d-7b3a-45da-8859-b50ac5255817",
+            "type": "PC",
+            "brand": "asdad",
+            "model": "sadsad",
+            "serial": "sadasd",
+            "description": "asda",
+            "addedAt": "2026-03-30T20:31:31.291Z",
+            "returnedAt": "2026-03-30T21:20:51.739Z"
+          },
+          {
+            "id": "b9a5630e-af65-4574-b76b-03891e1063c2",
+            "type": "Periférico",
+            "brand": "dsad",
+            "model": "dsad",
+            "serial": "sadsa",
+            "description": "asdasd",
+            "addedAt": "2026-03-30T20:31:43.160Z",
+            "returnedAt": "2026-03-30T21:20:51.739Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:11.673Z",
+        "equipment": [
+          {
+            "id": "ecfc5c1c-2880-44e8-8412-e14e1673fccc",
+            "type": "PC",
+            "brand": "",
+            "model": "dsadasd",
+            "serial": "",
+            "description": "",
+            "addedAt": "2026-03-30T20:31:38.288Z",
+            "returnedAt": "2026-03-30T21:20:51.739Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:12.853Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:13.235Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:16.371Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:16.827Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:17.935Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:18.295Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:18.731Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:19.117Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:31:19.554Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:34:33.873Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:34:33.168Z",
+        "equipment": []
+      }
+    ]
+  },
+  {
+    "id": "5ffd8a60-904f-4045-8421-82e45bfed2f1",
+    "date": "2026-03-30",
+    "startedAt": "2026-03-30T20:28:22.716Z",
+    "endedAt": "2026-03-30T20:30:54.096Z",
+    "status": "ended",
+    "game": "",
+    "notes": "",
+    "attendance": [
+      {
+        "playerName": "sebastian",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:28:38.161Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Ejemplo2",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:28:37.730Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Seba Perez",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:28:25.189Z",
+        "equipment": [
+          {
+            "id": "e01d7bba-0128-4cfe-88db-89f748cbba19",
+            "type": "PC",
+            "brand": "fghhfg",
+            "model": "ghgfhfg",
+            "serial": "5464",
+            "description": "gdfg",
+            "addedAt": "2026-03-30T20:28:35.223Z",
+            "returnedAt": "2026-03-30T20:30:54.096Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Juan Soto",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Camila Rojas",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:28:39.486Z",
+        "equipment": [
+          {
+            "id": "b3a6d571-c810-46c9-a008-c8086c1ce14a",
+            "type": "Consola",
+            "brand": "ps5",
+            "model": "ps5",
+            "serial": "",
+            "description": "",
+            "addedAt": "2026-03-30T20:30:44.810Z",
+            "returnedAt": "2026-03-30T20:30:54.096Z"
+          }
+        ]
+      },
+      {
+        "playerName": "Diego Araya",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Valentina Muñoz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Matias Silva",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Fernanda Lopez",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Cristobal Diaz",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Antonia Torres",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Nicolas Vega",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:28:42.846Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Ignacia Castro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Benjamin Fuentes",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Constanza Herrera",
+        "present": true,
+        "arrivedAt": "2026-03-30T20:28:43.732Z",
+        "equipment": []
+      },
+      {
+        "playerName": "Felipe Navarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      },
+      {
+        "playerName": "Daniela Pizarro",
+        "present": false,
+        "arrivedAt": null,
+        "equipment": []
+      }
+    ]
+  }
+]

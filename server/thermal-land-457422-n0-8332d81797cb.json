@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "thermal-land-457422-n0",
+  "private_key_id": "8332d81797cb72e819d97fb1af2435a94984f3f6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDC6vuah2PMxLK6\nKPMJf87U12i2KIyUbGeKpUbE1bwCN2SmRp7533Td4akBJ1djYkPd8o8SzkK4w/Hl\nrMj45rQFgMD+vI5jqeuTH6p4ilA4fcJWrwqHGjGB92MREWDzXUOafbeLkg7422sr\nH5axGC0eb4t87jyUKoXn0IdUsBwEjQBK84d3D/cTZ47SvD0033l3fRGWfVEfKQBd\n+219Hh3fj+p0zTN5epYzvuzwJHcQZhFmB2r+JJI9hcmZUtZSuPUEL8UWQRxXr3Pv\nbP7CoUwJNl8m7HI3Zp7NZ+wsS4VwYqGI43S8W7IG1S0KjtF+XDoIqwjqE7GMd2vs\n1kxEeqhpAgMBAAECggEAA/9+ZCvJQgK52MQswgHfW/HEKdJYmdXEZO1hb3mj1tbM\nh3WU3rK06rUteoLUUctK8ZM/WIcnCrOoM0oRQDu5LxC2RLNY51XtqVGhtUG/Bf2c\nXhtOh7ljkRMiMtAssSk1UQapnGEFUhjsEJEgDeddS43Fqm0XjIF3yCq4j+Xh2T0C\n/VznRJi3n63mel7Ix03BFb3qk//NfsiNM/czjN1V+1e70gAyqO3fMduVF9eRPfgY\nJ6gIBmezy3/SaizCSguQXOqlCDmYJv1Jh0r9HAyqdoYKsZWMaRRA9zj9iagL/wfR\nZFhE3hLIZUPSB/A+fdGjqpPc65J5UdTo0C6+XuJgZQKBgQDj77DecPN+js3b1Tz0\nZGvUYcuJX/bK9CzHJeoLi0h+xd+th2IRXif0TvGM1zoAC1xPVRQ+SpBA4Yf7ipfC\naTzH+gonCLbKvFXkaw31rAsM0Egssp47vBt1WHoo50D6jqFk3LnMxgfJrFgYO2Jd\naB+5jazcHeYjG+3iEPBVtkheTQKBgQDa6pZhtC1IZ1z3WsNi40yT/lEPfVgzT02L\nV+PE3bePpACrDYEZOh7bRJa6baGnJYoXbl+MaPp/sXohqWIZ5o+qfwdMqg778K3H\nliyWVyQ32rV/5GGjiEKJNJFx1AvMhYWMb6rIOW300XkSwqW63wf9mzgqJMz51m1T\nYBnZG6WYjQKBgQCfq6eVm0AnFrhEV9MUTEhxBXTELfI+5996Pif+oDpPfCOddqoP\nCosojCiPhbF+mHa4qBu/KxJ0MMjGP6bhrEDEwXZdM7CAwn/Uu92SjEtNVZZJoXJQ\n3AvMHwesIZsWKdYLRsftF4gbEVzA1NCqKCeZHxLJOzScwZLZew4wrLlzPQKBgFTZ\n/HPeXHbl6XjOq1DW/UWXm1+/m8I3iLzr0hLqRU3dqYyjbViT2IXwreOQvsmEmWO/\nmjVYM0/vQIFvn+CeJy1Uk0W53Jj2jsT/hkS3fghQM21g3h9+nxuDTqSqJfCeCEeI\nuM9mwyHTV3RYEdi+veAkm75qCTEFVdatNxeZybO5AoGBAII7RDlYCh5dZAhe8Ht8\nZa5t5mWoXnCp9/FELUH+mcuGuKcZ72UgPazKv5VpSdAnvxc0JY8DzrHvi986h30I\ny0qAoc0umXB93Q0NHkwLTAVH5/M4NAZWNipRtIKuhwHckfUzu++w9dHhLMuaC9/3\n3UhWzlt20BDvFPEzjksMWGKd\n-----END PRIVATE KEY-----\n",
+  "client_email": "appvideojuegos@thermal-land-457422-n0.iam.gserviceaccount.com",
+  "client_id": "117626046206099354921",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/appvideojuegos%40thermal-land-457422-n0.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

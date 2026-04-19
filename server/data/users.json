@@ -1,0 +1,38 @@
+[
+  {
+    "rut": "11.111.111-3",
+    "password": "Gato123"
+  },
+  {
+    "rut": "21.355.768-8",
+    "password": "Chirimoya23"
+  },
+  {
+    "rut": "22.502.567-3",
+    "password": "12richard34"
+  },
+  {
+    "rut": "20.980.656-8",
+    "password": "Benja.1990c"
+  },
+  {
+    "rut": "28.832.015-2",
+    "password": "ClubJuegos26",
+    "role": "student"
+  },
+  {
+    "rut": "22.090.451-2",
+    "password": "ClubJuegos26",
+    "role": "student"
+  },
+  {
+    "rut": "24.763.951-9",
+    "password": "ClubJuegos26",
+    "role": "student"
+  },
+  {
+    "rut": "21336688-2",
+    "password": "ClubJuegos26",
+    "role": "asistente"
+  }
+]
