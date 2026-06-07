@@ -40,6 +40,9 @@ function createSheetsClient() {
   if (keyJson) {
     try {
       const credentials = JSON.parse(keyJson);
+      if (credentials.private_key) {
+        credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
+      }
       const auth = new google.auth.GoogleAuth({
         credentials,
         scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
