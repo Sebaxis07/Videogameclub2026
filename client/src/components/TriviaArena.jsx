@@ -11,156 +11,13 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { getSocket } from '../api/socket';
 import useStore from '../store/useStore';
 import TriviaRulesModal from './TriviaRulesModal';
+import TriviaCourtroom from './TriviaCourtroom';
 
 const T_TOTAL = 15; // segundos para el timer visual
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Sub-components
 // ──────────────────────────────────────────────────────────────────────────────
-
-/** Podium Reveal Animation */
-function PodiumReveal({ finalRanking, userRut, totalScore }) {
-  const [step, setStep] = useState(0); // 0=none, 1=3rd, 2=2nd, 3=1st, 4=all
-  
-  useEffect(() => {
-    const t1 = setTimeout(() => setStep(1), 1500);
-    const t2 = setTimeout(() => setStep(2), 3000);
-    const t3 = setTimeout(() => setStep(3), 5000);
-    const t4 = setTimeout(() => setStep(4), 6500);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
-  }, []);
-
-  const first = finalRanking[0];
-  const second = finalRanking[1];
-  const third = finalRanking[2];
-  
-  const myRankEntry = finalRanking.find(f => f.members?.some(m => m.rut === userRut));
-  const myRank = myRankEntry ? finalRanking.indexOf(myRankEntry) : -1;
-  const medals = ['🥇', '🥈', '🥉'];
-
-  const getPlayerName = (faction) => faction?.members[0]?.nombre.split(' ')[0] || `F${faction?.factionId}`;
-  const finalMyScore = myRankEntry ? myRankEntry.factionScore : totalScore;
-
-  return (
-    <div className="flex flex-col items-center w-full animate-fade-in gap-8">
-      {/* Confetti overlay for 1st place */}
-      {step >= 3 && (
-        <div className="fixed inset-0 pointer-events-none z-[100] flex justify-center overflow-hidden">
-          <div className="w-full max-w-lg h-full relative">
-             {/* Fake CSS confetti using simple elements */}
-             {[...Array(20)].map((_, i) => (
-                <div key={i} className="absolute w-2 h-4 bg-brand rounded-sm animate-confetti-drop" 
-                     style={{ 
-                       left: `${Math.random() * 100}%`, 
-                       top: `-5%`,
-                       animationDelay: `${Math.random() * 2}s`,
-                       animationDuration: `${1.5 + Math.random() * 1.5}s`,
-                       backgroundColor: ['#fbbf24', '#34d399', '#60a5fa', '#a78bfa'][Math.floor(Math.random()*4)]
-                     }} 
-                />
-             ))}
-          </div>
-        </div>
-      )}
-
-      <div className="text-center mt-4">
-        <p className="text-brand-light text-xs uppercase tracking-widest font-bold mb-2 animate-pulse">Trivia Finalizada</p>
-        <h2 className="text-3xl font-black text-white">Resultados</h2>
-      </div>
-
-      {/* Podium Graph */}
-      <div className="flex items-end justify-center gap-3 h-56 mt-4 w-full px-4 relative">
-        {/* 2nd Place */}
-        {second ? (
-          <div className={`w-28 flex flex-col items-center transition-all duration-1000 transform ${step >= 2 ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-            <div className={`text-3xl mb-2 ${second.members.some(m=>m.rut===userRut) ? 'animate-bounce' : ''}`}>🥈</div>
-            <p className="text-sm font-bold text-white max-w-full truncate">{getPlayerName(second)}</p>
-            <p className="text-[10px] text-gray-400 mb-2">{second.factionScore} pts</p>
-            <div className="w-full h-28 bg-gradient-to-t from-gray-800 to-gray-700/80 rounded-t-xl border-t border-x border-gray-600 flex justify-center shadow-lg">
-              <span className="text-gray-400 font-black text-4xl mt-4 opacity-30">2</span>
-            </div>
-          </div>
-        ) : <div className="w-28"/>}
-
-        {/* 1st Place */}
-        {first ? (
-          <div className={`w-32 flex flex-col items-center z-10 transition-all duration-1000 transform ${step >= 3 ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-            <div className={`text-5xl mb-2 drop-shadow-[0_0_15px_rgba(251,191,36,0.6)] ${first.members.some(m=>m.rut===userRut) ? 'animate-bounce' : ''}`}>👑</div>
-            <p className="text-white font-black text-base max-w-full truncate drop-shadow-md">{getPlayerName(first)}</p>
-            <p className="text-xs text-amber-300 font-black mb-2">{first.factionScore} pts</p>
-            <div className="w-full h-40 bg-gradient-to-t from-amber-600/80 to-amber-500/90 rounded-t-2xl border-t-2 border-x-2 border-amber-300 flex justify-center shadow-[0_0_30px_rgba(245,158,11,0.3)]">
-              <span className="text-amber-200 font-black text-6xl mt-4 opacity-50 drop-shadow-lg">1</span>
-            </div>
-          </div>
-        ) : <div className="w-32"/>}
-
-        {/* 3rd Place */}
-        {third ? (
-          <div className={`w-28 flex flex-col items-center transition-all duration-1000 transform ${step >= 1 ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-            <div className={`text-3xl mb-2 ${third.members.some(m=>m.rut===userRut) ? 'animate-bounce' : ''}`}>🥉</div>
-            <p className="text-sm font-bold text-white max-w-full truncate">{getPlayerName(third)}</p>
-            <p className="text-[10px] text-gray-400 mb-2">{third.factionScore} pts</p>
-            <div className="w-full h-20 bg-gradient-to-t from-orange-900/80 to-orange-800/80 rounded-t-xl border-t border-x border-orange-700/50 flex justify-center shadow-lg">
-              <span className="text-orange-400 font-black text-4xl mt-2 opacity-30">3</span>
-            </div>
-          </div>
-        ) : <div className="w-28"/>}
-      </div>
-
-      {/* Your Score Card */}
-      <div className={`transition-all duration-1000 w-full px-2 ${step >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        {myRank >= 0 && (
-            <div className={`w-full p-5 rounded-2xl border flex items-center justify-between shadow-lg ${
-              myRank === 0 ? 'border-amber-500 bg-amber-500/10 shadow-amber-500/20' 
-            : myRank === 1 ? 'border-gray-400 bg-gray-400/10' 
-            : myRank === 2 ? 'border-orange-500/50 bg-orange-500/10' 
-            : 'border-surface-border bg-surface-card'
-            }`}>
-              <div>
-                <p className="text-xs text-gray-400 uppercase tracking-widest font-bold">Tu Posición</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-3xl">{medals[myRank] || `#${myRank + 1}`}</span>
-                  <span className="text-white font-black text-xl">{finalMyScore.toLocaleString()} pts</span>
-                </div>
-              </div>
-              <div className="text-right">
-                <span className="px-3 py-1 bg-white/5 rounded-lg text-xs text-gray-300 border border-white/10">
-                  {myRankEntry?.isLoner ? 'Solo' : '1Jugador'}
-                </span>
-              </div>
-            </div>
-        )}
-      </div>
-
-      {/* Rest of the Leaderboard */}
-      <div className={`w-full transition-all duration-1000 delay-500 mb-10 ${step >= 4 ? 'opacity-100' : 'opacity-0'}`}>
-        <p className="text-xs text-gray-500 uppercase tracking-widest mb-3 px-2">Tabla Completa</p>
-        <div className="flex flex-col gap-2">
-          {finalRanking.slice(3).map((f, i) => {
-            const actualRank = i + 3;
-            const isMe = f.members.some(m => m.rut === userRut);
-            return (
-              <div key={f.factionId} className={`flex items-center gap-4 p-3 rounded-xl border ${
-                isMe ? 'border-brand/40 bg-brand/10 shadow-[0_0_15px_rgba(124,58,237,0.15)]' : 'border-surface-border bg-surface'
-              }`}>
-                <span className="text-sm font-black text-gray-500 w-6 text-center">#{actualRank + 1}</span>
-                <div className="flex-1 min-w-0">
-                  <p className={`text-sm font-bold truncate ${isMe ? 'text-brand-light' : 'text-white'}`}>
-                    {f.members[0]?.nombre || `Facción ${f.factionId}`}
-                  </p>
-                </div>
-                <span className="font-black text-gray-300 tabular-nums">{f.factionScore.toLocaleString()} pts</span>
-              </div>
-            );
-          })}
-          {finalRanking.length <= 3 && (
-            <p className="text-center text-gray-500 text-xs py-4">No hay más jugadores.</p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /** Overlay de Flashbang */
 function FlashbangOverlay({ visible }) {
@@ -294,10 +151,12 @@ export default function TriviaArena() {
   // ── Sanctions ──────────────────────────────────────────────────────────────
   const [isDisqualified, setIsDisqualified]     = useState(false);
 
-  // ── Anti-Cheat & Pauses ────────────────────────────────────────────────────
+  // ── Anti-Cheat ─────────────────────────────────────────────────────────────
   const [interrupted, setInterrupted]     = useState(false);
   const [interruptedBy, setInterruptedBy] = useState(null); 
-  const [technicalPause, setTechnicalPause] = useState(false);
+
+  // ── Courtroom ──────────────────────────────────────────────────────────────
+  const [courtSession, setCourtSession]   = useState({ active: false });
 
   // ── Live Monitor (Admin Eyes Only) ──────────────────────────────────────────
   const lastUpdateRef                      = useRef(0);
@@ -311,9 +170,9 @@ export default function TriviaArena() {
     }
   }, []);
 
-  const startTimer = useCallback((initialRemaining = T_TOTAL) => {
+  const startTimer = useCallback(() => {
     stopTimer();
-    setSecondsLeft(initialRemaining);
+    setSecondsLeft(T_TOTAL);
     timerRef.current = setInterval(() => {
       setSecondsLeft(prev => {
         if (prev <= 1) {
@@ -368,25 +227,7 @@ export default function TriviaArena() {
       setResult(res);
       setHasAnswered(true);
       setGameStatus('reviewing');
-      if (res.totalScore !== undefined) setTotalScore(res.totalScore);
-    });
-
-    s.on('question:timeout', ({ correctAnswer, correctIndex }) => {
-      stopTimer();
-      setHasAnswered(true);
-      setGameStatus('reviewing');
-      setResult(prev => {
-        if (!prev) {
-          return {
-            correct: false,
-            pointsEarned: 0,
-            correctAnswer,
-            correctIndex,
-            isTimeout: true
-          };
-        }
-        return prev;
-      });
+      setTotalScore(res.totalScore);
     });
 
     s.on('trivia:ranking', (r) => setRanking(r));
@@ -435,6 +276,7 @@ export default function TriviaArena() {
       setTimeout(() => setFlashbangVisible(false), 1500);
     });
 
+    // ── Anti-Cheat ──────────────────────────────────────────────────────
     s.on('trivia:gameInterrupted', () => {
       setInterrupted(true);
       stopTimer();
@@ -444,15 +286,17 @@ export default function TriviaArena() {
       setInterrupted(false);
     });
 
-    s.on('trivia:gamePaused', () => {
-      setTechnicalPause(true);
+    // ── Courtroom Events ─────────────────────────────────────────────────
+    s.on('court:start', (session) => {
+      setCourtSession(session);
       stopTimer();
     });
 
-    s.on('trivia:timeResumed', ({ timeRemainingMs }) => {
-      setTechnicalPause(false);
-      startTimer(Math.ceil(timeRemainingMs / 1000));
-    });
+    s.on('court:update', (session) => setCourtSession(session));
+    s.on('court:lawyerDesignated', (session) => setCourtSession(session));
+    s.on('court:deliberating', (session) => setCourtSession(session));
+    s.on('court:verdict', (session) => setCourtSession(session));
+    s.on('court:closed', () => setCourtSession({ active: false }));
 
     return () => {
       stopTimer();
@@ -469,6 +313,12 @@ export default function TriviaArena() {
       s.off('wildcard:doublenada:activated');
       s.off('trivia:wildcardsUpdate');
       s.off('wildcard:flashbang:effect');
+      s.off('court:start');
+      s.off('court:update');
+      s.off('court:lawyerDesignated');
+      s.off('court:deliberating');
+      s.off('court:verdict');
+      s.off('court:closed');
     };
   }, [user.rut, user.nombre, startTimer, stopTimer]);
 
@@ -507,6 +357,9 @@ export default function TriviaArena() {
     return () => clearInterval(captureInterval);
   }, [socket, screenStream, hasAcceptedRules, gameStatus, user.rut, user.nombre]);
 
+  const handleAppeal = () => {
+    socket?.emit('trivia:appeal', { rut: user.rut, nombre: user.nombre });
+  };
 
   const handleAcceptRules = (stream) => {
     setScreenStream(stream);
@@ -627,13 +480,26 @@ export default function TriviaArena() {
           <p className="text-red-400 font-bold text-xs uppercase tracking-widest mb-6">Descalificado de la Arena</p>
           
           <p className="text-gray-400 text-sm mb-10 leading-relaxed text-center">
-            Tu participación ha sido revocada por el sistema. Esta decisión es definitiva y no puede ser apelada. Solo un Administrador de la Arena puede restaurar tu cuenta.
+            Tu participación ha sido revocada por el sistema. Si crees que esto es un error, puedes solicitar un **Juicio Supremo por IA**.
           </p>
+
+          <button 
+            onClick={handleAppeal}
+            disabled={courtSession.active}
+            className="w-full px-10 py-5 bg-brand hover:bg-brand-light text-white font-black rounded-2xl transition-all shadow-xl shadow-brand/20 uppercase tracking-widest text-xs border border-white/10"
+          >
+            {courtSession.active ? 'Tribunal en Sesión...' : '⚖️ Solicitar Apelación'}
+          </button>
 
           <p className="mt-10 text-[10px] text-gray-700 font-bold uppercase tracking-widest leading-none">Inacap Videojuegos • Arena de Trivia</p>
         </div>
       </div>
     );
+  }
+
+  // ── COURTROOM OVERLAY (High Priority) ────────────────────────────────────
+  if (courtSession.active) {
+    return <TriviaCourtroom socket={socket} courtSession={courtSession} user={user} />;
   }
 
   // ── RULES MODAL (Gatekeeper) ─────────────────────────────────────────────
@@ -711,13 +577,44 @@ export default function TriviaArena() {
 
   // ── FINISHED ──────────────────────────────────────────────────────────────
   if (gameStatus === 'finished') {
+    const myRankEntry = finalRanking.find(f => f.members?.some(m => m.rut === user.rut));
+    const myRank = myRankEntry ? finalRanking.indexOf(myRankEntry) : -1;
+    const medals = ['🥇', '🥈', '🥉'];
     return (
-      <div className="flex flex-col items-center min-h-[500px] bg-[#05050a] w-full pt-10">
-        <PodiumReveal 
-          finalRanking={finalRanking} 
-          userRut={user.rut}
-          totalScore={totalScore} 
-        />
+      <div className="card-glow flex flex-col items-center min-h-[500px] p-6 animate-fade-in gap-5">
+        <div className="text-center">
+          <p className="text-brand-light text-xs uppercase tracking-widest font-bold mb-2">Trivia Finalizada</p>
+          <h2 className="text-3xl font-black text-white">¡Resultados Finales!</h2>
+          <p className="text-gray-400 text-sm mt-1">Tu puntaje: <span className="text-white font-black">{totalScore.toLocaleString()} pts</span></p>
+        </div>
+
+        {myRank >= 0 && (
+          <div className={`w-full p-4 rounded-2xl border text-center ${
+            myRank === 0 ? 'border-amber-500/50 bg-amber-500/10' : 'border-surface-border bg-surface'
+          }`}>
+            <p className="text-4xl mb-1">{medals[myRank] || `#${myRank + 1}`}</p>
+            <p className="text-white font-bold">Tu facción quedó en el puesto {myRank + 1}</p>
+            {myRankEntry?.isLoner && <p className="text-xs text-amber-400 mt-1">⚡ Tus puntos se multiplicaron ×2 por ser Lobo Solitario</p>}
+          </div>
+        )}
+
+        <div className="w-full">
+          <p className="text-xs text-gray-500 uppercase tracking-widest mb-3">Ranking Final de Facciones</p>
+          <div className="flex flex-col gap-2">
+            {finalRanking.map((f, i) => (
+              <div key={f.factionId} className={`flex items-center gap-3 p-3 rounded-xl border ${
+                f.members.some(m => m.rut === user.rut) ? 'border-brand/40 bg-brand/5' : 'border-surface-border bg-surface'
+              }`}>
+                <span className="text-lg w-7 text-center">{medals[i] || `#${i + 1}`}</span>
+                <div className="flex-1">
+                  <p className="text-xs font-bold text-white">{f.isLoner ? '⚡ Lobo Solitario' : `Dúo ${f.factionId}`}</p>
+                  <p className="text-[10px] text-gray-400">{f.members.map(m => m.nombre).join(' + ')}</p>
+                </div>
+                <span className="font-black text-brand-light">{f.factionScore.toLocaleString()}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
@@ -727,30 +624,6 @@ export default function TriviaArena() {
     return (
       <>
         <FlashbangOverlay visible={flashbangVisible} />
-
-        {/* ── Technical Pause Overlay ──────────────────────────────────── */}
-        {technicalPause && (
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 bg-[#05050a]/80 backdrop-blur-md animate-fade-in">
-            <div className="max-w-md w-full bg-surface-card border border-blue-500/30 rounded-3xl p-8 text-center shadow-2xl shadow-blue-500/10">
-              <div className="w-20 h-20 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-4xl">⏱️</span>
-              </div>
-              <h2 className="text-2xl font-black text-white mb-2">Partida Pausada</h2>
-              <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                El profesor ha congelado el tiempo temporalmente por fallas técnicas. 
-                Tus puntajes y posiciones están a salvo.
-              </p>
-              <div className="flex flex-col gap-3">
-                <p className="text-xs text-blue-400 italic">
-                  Esperando a que se reanude el reloj...
-                </p>
-                <div className="w-full h-1 bg-surface-border rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-500 w-1/3 animate-[shimmer_2s_infinite_linear]" />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* ── Interruption Overlay ─────────────────────────────────────── */}
         {interrupted && (
@@ -780,9 +653,10 @@ export default function TriviaArena() {
           </div>
         )}
 
+        {/* ── Main Content Container ───────────────────────────────────── */}
         <div 
           onMouseMove={handleMouseMove}
-          className={`flex flex-col gap-4 animate-fade-in ${(interrupted || technicalPause) ? 'blur-sm grayscale-[0.5] pointer-events-none' : ''}`}
+          className={`flex flex-col gap-4 animate-fade-in ${interrupted ? 'blur-sm grayscale-[0.5] pointer-events-none' : ''}`}
         >
 
           {/* ── Flashbang blocker overlay (visible while loading) */}
@@ -826,9 +700,9 @@ export default function TriviaArena() {
                 id="5050"
                 label="50/50"
                 icon="✂️"
-                available={wildcards.includes('5050') && (!question || question.tipo_pregunta === 'alternativas')}
+                available={wildcards.includes('5050')}
                 onClick={handleWildcard}
-                description="Elimina 2 respuestas incorrectas (Sólo alternativas)"
+                description="Elimina 2 respuestas incorrectas"
               />
               <WildcardButton
                 id="flashbang"
@@ -878,41 +752,58 @@ export default function TriviaArena() {
           {/* ── Result feedback ───────────────────────────────────────────── */}
           {hasAnswered && result && (
             <div className={`rounded-2xl border p-5 text-center animate-slide-up ${
-              result.isTimeout ? 'border-amber-500/40 bg-amber-500/10' :
               result.correct
                 ? 'border-green-500/40 bg-green-500/10'
                 : 'border-red-500/30 bg-red-500/5'
             }`}>
-              <p className={`text-2xl font-black mb-1 ${
-                result.isTimeout ? 'text-amber-400' :
-                result.correct ? 'text-green-300' : 'text-red-400'
-              }`}>
-                {result.isTimeout ? '¡Se acabó el tiempo!' : result.correct ? '¡Correcto!' : 'Incorrecto'}
+              <p className={`text-2xl font-black mb-1 ${result.correct ? 'text-green-300' : 'text-red-400'}`}>
+                {result.correct ? '¡Correcto!' : 'Incorrecto'}
               </p>
-              <p className="text-brand-light font-bold text-sm mt-1 mb-2">
-                Puntaje calculado y oculto hasta el final 🤫
-              </p>
-              {result.isDoubleOrNothing && (
-                <p className="text-amber-400 text-xs font-bold my-1">
-                  🎲 Comodín Doble o Nada aplicado en segundo plano
+              {result.correct && (
+                <p className="text-white font-bold text-lg">
+                  +{result.pointsEarned.toLocaleString()} pts
+                  {result.isDoubleOrNothing && <span className="text-amber-400 ml-2">(×2 Doble o Nada)</span>}
                 </p>
               )}
-              <p className="text-gray-400 text-xs mt-3 flex items-center justify-center gap-1.5 animate-pulse">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-light" />
-                Esperando siguiente pregunta...
+              {!result.correct && result.isDoubleOrNothing && (
+                <p className="text-red-300 text-sm mt-1">−500 pts descontados de tu facción</p>
+              )}
+              <p className="text-gray-400 text-xs mt-2">
+                Puntaje total: <span className="text-white font-bold">{result.totalScore.toLocaleString()}</span>
               </p>
+              <p className="text-gray-500 text-xs mt-1">Esperando la siguiente pregunta…</p>
             </div>
           )}
 
           {hasAnswered && !result && (
             <div className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-4 text-center">
-              <p className="text-amber-300 text-sm font-bold flex items-center justify-center gap-2">
-                <div className="w-4 h-4 border-2 border-amber-300 border-t-transparent rounded-full animate-spin" />
-                Enviando respuesta...
-              </p>
+              <p className="text-amber-300 text-sm font-bold">Tiempo agotado — sin respuesta registrada</p>
+              <p className="text-gray-500 text-xs mt-1">Esperando la siguiente pregunta…</p>
             </div>
           )}
 
+          {/* ── Mini live ranking ─────────────────────────────────────────── */}
+          {ranking.length > 0 && (
+            <div className="bg-surface-card border border-surface-border rounded-2xl p-4">
+              <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-3">Ranking en Vivo</p>
+              <div className="flex flex-col gap-1.5">
+                {ranking.slice(0, 5).map((f, i) => {
+                  const isMyFaction = f.factionId === factionInfo?.factionId;
+                  return (
+                    <div key={f.factionId} className={`flex items-center gap-2 text-xs rounded-lg px-2 py-1.5 ${isMyFaction ? 'bg-brand/10 border border-brand/20' : ''}`}>
+                      <span className="text-gray-500 w-4">#{i + 1}</span>
+                      <span className={`flex-1 truncate ${isMyFaction ? 'text-brand-light font-bold' : 'text-gray-300'}`}>
+                        {f.isLoner ? '⚡' : '👥'} {f.members.map(m => m.nombre).join(' & ')}
+                      </span>
+                      <span className={`font-black tabular-nums ${isMyFaction ? 'text-brand-light' : 'text-gray-400'}`}>
+                        {f.factionScore.toLocaleString()}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </>
     );

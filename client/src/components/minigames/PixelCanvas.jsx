@@ -18,7 +18,7 @@ const COLORS = [
 const CANVAS_SIZE = 50;
 const CELL_SIZE = 8; // Pixels visuales por cada celda
 
-export default function PixelCanvas({ socket, initialTopic }) {
+export default function PixelCanvas({ socket, initialTopic, cooldownEnabled = true, isAdmin = false }) {
   const canvasRef = useRef(null);
   const [activeColor, setActiveColor] = useState(COLORS[2]);
   const [cooldown, setCooldown] = useState(0); // milisegundos restantes
@@ -194,7 +194,13 @@ export default function PixelCanvas({ socket, initialTopic }) {
       const index = y * CANVAS_SIZE + x;
       gridRef.current[index] = activeColor;
       renderPartial(index, activeColor);
-      setCooldown(3000); // Trigger fake cooldown immediately
+      
+      const hasCooldown = !isAdmin && cooldownEnabled;
+      if (hasCooldown) {
+        setCooldown(3000); // Trigger fake cooldown immediately
+      } else {
+        setCooldown(0);
+      }
 
       socket.emit('wr:canvas-place', { x, y, color: activeColor });
       drawHoverCursor(canvas.getContext('2d'), x, y);
@@ -263,7 +269,9 @@ export default function PixelCanvas({ socket, initialTopic }) {
         </div>
       </div>
       
-      <p className="mt-6 text-sm text-gray-500 font-medium">Trabaja en equipo. Solo puedes colocar 1 píxel cada 3 segundos.</p>
+      <p className="mt-6 text-sm text-gray-500 font-medium">
+        Trabaja en equipo. {cooldownEnabled ? 'Solo puedes colocar 1 píxel cada 3 segundos.' : 'El administrador ha desactivado el cooldown. ¡Modo ráfaga activado!'}
+      </p>
     </div>
   );
 }

@@ -15,7 +15,7 @@
 
 import React, { useEffect, useCallback, useState, useRef } from 'react'
 import useStore from '../store/useStore'
-import GroupPhaseBoard from './GroupPhaseBoard'
+// Eliminado GroupPhaseBoard
 import {
   fetchPlayers,
   fetchTournamentRegistrants,
@@ -30,18 +30,16 @@ import {
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
 
-const MK11_CHARACTERS = [
-  'Scorpion','Sub-Zero','Liu Kang','Kitana','Kung Lao',
-  'Johnny Cage','Sonya Blade','Cassie Cage','Jacqui Briggs',
-  'Jax Briggs','Kano','Shao Kahn','Raiden','Geras',
-  'Cetrion','D\'Vorah','Kabal','Baraka','Skarlet',
-  'Noob Saibot','Frost','Jade','Erron Black','Kotal Kahn',
-  'Kollector','Shang Tsung','Nightwolf','Sindel','Spawn',
-  'The Joker','Terminator T-800','RoboCop','Fujin','Sheeva',
-  'Rain','Mileena',
+const MK_CHARACTERS = [
+  'Alien', 'Bo Rai Cho', 'Cassie Cage', 'D Vorah', 'Ermac',
+  'Erron Black', 'Ferra/Torr', 'Goro', 'Jacqui Briggs', 'Jason Voorhees',
+  'Jax', 'Johnny Cage', 'Kano', 'Kenshi', 'Kitana', 'Kotal Kahn',
+  'Kung Jin', 'Kung Lao', 'Leatherface', 'Liu Kang', 'Mileena',
+  'Predator', 'Quan Chi', 'Raiden', 'Reptile', 'Scorpion', 'Shinnok',
+  'Sonya Blade', 'Sub-Zero', 'Takeda', 'Tanya', 'Tremor', 'Triborg',
 ]
 
-const MK11_RANKS = ['Sin rango','Apprentice','Warrior','Champion','Elder God','Demi-God']
+const MK_RANKS = ['Sin rango', 'Apprentice', 'Warrior', 'Champion', 'Master', 'Grand Master']
 
 const NIVEL_LABELS = {
   bajo: { label: 'Principiante', emoji: '🌱', color: '#4ade80', desc: 'Juega ocasionalmente, aprendiendo mecánicas' },
@@ -50,82 +48,42 @@ const NIVEL_LABELS = {
 }
 
 const GAME_CONFIG = {
-  minecraft: {
-    id: 'minecraft',
-    name: 'Minecraft PvP',
-    version: '1.8.9',
-    color: '#4ade80',
-    colorDark: '#16a34a',
-    colorGlow: 'rgba(74,222,128,0.15)',
-    accent: '#fbbf24',
-    icon: '⛏️',
-    gradient: 'linear-gradient(135deg, #14532d 0%, #1a1a1a 100%)',
-    badge: '1.8.9 · Kit PvP · UHC NoDebuff',
-  },
   mk11: {
     id: 'mk11',
-    name: 'Mortal Kombat 11',
-    version: 'EVO Ruleset',
+    name: 'Mortal Kombat XL',
+    version: 'Desafío a los Jefes',
     color: '#f87171',
     colorDark: '#b91c1c',
     colorGlow: 'rgba(248,113,113,0.15)',
     accent: '#a855f7',
     icon: '🥊',
     gradient: 'linear-gradient(135deg, #450a0a 0%, #1a1a1a 100%)',
-    badge: 'Bo3 · 90s · Tournament Mode',
+    badge: 'Boss Fight · Random Select · No Fatalities',
   },
 }
 
 // ─── Reglas del Torneo ────────────────────────────────────────────────────────
 
 const TOURNAMENT_RULES = {
-  minecraft: [
-    { title: 'Versión', icon: '🎮', items: ['Minecraft Java Edition 1.8.9', 'Modo: Kit PvP (UHC NoDebuff)'] },
-    { title: 'Kit Permitido', icon: '🎒', items: [
-      'Espada de Diamante (Filo III máx.)',
-      'Caña de pescar (combos e iniciación)',
-      'Arco + 16 flechas máximo',
-      'Mechero (2–3 usos máx.)',
-      '2 Manzanas Doradas (Gapples)',
-      'Casco de Diamante (Protección III máx.)',
-    ]},
-    { title: 'Prohibido', icon: '🚫', items: [
-      'Manzanas de Notch (Encantadas) — BAN DIRECTO',
-      'Auto-clickers — Límite: 12–15 CPS',
-      'Minimapas con entidades visibles',
-      'X-Ray o mods de alcance (Reach)',
-    ]},
-    { title: 'Mods Permitidos', icon: '✅', items: [
-      'Optifine (rendimiento visual)',
-      'Lunar Client (anti-cheat integrado)',
-      'Badlion Client (anti-cheat integrado)',
-    ]},
-    { title: 'Formato', icon: '🏆', items: [
-      'Bracket eliminación simple',
-      'Kit idéntico para ambos jugadores',
-      'Árbitro del club valida el kit antes de iniciar',
-    ]},
-  ],
   mk11: [
-    { title: 'Configuración', icon: '⚙️', items: [
-      'Modo: Tournament Mode',
-      'Rondas: Best of 3 (Bo3)',
-      'Tiempo por ronda: 90 segundos',
-      'Interactivos del escenario: ON',
-      'Variaciones: Solo oficiales de torneo',
+    { title: 'Estructura de Competencia', icon: '🏆', items: [
+      'Bloque A (Novatos): Eliminatoria rápida entre principiantes hasta obtener un ganador.',
+      'Bloque B (Intermedios): Intermedios compiten entre sí, incluyendo al ganador del Bloque A. Salen 2 Aspirantes.',
+      'Bloque Final (Boss Fight): Los 2 Aspirantes desafían a los 2 Expertos del club.',
     ]},
-    { title: 'Selección de Escenario', icon: '🗺️', items: [
-      'Escenario elegido al azar o por mutuo acuerdo',
-      'No se pueden vetar escenarios en ronda 1',
+    { title: 'Reglas del Boss Fight', icon: '⚔️', items: [
+      'Selección Aleatoria: Los expertos deben jugar con el personaje que el sistema elija al azar (Random).',
+      'Ventaja de Retador: El Aspirante tiene 2 vidas (formato al mejor de 3).',
+      'Desventaja de Experto: El Experto tiene solo 1 vida (si pierde una sola pelea, queda eliminado).',
     ]},
-    { title: 'Regla del Ganador', icon: '🏆', items: [
-      'El jugador que GANA NO puede cambiar personaje ni variación',
-      'El jugador que PIERDE SÍ puede cambiar personaje y/o variación (counter-pick)',
+    { title: 'Definición del Campeón', icon: '🥇', items: [
+      'Duelo de Titanes: Si ambos expertos ganan, pelean entre ellos sin restricciones por el trofeo.',
+      'La Gran Sorpresa: Si los dos aspirantes ganan, la final es entre ellos por el primer lugar.',
+      'David vs. Goliat: Si ganan un experto y un aspirante, pelean la final manteniendo el personaje aleatorio para el experto.',
     ]},
-    { title: 'Reglas de Oro', icon: '🔴', items: [
-      'Pausar a mitad de pelea = PERDER esa ronda automáticamente',
-      'No se permiten variaciones creadas por el usuario',
-      'Errores de selección deben reportarse ANTES de iniciar la pelea',
+    { title: 'Normas de Agilidad', icon: '⏱️', items: [
+      'Prohibición de Fatalities: No se permiten Fatalities ni Cinemáticas largas hasta la Gran Final.',
+      'Continuidad: Jugador que no esté al llamado pierde por W.O. tras 2 minutos de espera.',
     ]},
   ],
 }
@@ -154,72 +112,7 @@ function useIsMobile() {
   return isMobile
 }
 
-// ─── Subcomponente: Selector de Juego ─────────────────────────────────────────
-
-function GameSelector({ onSelect }) {
-  return (
-    <div style={{ animation: 'fadeIn 0.4s ease' }}>
-      <div style={{ textAlign: 'center', marginBottom: 32 }}>
-        <h2 style={{ fontSize: 24, fontWeight: 800, color: '#fff', marginBottom: 8 }}>
-          🎮 Bracket Manager
-        </h2>
-        <p style={{ color: '#9ca3af', fontSize: 14 }}>
-          Selecciona el juego para configurar el torneo
-        </p>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
-        {Object.values(GAME_CONFIG).map(game => (
-          <button
-            key={game.id}
-            onClick={() => onSelect(game.id)}
-            style={{
-              background: game.gradient,
-              border: `2px solid ${game.color}30`,
-              borderRadius: 16,
-              padding: '28px 24px',
-              cursor: 'pointer',
-              textAlign: 'left',
-              transition: 'all 0.25s ease',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = game.color
-              e.currentTarget.style.transform = 'translateY(-4px)'
-              e.currentTarget.style.boxShadow = `0 20px 40px ${game.colorGlow}`
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = `${game.color}30`
-              e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.boxShadow = 'none'
-            }}
-          >
-            <div style={{ fontSize: 40, marginBottom: 12 }}>{game.icon}</div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', marginBottom: 4 }}>
-              {game.name}
-            </div>
-            <div style={{ fontSize: 12, color: game.color, fontWeight: 600, marginBottom: 12 }}>
-              {game.badge}
-            </div>
-            <div style={{
-              display: 'inline-block',
-              padding: '4px 12px',
-              borderRadius: 20,
-              background: `${game.color}20`,
-              color: game.color,
-              fontSize: 12,
-              fontWeight: 700,
-            }}>
-              Abrir torneo →
-            </div>
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
-
+// Eliminado GameSelector
 // ─── Subcomponente: Panel de Reglas ───────────────────────────────────────────
 
 function RulesPanel({ game, onClose }) {
@@ -313,8 +206,8 @@ function PreTournamentForm({ game, sheetPlayers, onBracketGenerated }) {
     nivel: '',
     cps: 8,
     victorias: 0,
-    personaje: MK11_CHARACTERS[0],
-    rango: MK11_RANKS[0],
+    personaje: MK_CHARACTERS[0],
+    rango: MK_RANKS[0],
   })
   const [saving, setSaving] = useState(false)
   const [feedback, setFeedback] = useState(null)
@@ -345,13 +238,8 @@ function PreTournamentForm({ game, sheetPlayers, onBracketGenerated }) {
     setFeedback(null)
     try {
       const payload = { nombre: form.nombre.trim(), nivel: form.nivel }
-      if (game === 'minecraft') {
-        payload.cps       = form.cps
-        payload.victorias = form.victorias
-      } else {
-        payload.personaje = form.personaje
-        payload.rango     = form.rango
-      }
+      payload.personaje = form.personaje
+      payload.rango     = form.rango
       const res = await registerTournamentPlayer(game, payload)
       setFeedback({ type: 'ok', msg: res.action === 'created' ? `✅ ${payload.nombre} registrado` : `🔄 ${payload.nombre} actualizado` })
       setForm(f => ({ ...f, nombre: '', nivel: '', cps: 8, victorias: 0 }))
@@ -380,26 +268,10 @@ function PreTournamentForm({ game, sheetPlayers, onBracketGenerated }) {
     }
     setGenerating(true)
     try {
-      if (game === 'minecraft') {
-        const saved = await fetchSavedGroups(game);
-        if (saved && saved.isSaved && saved.groups && saved.groups.length > 0) {
-          if (window.confirm("Se detectaron grupos guardados en la nube. ¿Deseas recuperarlos? (Si cancelas, se sobreescribirán)")) {
-            setTournamentGroups(saved.groups)
-            setTournamentPhase('groups')
-            setGenerating(false)
-            return
-          }
-        }
-        
-        const data = await fetchTournamentGroups(game)
-        setTournamentGroups(data.groups)
-        setTournamentPhase('groups')
-      } else {
-        const data = await fetchTournamentBracket(game)
-        setTournamentBracket(data)
-        setTournamentPhase('bracket')
-        if (onBracketGenerated) onBracketGenerated(data)
-      }
+      const data = await fetchTournamentBracket(game)
+      setTournamentBracket(data)
+      setTournamentPhase('bracket')
+      if (onBracketGenerated) onBracketGenerated(data)
     } catch (e) {
       setFeedback({ type: 'error', msg: e.message })
     } finally {
@@ -407,34 +279,6 @@ function PreTournamentForm({ game, sheetPlayers, onBracketGenerated }) {
     }
   }
 
-  const handleImportEvals = async () => {
-    setSaving(true)
-    setFeedback(null)
-    try {
-      const evals = await fetchMinecraftEvaluations()
-      if (evals.length === 0) {
-        setFeedback({ type: 'error', msg: 'No se encontraron jugadores evaluados.' })
-      } else {
-        let imported = 0
-        for (const ev of evals) {
-          if (!ev.jugador || !ev.jugador.rut) continue;
-          await registerTournamentPlayer('minecraft', {
-            nombre: ev.jugador.nombre,
-            nivel: ev.nivelName || 'bajo',
-            cps: 8,
-            victorias: ev.score, // we can optionally store the score here for UI rendering
-          })
-          imported++
-        }
-        await loadRegistrants()
-        setFeedback({ type: 'ok', msg: `✅ Se importaron ${imported} jugadores desde Escrutinio.` })
-      }
-    } catch (e) {
-      setFeedback({ type: 'error', msg: e.message })
-    } finally {
-      setSaving(false)
-    }
-  }
 
   const accentColor = cfg.color
 
@@ -612,7 +456,7 @@ function PreTournamentForm({ game, sheetPlayers, onBracketGenerated }) {
                       borderRadius: 10, color: '#fff', fontSize: 13, outline: 'none',
                     }}
                   >
-                    {MK11_CHARACTERS.map(c => <option key={c} value={c}>{c}</option>)}
+                    {MK_CHARACTERS.map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
                 <div style={{ marginBottom: 14 }}>
@@ -628,7 +472,7 @@ function PreTournamentForm({ game, sheetPlayers, onBracketGenerated }) {
                       borderRadius: 10, color: '#fff', fontSize: 13, outline: 'none',
                     }}
                   >
-                    {MK11_RANKS.map(r => <option key={r} value={r}>{r}</option>)}
+                    {MK_RANKS.map(r => <option key={r} value={r}>{r}</option>)}
                   </select>
                 </div>
               </>
@@ -846,7 +690,8 @@ function PreTournamentForm({ game, sheetPlayers, onBracketGenerated }) {
 // ─── Subcomponente: MatchCard ─────────────────────────────────────────────────
 
 function MatchCard({ match, roundIndex, matchIndex, cfg, isMobile }) {
-  const { advanceWinner } = useStore()
+  const { advanceWinner, usedComodins, useComodin, user } = useStore()
+  const isAdmin = user?.role === 'admin' || user?.role === 'asistente'
 
   const handleClick = (playerKey) => {
     const player = match[playerKey]
@@ -877,6 +722,7 @@ function MatchCard({ match, roundIndex, matchIndex, cfg, isMobile }) {
     const isLoser  = match.winner && !isWinner
     const isBye    = player.isBye
     const lvl      = !isBye ? (NIVEL_LABELS[player.nivel] || {}) : {}
+    const comodinUsado = !isBye && usedComodins[player.nombre]
 
     return (
       <div
@@ -887,15 +733,17 @@ function MatchCard({ match, roundIndex, matchIndex, cfg, isMobile }) {
           cursor: match.winner || isBye ? 'default' : 'pointer',
           opacity: isLoser ? 0.35 : 1,
           textDecoration: isLoser ? 'line-through' : 'none',
-          background: isWinner ? `${cfg.color}18` : 'transparent',
+          background: isWinner ? `${cfg.color}18` : (comodinUsado ? 'rgba(249, 115, 22, 0.1)' : 'transparent'),
           transition: 'background 0.2s',
           borderRadius: 8,
+          borderColor: comodinUsado ? 'rgba(249, 115, 22, 0.4)' : 'transparent',
+          borderWidth: comodinUsado ? 1 : 0,
         }}
         onMouseEnter={e => {
           if (!match.winner && !isBye) e.currentTarget.style.background = '#ffffff0a'
         }}
         onMouseLeave={e => {
-          if (!match.winner && !isBye) e.currentTarget.style.background = isWinner ? `${cfg.color}18` : 'transparent'
+          if (!match.winner && !isBye) e.currentTarget.style.background = isWinner ? `${cfg.color}18` : (comodinUsado ? 'rgba(249, 115, 22, 0.1)' : 'transparent')
         }}
       >
         {/* Seed */}
@@ -930,6 +778,28 @@ function MatchCard({ match, roundIndex, matchIndex, cfg, isMobile }) {
 
         {/* Meta info */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
+          {!isBye && comodinUsado && (
+            <span title="Tiró el Comodín (Acompañante)" style={{ fontSize: isMobile ? 12 : 14 }}>🔥</span>
+          )}
+          {!isBye && !comodinUsado && isAdmin && !match.winner && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (window.confirm(`¿Acompañante entra por ${player.nombre}?\n\n(Solo puede usarse UNA VEZ en el torneo)`)) {
+                  useComodin(player.nombre)
+                }
+              }}
+              title="Sacar Comodín (Relevo)"
+              style={{
+                background: 'none', border: 'none', padding: 2, cursor: 'pointer',
+                fontSize: isMobile ? 12 : 14, opacity: 0.6, transition: 'opacity 0.2s'
+              }}
+              onMouseEnter={e => e.currentTarget.style.opacity = 1}
+              onMouseLeave={e => e.currentTarget.style.opacity = 0.6}
+            >
+              🃏
+            </button>
+          )}
           {!isBye && lvl.emoji && (
             <span title={lvl.label} style={{ fontSize: isMobile ? 10 : 12 }}>{lvl.emoji}</span>
           )}
@@ -1051,7 +921,7 @@ function BracketVisual({ bracket, game, onBack }) {
         </div>
       )}
 
-      {/* MK11 reminder */}
+      {/* MK XL reminder */}
       {game === 'mk11' && (
         <div style={{
           background: '#7c3aed18', border: '1px solid #7c3aed40',
@@ -1061,8 +931,7 @@ function BracketVisual({ bracket, game, onBack }) {
         }}>
           <span style={{ flexShrink: 0 }}>⚠️</span>
           <span>
-            <strong>Regla MK11:</strong> El ganador NO puede cambiar personaje.
-            El perdedor SÍ puede hacer counter-pick. Pausar = perder la ronda.
+            <strong>Reglas Desafío a los Jefes:</strong> Aspirante 2 vidas (Bo3), Experto 1 vida (Muerte Súbita) y personaje Aleatorio. Sin Fatalities hasta la final.
           </span>
         </div>
       )}
@@ -1199,64 +1068,24 @@ export default function BracketBoard() {
           from { opacity: 0; transform: translateY(16px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-        /* Touch-friendly grab cursor for bracket scroll */
-        .bracket-scroll:active { cursor: grabbing; }
       `}</style>
 
-      {/* FASE 0: Selección de juego */}
-      {!tournamentGame && (
-        <GameSelector onSelect={setTournamentGame} />
+      {/* FASE 1: Formulario pre-torneo */}
+      {tournamentPhase === 'form' && (
+        <PreTournamentForm
+          game="mk11"
+          sheetPlayers={sheetPlayers}
+          onBracketGenerated={handleBracketGenerated}
+        />
       )}
 
-      {/* Botón de cambio de juego siempre visible */}
-      {tournamentGame && (
-        <div style={{ marginBottom: 20 }}>
-          {/* Tab selector */}
-          <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
-            {Object.values(GAME_CONFIG).map(g => (
-              <button
-                key={g.id}
-                onClick={() => setTournamentGame(g.id)}
-                style={{
-                  padding: '8px 18px',
-                  borderRadius: 10,
-                  border: `2px solid ${tournamentGame === g.id ? g.color : '#ffffff15'}`,
-                  background: tournamentGame === g.id ? `${g.color}18` : '#12121e',
-                  color: tournamentGame === g.id ? g.color : '#6b7280',
-                  fontSize: 13, fontWeight: 700, cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  display: 'flex', alignItems: 'center', gap: 6,
-                }}
-              >
-                <span>{g.icon}</span>
-                <span>{g.name}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* FASE 1: Formulario pre-torneo */}
-          {tournamentPhase === 'form' && (
-            <PreTournamentForm
-              game={tournamentGame}
-              sheetPlayers={sheetPlayers}
-              onBracketGenerated={handleBracketGenerated}
-            />
-          )}
-
-          {/* FASE 1.5: Grupos Round Robin */}
-          {tournamentPhase === 'groups' && (
-            <GroupPhaseBoard game={tournamentGame} />
-          )}
-
-          {/* FASE 2: Bracket visual */}
-          {tournamentPhase === 'bracket' && tournamentBracket && (
-            <BracketVisual
-              bracket={tournamentBracket}
-              game={tournamentGame}
-              onBack={handleBack}
-            />
-          )}
-        </div>
+      {/* FASE 2: Bracket visual */}
+      {tournamentPhase === 'bracket' && tournamentBracket && (
+        <BracketVisual
+          bracket={tournamentBracket}
+          game="mk11"
+          onBack={handleBack}
+        />
       )}
     </div>
   )

@@ -43,6 +43,7 @@ const useStore = create(persist((set, get) => ({
   tournamentGroups: [],        // bracket de fase de grupos
   tournamentStandings: {},     // { A: [], B: [], C: [] } resultados
   tournamentBracket: null,     // bracket generado a partir del formulario
+  usedComodins: {},            // { [playerNombre]: true } registro de comodines usados
 
   // ── Actions ────────────────────────────────────────────────────────────
   setUser: (user) => set({ user }),
@@ -62,12 +63,13 @@ const useStore = create(persist((set, get) => ({
   setVisibleModules: (visibleModules) => set({ visibleModules }),
 
   // Tournament actions
-  setTournamentGame: (g) => set({ tournamentGame: g, tournamentPhase: 'form', tournamentRegistrants: [], tournamentGroups: [], tournamentStandings: {}, tournamentBracket: null }),
+  setTournamentGame: (g) => set({ tournamentGame: g, tournamentPhase: 'form', tournamentRegistrants: [], tournamentGroups: [], tournamentStandings: {}, tournamentBracket: null, usedComodins: {} }),
   setTournamentPhase: (phase) => set({ tournamentPhase: phase }),
   setTournamentRegistrants: (list) => set({ tournamentRegistrants: list }),
   setTournamentGroups: (groups) => set({ tournamentGroups: groups }),
   setTournamentStandings: (standings) => set({ tournamentStandings: standings }),
   setTournamentBracket: (bracket) => set({ tournamentBracket: bracket }),
+  useComodin: (playerName) => set((state) => ({ usedComodins: { ...state.usedComodins, [playerName]: true } })),
 
   /**
    * Avanza un ganador a la siguiente ronda en el bracket local.
@@ -130,7 +132,7 @@ const useStore = create(persist((set, get) => ({
         player2: ri === 0 ? match.player2 : null,
       }))
     )
-    set({ bracket: { ...bracket, rounds: resetRounds }, tournamentBracket: { ...bracket, rounds: resetRounds } })
+    set({ bracket: { ...bracket, rounds: resetRounds }, tournamentBracket: { ...bracket, rounds: resetRounds }, usedComodins: {} })
   },
 }), {
   name: 'club-dashboard-storage',
@@ -143,7 +145,8 @@ const useStore = create(persist((set, get) => ({
     tournamentRegistrants: state.tournamentRegistrants,
     tournamentGroups: state.tournamentGroups,
     tournamentBracket: state.tournamentBracket,
-    bracket: state.bracket
+    bracket: state.bracket,
+    usedComodins: state.usedComodins
   }),
 }))
 

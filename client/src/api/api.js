@@ -95,6 +95,13 @@ export const toggleLoginActive = () =>
     method: 'POST',
   }).then(r => r.json())
 
+export const updateGeneralSettings = (settings) =>
+  fetch(`${BASE_URL}/settings/update`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(settings),
+  }).then(r => r.json())
+
 // ─── RSVP (Intención de Asistencia) ──────────────────────────────────────
 export const fetchRsvps = () => request('/rsvp')
 

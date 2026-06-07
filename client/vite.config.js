@@ -5,10 +5,15 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
+    host: true, // Permite acceso desde la red local/IP pública
     proxy: {
       '/api': {
         target: 'http://localhost:3001',
         changeOrigin: true,
+      },
+      '/socket.io': {
+        target: 'http://localhost:3001',
+        ws: true, // Habilita el proxy para WebSockets
       },
     },
   },

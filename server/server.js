@@ -11,7 +11,8 @@
 const config = require("./config/env");
 const express = require("express");
 const cors = require("cors");
-const { syncFromSheets } = require("./services/sheetsService");
+const sheetsService = require("./services/sheetsService");
+const { syncFromSheets } = sheetsService;
 const connectDB = require("./config/db");
 const { passport } = require("./middlewares/auth");
 const socketAuthMiddleware = require("./middlewares/socketAuth");
@@ -23,7 +24,12 @@ const settingsRouter = require("./routes/settings");
 const triviaRouter   = require("./routes/trivia");
 const rsvpRouter        = require("./routes/rsvp");
 const tournamentRouter  = require("./routes/tournament");
-const minecraftEvalRouter = require("./routes/minecraftEval");
+const minecraftEvalRouter  = require("./routes/minecraftEval");
+const mortalKombatEvalRouter = require("./routes/mortalKombatEval");
+const mortalKombatTournamentRouter = require("./routes/mortalKombatTournament");
+const gauntletRouter    = require("./routes/gauntlet");
+const mcTournamentRouter = require("./routes/mcTournament");
+const pixelQuiz         = require("./modules/trivia-engine");
 
 const app = express();
 const PORT = config.PORT;
@@ -50,6 +56,11 @@ app.use("/api/trivia",     triviaRouter);
 app.use("/api/rsvp",       rsvpRouter);
 app.use("/api/tournament", tournamentRouter);
 app.use("/api/minecraft-eval", minecraftEvalRouter);
+app.use("/api/mk-eval",       mortalKombatEvalRouter);
+app.use("/api/mk-tournament", mortalKombatTournamentRouter);
+app.use("/api/gauntlet", gauntletRouter);
+app.use("/api/mctournament", mcTournamentRouter);
+app.use("/api/pixel-quiz", pixelQuiz.router);
 app.use("/api",            apiRouter);
 
 // Catch-all 404 SOLO PARA LA API
@@ -57,8 +68,11 @@ app.use("/api", (req, res) => {
   res.status(404).json({ error: "Endpoint no encontrado", path: req.path });
 });
 
-// ─── Servir el Frontend (React Build) ─────────────────────────────────────────
+// ─── Servir Archivos Subidos ──────────────────────────────────────────────────
 const path = require("path");
+app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
+
+// ─── Servir el Frontend (React Build) ─────────────────────────────────────────
 const clientBuildPath = path.join(__dirname, "../client/dist");
 app.use(express.static(clientBuildPath));
 
@@ -110,6 +124,9 @@ const io = new Server(server, {
   }
 });
 
+// Emisor de eventos interno para comunicación entre handlers
+io.localEvents = new (require('events').EventEmitter)();
+
 // Middleware estricto Zero Trust para Socket.io
 // Intercepta configuraciones entrantes para validar JWT de Microsoft Entra ID
 // NOTA: Comentado temporalmente para no quebrar el desarrollo actual de clientes locales
@@ -117,6 +134,10 @@ const io = new Server(server, {
 
 // Guardamos la instancia de io en app para usarla en los routers
 app.set("io", io);
+
+// Vincular io con el servicio de sheets para notificaciones de limpieza
+sheetsService.setIo(io);
+
 
 // Inicializar manejador de debate
 const debateHandler = require("./sockets/debateHandler");
@@ -134,17 +155,66 @@ chatHandler(io);
 const waitingRoomHandler = require("./sockets/waitingRoomHandler");
 waitingRoomHandler(io);
 
+// Inicializar manejador de Gartic Phone
+const garticHandler = require("./sockets/garticHandler");
+garticHandler(io);
+
+// Inicializar manejador de El Infiltrado
+const infiltradoHandler = require("./sockets/infiltradoHandler");
+infiltradoHandler(io);
+
+// Inicializar manejador de Mensajes Directos (DM)
+const dmHandler = require("./sockets/dmHandler");
+dmHandler(io);
+
 // Inicializar manejador de Encuestas (Polls)
 const pollHandler = require("./sockets/pollHandler");
 pollHandler(io);
+
+// Inicializar manejador de Votación de Juegos (Voting)
+const votingHandler = require("./sockets/votingHandler");
+votingHandler.handler(io);
 
 // Inicializar sincronización en vivo del escrutinio MC
 const evalHandler = require("./sockets/evalHandler");
 evalHandler(io);
 
+// Inicializar sincronización en vivo del escrutinio Mortal Kombat
+const mkEvalHandler = require("./sockets/mkEvalHandler");
+mkEvalHandler(io);
 
-server.listen(PORT, async () => {
-  console.log(`[Server] Dashboard Club de Videojuegos corriendo en http://localhost:${PORT}`);
+// Inicializar sincronización del Torneo Minecraft
+const mcTournamentHandler = require("./sockets/mcTournamentHandler");
+mcTournamentHandler(io);
+
+// Inicializar sincronización del Torneo Mortal Kombat
+const mkTournamentHandler = require("./sockets/mkTournamentHandler");
+mkTournamentHandler(io);
+
+// Inicializar módulo Pixel Quiz Arena (caja negra, prefijo pq:*)
+pixelQuiz.attachSockets(io);
+
+
+server.listen(PORT, '0.0.0.0', async () => {
+  const os = require('os');
+  const networkInterfaces = os.networkInterfaces();
+  let networkUrl = '';
+
+  for (const interfaceName in networkInterfaces) {
+    for (const iface of networkInterfaces[interfaceName]) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        networkUrl = `http://${iface.address}:${PORT}`;
+        break;
+      }
+    }
+    if (networkUrl) break;
+  }
+
+  console.log(`[Server] Dashboard Club de Videojuegos corriendo:`);
+  console.log(`  - Local:   http://localhost:${PORT}`);
+  if (networkUrl) {
+    console.log(`  - Network: ${networkUrl}`);
+  }
   await startSyncPolling();
 });
 

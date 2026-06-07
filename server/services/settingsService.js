@@ -81,8 +81,20 @@ function toggleLoginActive() {
   return settingsCache.loginActive;
 }
 
+/**
+ * Actualiza las configuraciones generales
+ * @param {object} newSettings - Nuevas opciones a fusionar
+ */
+function updateSettings(newSettings) {
+  settingsCache = { ...settingsCache, ...newSettings };
+  saveSettings(settingsCache);
+  return settingsCache;
+}
+
 module.exports = {
   getSettings,
   toggleModuleVisibility,
   toggleLoginActive,
+  updateSettings,
 };
+

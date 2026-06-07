@@ -33,6 +33,16 @@
   {
     "rut": "21336688-2",
     "password": "ClubJuegos26",
-    "role": "asistente"
+    "role": "student"
+  },
+  {
+    "rut": "22.022.482-1",
+    "password": "ClubJuegos26",
+    "role": "student"
+  },
+  {
+    "rut": "22.169.741-3",
+    "password": "ClubJuegos26",
+    "role": "student"
   }
 ]

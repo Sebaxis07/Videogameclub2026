@@ -21,6 +21,14 @@ const { google } = require("googleapis");
 const fs = require("fs");
 const path = require("path");
 
+const MinecraftEval = require("../models/MinecraftEval");
+const MortalKombatEval = require("../models/MortalKombatEval");
+const MortalKombatTournament = require("../models/MortalKombatTournament");
+const GauntletPlayer = require("../models/GauntletPlayer");
+const Duelo = require("../models/Duelo");
+
+let io = null;
+
 // ─── Auth ─────────────────────────────────────────────────────────────────────
 
 /**
@@ -28,12 +36,25 @@ const path = require("path");
  * @returns {import('googleapis').sheets_v4.Sheets}
  */
 function createSheetsClient() {
-  const keyFilePath = config.GOOGLE_SERVICE_ACCOUNT_KEY_FILE;
+  const keyJson = config.GOOGLE_SERVICE_ACCOUNT_KEY_JSON;
+  if (keyJson) {
+    try {
+      const credentials = JSON.parse(keyJson);
+      const auth = new google.auth.GoogleAuth({
+        credentials,
+        scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
+      });
+      return google.sheets({ version: "v4", auth });
+    } catch (e) {
+      console.error("[Sheets] Error parsing GOOGLE_SERVICE_ACCOUNT_KEY_JSON:", e.message);
+    }
+  }
 
-  if (!fs.existsSync(keyFilePath)) {
+  const keyFilePath = config.GOOGLE_SERVICE_ACCOUNT_KEY_FILE;
+  if (!keyFilePath || !fs.existsSync(keyFilePath)) {
     throw new Error(
-      `Service Account key file not found at: ${keyFilePath}\n` +
-        "Configure GOOGLE_SERVICE_ACCOUNT_KEY_FILE en .env"
+      `Service Account key file not found.\n` +
+        "Configure GOOGLE_SERVICE_ACCOUNT_KEY_JSON o GOOGLE_SERVICE_ACCOUNT_KEY_FILE en .env"
     );
   }
 
@@ -149,6 +170,11 @@ async function syncFromSheets() {
     lastSyncTime = new Date().toISOString();
 
     console.log(`[Sheets] Sync OK — ${unique.length} jugadores cargados.`);
+
+    // Ejecutar limpieza de datos (evaluaciones y torneos) para los que ya no están
+    const activeRuts = unique.map(p => p.rut);
+    performCleanup(activeRuts);
+
     return { players: cachedPlayers, lastSync: lastSyncTime, total: cachedPlayers.length };
   } catch (error) {
     console.error("[Sheets] Error en sync:", error.message);
@@ -208,10 +234,150 @@ function getPlayersByGame(juego) {
   );
 }
 
+/**
+ * Vincula la instancia de Socket.io para notificaciones.
+ */
+function setIo(ioInstance) {
+  io = ioInstance;
+}
+
+/**
+ * Elimina evaluaciones y ajusta el torneo para jugadores que ya no existen en el Sheet.
+ * @param {string[]} activeRuts
+ */
+async function performCleanup(activeRuts) {
+  try {
+    if (!activeRuts || activeRuts.length === 0) {
+      console.error("[Sheets] Limpieza abortada: activeRuts está vacío. Evitando borrado masivo por seguridad.");
+      return;
+    }
+
+    // 1. Eliminar evaluaciones
+    const mcRes = await MinecraftEval.deleteMany({ "jugador.rut": { $nin: activeRuts } });
+    const mkRes = await MortalKombatEval.deleteMany({ "jugador.rut": { $nin: activeRuts } });
+    
+    if (mcRes.deletedCount > 0 || mkRes.deletedCount > 0) {
+      console.log(`[Sheets] Limpieza: Eliminadas ${mcRes.deletedCount} eval MC y ${mkRes.deletedCount} eval MK.`);
+      if (io) io.emit("eval_updated");
+    }
+
+    // 2. Limpiar Torneo Mortal Kombat
+    const t = await MortalKombatTournament.findOne({ singleton: "main" });
+    if (t) {
+      let modified = false;
+
+      const filterRoster = (arr) => {
+        const initialLen = arr.length;
+        const filtered = arr.filter(p => activeRuts.includes(p.rut));
+        if (filtered.length !== initialLen) {
+          modified = true;
+          return filtered;
+        }
+        return arr;
+      };
+
+      t.novatos = filterRoster(t.novatos);
+      t.intermedios = filterRoster(t.intermedios);
+      t.expertos = filterRoster(t.expertos);
+      t.aspirantes = filterRoster(t.aspirantes);
+
+      const cleanupMatches = (matches) => {
+        if (!matches) return;
+        matches.forEach(m => {
+          // Solo limpiar si no está terminado
+          if (m.estado === "completado" || m.estado === "wo") return;
+
+          const j1In = m.jugador1 ? activeRuts.includes(m.jugador1.rut) : true;
+          const j2In = m.jugador2 ? activeRuts.includes(m.jugador2.rut) : true;
+
+          if (!j1In || !j2In) {
+            modified = true;
+            m.estado = "wo";
+            if (!j1In && !j2In) {
+              m.ganador = null;
+            } else if (!j1In) {
+              m.ganador = m.jugador2.rut;
+            } else {
+              m.ganador = m.jugador1.rut;
+            }
+          }
+        });
+      };
+
+      cleanupMatches(t.bloqueA);
+      cleanupMatches(t.bloqueB);
+      cleanupMatches(t.bossFight);
+
+      if (t.finalMatch && t.finalMatch.estado === "pendiente") {
+        const j1In = t.finalMatch.jugador1 ? activeRuts.includes(t.finalMatch.jugador1.rut) : true;
+        const j2In = t.finalMatch.jugador2 ? activeRuts.includes(t.finalMatch.jugador2.rut) : true;
+        
+        if (!j1In || !j2In) {
+          modified = true;
+          t.finalMatch.estado = "completado";
+          if (!j1In && !j2In) t.finalMatch.ganador = null;
+          else if (!j1In) t.finalMatch.ganador = t.finalMatch.jugador2.rut;
+          else t.finalMatch.ganador = t.finalMatch.jugador1.rut;
+        }
+      }
+
+      if (modified) {
+        t.updatedAt = new Date();
+        await t.save();
+        console.log("[Sheets] Torneo MK actualizado automáticamente tras limpieza.");
+        if (io) io.emit("mk_tournament_updated", t);
+      }
+    }
+
+    // 3. Limpiar Torneo Minecraft (Gauntlet)
+    const playersToRemove = await GauntletPlayer.find({ rut: { $nin: activeRuts } });
+    if (playersToRemove.length > 0) {
+      const removedIds = playersToRemove.map(p => p._id);
+      
+      // Encontrar duelos pendientes donde participen estos jugadores
+      const duelos = await Duelo.find({
+        estado: "pendiente",
+        $or: [
+          { jugador1_id: { $in: removedIds } },
+          { jugador2_id: { $in: removedIds } }
+        ]
+      }).populate('jugador1_id jugador2_id');
+
+      let duelosModificados = 0;
+      for (const d of duelos) {
+        const j1Gone = d.jugador1_id ? !activeRuts.includes(d.jugador1_id.rut) : false;
+        const j2Gone = d.jugador2_id ? !activeRuts.includes(d.jugador2_id.rut) : false;
+
+        d.estado = "completado";
+        if (j1Gone && j2Gone) {
+          d.ganador_id = null;
+        } else if (j1Gone) {
+          d.ganador_id = d.jugador2_id ? d.jugador2_id._id : null;
+          d.perdedor_id = d.jugador1_id ? d.jugador1_id._id : null;
+        } else {
+          d.ganador_id = d.jugador1_id ? d.jugador1_id._id : null;
+          d.perdedor_id = d.jugador2_id ? d.jugador2_id._id : null;
+        }
+        d.resolvedAt = new Date();
+        await d.save();
+        duelosModificados++;
+      }
+
+      await GauntletPlayer.deleteMany({ _id: { $in: removedIds } });
+      console.log(`[Sheets] Limpieza: Eliminados ${playersToRemove.length} jugadores de Gauntlet y resueltos ${duelosModificados} duelos por WO.`);
+      if (io) io.emit("mc_tournament_updated");
+    }
+  } catch (err) {
+    console.error("[Sheets] Error crítico en performCleanup:", err);
+  }
+}
+
 module.exports = {
   syncFromSheets,
   getPlayers,
   getLastSync,
   getDebateStats,
   getPlayersByGame,
+  setIo,
+  performCleanup,
 };

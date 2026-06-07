@@ -5,7 +5,7 @@
  * Admin puede alternar visibilidad de los módulos para alumnos.
  */
 
-import React from 'react'
+import React, { useState } from 'react'
 import useStore from '../store/useStore'
 import SyncStatus from './SyncStatus'
 import { toggleModuleVisibility, fetchSettings, toggleLoginActive } from '../api/api'
@@ -16,6 +16,7 @@ const NAV_ITEMS = [
     label: 'Debate',
     studentLabel: 'Votación',
     sublabel: '8 Abril',
+    category: 'Actividades',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
         <path d="M3 3v18l4-4h14V3H3z" />
@@ -27,6 +28,7 @@ const NAV_ITEMS = [
     id: 'bracket',
     label: 'Bracket',
     sublabel: 'Torneo',
+    category: 'Torneos',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
         <rect x="2" y="3" width="6" height="4" rx="1" />
@@ -40,6 +42,7 @@ const NAV_ITEMS = [
     id: 'leaderboard',
     label: 'Ranking',
     sublabel: 'Top 5',
+    category: 'Comunidad',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
         <path d="M18 20V10M12 20V4M6 20v-6" />
@@ -50,6 +53,7 @@ const NAV_ITEMS = [
     id: 'players',
     label: 'Jugadores',
     sublabel: 'Roster',
+    category: 'Comunidad',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
         <circle cx="9" cy="7" r="4" />
@@ -62,6 +66,7 @@ const NAV_ITEMS = [
     id: 'hardware',
     label: 'Sesiones',
     sublabel: 'Asistencia',
+    category: 'Gestión & Admin',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
         <rect x="3" y="4" width="18" height="18" rx="2" />
@@ -74,6 +79,7 @@ const NAV_ITEMS = [
     id: 'diplomas',
     label: 'Diplomas',
     sublabel: 'Premios',
+    category: 'Comunidad',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
         <circle cx="12" cy="8" r="7" />
@@ -82,9 +88,21 @@ const NAV_ITEMS = [
     ),
   },
   {
+    id: 'timeline',
+    label: 'Historia del Club',
+    sublabel: 'Línea de Tiempo',
+    category: 'Comunidad',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
+  {
     id: 'trivia',
     label: 'Arena de Trivia',
     sublabel: 'Tiempo Real',
+    category: 'Actividades',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
@@ -92,9 +110,23 @@ const NAV_ITEMS = [
     ),
   },
   {
+    id: 'pixel-quiz',
+    label: 'Pixel Quiz',
+    studentLabel: 'Pixel Quiz',
+    sublabel: 'Trivia 1v1 · KOTH',
+    category: 'Actividades',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 9h.01M15 9h.01M9 15c1 1.2 4 1.2 6 0" />
+      </svg>
+    ),
+  },
+  {
     id: 'chat',
     label: 'Chat del Club',
-    sublabel: 'Mensajería',
+    sublabel: 'Mensajería Global',
+    category: 'Comunidad',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
@@ -102,9 +134,21 @@ const NAV_ITEMS = [
     ),
   },
   {
+    id: 'direct-messages',
+    label: 'Mensajes Directos',
+    sublabel: 'Chat Privado',
+    category: 'Comunidad',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+      </svg>
+    ),
+  },
+  {
     id: 'waiting-room',
     label: 'Sala de Espera',
     sublabel: 'Minijuegos',
+    category: 'Actividades',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a1.5 1.5 0 01-1.5 1.5H6a1.5 1.5 0 00-1.5 1.5v1.5A1.5 1.5 0 006 12h8.25a1.5 1.5 0 001.5-1.5v-1.5a1.5 1.5 0 00-1.5-1.5h-3.75v0zM20.25 10.5v.75m0 3v.75m0 3v.75M8.25 21h7.5" />
@@ -112,9 +156,43 @@ const NAV_ITEMS = [
     ),
   },
   {
+    id: 'gartic',
+    label: 'Gartic Club',
+    sublabel: 'Teléfono Roto',
+    category: 'Actividades',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.813-6.814-3-3-6.814 3.813a15.995 15.995 0 00-4.648 4.764m3.42 3.42l-2.4 2.4-1.8-1.8 2.4-2.4m2.4 2.4l-2.4-2.4" />
+      </svg>
+    ),
+  },
+  {
+    id: 'infiltrado',
+    label: 'Infiltrado Arena',
+    sublabel: 'Detección & Camuflaje',
+    category: 'Actividades',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'voting',
+    label: 'Votación de Juegos',
+    sublabel: 'Top 3 → Trivia',
+    category: 'Actividades',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
+  {
     id: 'config',
     label: 'Configuración',
     sublabel: 'Ajustes del sistema',
+    category: 'Gestión & Admin',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
         <circle cx="12" cy="12" r="3" />
@@ -126,6 +204,7 @@ const NAV_ITEMS = [
     id: 'form-qr',
     label: 'Código QR',
     sublabel: 'Mostrar Link en Pantalla',
+    category: 'Gestión & Admin',
     adminOnly: true,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
@@ -133,7 +212,7 @@ const NAV_ITEMS = [
         <rect x="15" y="3" width="6" height="6" rx="1" />
         <rect x="3" y="15" width="6" height="6" rx="1" />
         <path d="M15 15h6v6h-6zM3 9h6M15 9h6M9 3v6M21 3v6M9 15v6M21 15v6" />
-        <path d="M12 3v18M3 12h18" strokeDasharray="2 2"/>
+        <path d="M12 3v18M3 12h18" strokeDasharray="2 2" />
       </svg>
     ),
   },
@@ -141,10 +220,60 @@ const NAV_ITEMS = [
     id: 'minecraft-eval',
     label: 'Evaluación PvP',
     sublabel: 'Escrutinio MC',
+    category: 'Torneos',
     adminOnly: true,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a1.5 1.5 0 01-1.5 1.5H6a1.5 1.5 0 00-1.5 1.5v1.5A1.5 1.5 0 006 12h8.25a1.5 1.5 0 001.5-1.5v-1.5a1.5 1.5 0 00-1.5-1.5h-3.75v0zM20.25 10.5v.75m0 3v.75m0 3v.75M8.25 21h7.5" />
+      </svg>
+    ),
+  },
+  {
+    id: 'minecraft-torneo',
+    label: 'Torneo Minecraft',
+    sublabel: 'Gauntlet · Grupos A/B/C',
+    category: 'Torneos',
+    adminOnly: true,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
+      </svg>
+    ),
+  },
+  {
+    id: 'mk-eval',
+    label: 'Evaluación MK XL',
+    sublabel: 'Escrutinio Mortal Kombat',
+    category: 'Torneos',
+    adminOnly: true,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'mk-torneo',
+    label: 'Torneo MK XL',
+    sublabel: 'Desafío a los Jefes',
+    category: 'Torneos',
+    adminOnly: true,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2l2.39 4.84L20 7.6l-4 3.9.94 5.5L12 14.77 7.06 17l.94-5.5-4-3.9 5.61-.76L12 2z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 21h8M10 17v4M14 17v4" />
+      </svg>
+    ),
+  },
+  {
+    id: 'planner',
+    label: 'Planificador',
+    sublabel: 'Gestión de Tiempo',
+    category: 'Gestión & Admin',
+    adminOnly: true,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
   },
@@ -166,7 +295,7 @@ const EyeClosed = () => (
 
 
 export default function Sidebar({ isOpen, setIsOpen, currentView }) {
-  const { activeView, setActiveView, user, visibleModules, setVisibleModules, triviaVisible } = useStore()
+  const { activeView, setActiveView, user, visibleModules, setVisibleModules } = useStore()
   const effectiveView = currentView || activeView;
 
   const isAdmin = user?.role === 'admin';
@@ -174,7 +303,20 @@ export default function Sidebar({ isOpen, setIsOpen, currentView }) {
   const isAdminOrAssistant = isAdmin || isAssistant;
   const isTesting = window.location.href.toLowerCase().includes('testing');
 
-  const [loginActive, setLoginActive] = React.useState(false);
+  const [loginActive, setLoginActive] = useState(false);
+  
+  // Categorías colapsables
+  const [openCategories, setOpenCategories] = useState({
+    'Comunidad': true,
+    'Actividades': true,
+    'Torneos': true,
+    'Gestión & Admin': false,
+    'Ocultos (Alumnos)': false
+  });
+
+  const toggleCategory = (cat) => {
+    setOpenCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
+  };
 
   React.useEffect(() => {
     if (isAdmin) {
@@ -195,28 +337,6 @@ export default function Sidebar({ isOpen, setIsOpen, currentView }) {
     }
   };
 
-  // Alumnos solo ven lo que está en visibleModules, además de no ver config ni form-qr
-  const displayedItems = NAV_ITEMS.filter(item => {
-    if (isAdmin) return true;
-    if (isAssistant && item.id !== 'config' && item.id !== 'form-qr') return true;
-    if (item.id === 'config' || item.adminOnly) return false; // NUNCA para estudiantes
-    const safeModules = Array.isArray(visibleModules) ? visibleModules : [];
-    return safeModules.includes(item.id);
-  });
-
-  if (!isAdminOrAssistant) {
-    displayedItems.unshift({
-      id: 'student-history',
-      label: 'Asistencia y equipos',
-      sublabel: 'Historial Personal',
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
-           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-        </svg>
-      )
-    });
-  }
-
   const handleNavClick = (id) => {
     setActiveView(id)
     if (setIsOpen) setIsOpen(false) // Close sidebar on mobile after clicking
@@ -232,6 +352,56 @@ export default function Sidebar({ isOpen, setIsOpen, currentView }) {
     }
   }
 
+  // Filtrar los ítems permitidos globalmente para este usuario
+  const displayedItems = NAV_ITEMS.filter(item => {
+    if (isAdmin) return true;
+    if (isAssistant && item.id !== 'config' && item.id !== 'form-qr') return true;
+    if (item.id === 'config' || item.adminOnly) return false; // NUNCA para estudiantes
+    const safeModules = Array.isArray(visibleModules) ? visibleModules : [];
+    return safeModules.includes(item.id);
+  });
+
+  // Agrupar ítems
+  const safeModules = Array.isArray(visibleModules) ? visibleModules : [];
+  const groupedItems = {
+    'Comunidad': [],
+    'Actividades': [],
+    'Torneos': [],
+    'Gestión & Admin': [],
+    'Ocultos (Alumnos)': []
+  };
+
+  displayedItems.forEach(item => {
+    const isVisibleToStudents = safeModules.includes(item.id);
+    const canBeHidden = !item.adminOnly && item.id !== 'config';
+
+    if (isAdminOrAssistant) {
+      if (canBeHidden && !isVisibleToStudents) {
+         groupedItems['Ocultos (Alumnos)'].push(item);
+      } else {
+         groupedItems[item.category].push(item);
+      }
+    } else {
+      // Alumnos: simplemente en su categoría correspondiente
+      groupedItems[item.category].push(item);
+    }
+  });
+
+  // Agregar el historial de estudiantes para alumnos/no-admins
+  if (!isAdminOrAssistant) {
+    groupedItems['Comunidad'].unshift({
+      id: 'student-history',
+      label: 'Asistencia y equipos',
+      sublabel: 'Historial Personal',
+      category: 'Comunidad',
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+      )
+    });
+  }
+
   return (
     <>
       {/* Overlay para móviles */}
@@ -243,9 +413,8 @@ export default function Sidebar({ isOpen, setIsOpen, currentView }) {
       )}
 
       <aside
-        className={`fixed left-0 top-0 h-screen w-64 bg-surface-card border-r border-surface-border flex flex-col z-30 transition-transform duration-300 md:translate-x-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`fixed left-0 top-0 h-screen w-64 bg-surface-card border-r border-surface-border flex flex-col z-30 transition-transform duration-300 md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
       >
         {/* Logo */}
         <div className="p-5 border-b border-surface-border flex justify-between items-center bg-surface w-full">
@@ -267,96 +436,118 @@ export default function Sidebar({ isOpen, setIsOpen, currentView }) {
           </div>
         </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 p-3 flex flex-col gap-1 overflow-y-auto">
-        <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest px-3 py-2 mb-1 flex justify-between">
-          <span>Módulos</span>
-          {isAdmin && <span className="text-gray-600 text-[9px]">VISIBLE (ALUMNOS)</span>}
-        </p>
-        
-        {displayedItems.length === 0 && !isAdminOrAssistant ? (
-          <div className="px-3 py-4 text-center">
-            <p className="text-xs text-brand-light border border-brand/20 bg-brand/5 p-3 rounded-lg">
-              No tienes módulos habilitados en este momento.
-            </p>
-          </div>
-        ) : (
-          displayedItems.map((item) => {
-            const isActive = effectiveView === item.id
-            const safeModules = Array.isArray(visibleModules) ? visibleModules : [];
-            const isVisibleToStudents = safeModules.includes(item.id)
+        {/* Navigation agrupada por categorías */}
+        <nav className="flex-1 p-3 flex flex-col gap-3 overflow-y-auto custom-scrollbar">
+          {Object.entries(groupedItems).map(([catName, items]) => {
+            if (items.length === 0) return null;
+            
+            const isOpenCat = openCategories[catName];
 
             return (
-              <div key={item.id} className="relative group">
-                <button
-                  onClick={() => handleNavClick(item.id)}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-150 ${
-                    isActive
-                      ? 'bg-brand/20 text-brand-light'
-                      : 'text-gray-400 hover:bg-surface-hover hover:text-white'
-                  }`}
+              <div key={catName} className="flex flex-col gap-1">
+                <button 
+                  onClick={() => toggleCategory(catName)}
+                  className="flex items-center justify-between w-full px-2 py-1 text-[10px] font-bold text-gray-500 hover:text-gray-300 uppercase tracking-widest transition-colors"
                 >
-                  <span className={`shrink-0 ${isActive ? 'text-brand-light' : 'text-gray-500 group-hover:text-white'}`}>
-                    {item.icon}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="font-medium text-sm leading-tight">{(!isAdminOrAssistant && item.studentLabel) ? item.studentLabel : item.label}</p>
-                    <p className="text-[10px] text-gray-600 leading-tight">{item.sublabel}</p>
+                  <div className="flex items-center gap-2">
+                    {catName === 'Ocultos (Alumnos)' && <EyeClosed />}
+                    <span>{catName}</span>
+                    <span className="bg-surface-border text-gray-400 px-1.5 py-0.5 rounded-md text-[9px]">{items.length}</span>
                   </div>
-                  {isActive && !isAdminOrAssistant && (
-                    <span className="ml-auto w-1.5 h-1.5 rounded-full bg-brand-light shrink-0" />
-                  )}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpenCat ? 'rotate-180' : ''}`}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                  </svg>
                 </button>
 
-                {/* Botón Admin: alternar visibilidad al alumno */}
-                {isAdmin && item.id !== 'config' && (
-                  <button
-                    onClick={(e) => handleToggleVisibility(e, item.id)}
-                    className={`absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-colors border ${
-                      isVisibleToStudents 
-                        ? 'bg-green-500/10 text-green-400 border-green-500/20 hover:bg-green-500/20' 
-                        : 'bg-surface-border text-gray-500 border-transparent hover:text-gray-300 hover:bg-surface-hover'
-                    }`}
-                    title={isVisibleToStudents ? "Ocultar a estudiantes" : "Mostrar a estudiantes"}
-                  >
-                    {isVisibleToStudents ? <EyeOpen /> : <EyeClosed />}
-                  </button>
+                {isOpenCat && (
+                  <div className="flex flex-col gap-0.5 mt-1">
+                    {items.map((item) => {
+                      const isActive = effectiveView === item.id;
+                      const isVisibleToStudents = safeModules.includes(item.id);
+                      
+                      return (
+                        <div key={item.id} className="relative group">
+                          <button
+                            onClick={() => handleNavClick(item.id)}
+                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-200 ${
+                              isActive
+                                ? 'bg-brand/20 text-brand-light shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]'
+                                : 'text-gray-400 hover:bg-surface-hover hover:text-white'
+                            }`}
+                          >
+                            <span className={`shrink-0 transition-colors ${isActive ? 'text-brand-light' : 'text-gray-500 group-hover:text-brand-light/70'}`}>
+                              {item.icon}
+                            </span>
+                            <div className="min-w-0 flex-1">
+                              <p className="font-medium text-sm leading-tight">{(!isAdminOrAssistant && item.studentLabel) ? item.studentLabel : item.label}</p>
+                              <p className="text-[10px] text-gray-500 leading-tight group-hover:text-gray-400 transition-colors">{item.sublabel}</p>
+                            </div>
+                            {isActive && !isAdminOrAssistant && (
+                              <span className="ml-auto w-1.5 h-1.5 rounded-full bg-brand-light shrink-0 shadow-[0_0_8px_rgba(var(--brand-rgb),0.8)]" />
+                            )}
+                          </button>
+
+                          {/* Botón Admin: alternar visibilidad al alumno */}
+                          {isAdmin && !item.adminOnly && item.id !== 'config' && (
+                            <button
+                              onClick={(e) => handleToggleVisibility(e, item.id)}
+                              className={`absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all duration-200 border ${
+                                isVisibleToStudents
+                                  ? 'bg-green-500/10 text-green-400 border-green-500/20 hover:bg-green-500/20 hover:border-green-500/30 opacity-100'
+                                  : 'bg-surface-border text-gray-500 border-transparent hover:text-gray-300 hover:bg-surface-hover opacity-50 group-hover:opacity-100'
+                              }`}
+                              title={isVisibleToStudents ? "Ocultar a estudiantes" : "Mostrar a estudiantes"}
+                            >
+                              {isVisibleToStudents ? <EyeOpen /> : <EyeClosed />}
+                            </button>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
                 )}
               </div>
             )
-          })
-        )}
-      </nav>
+          })}
 
-      {/* Footer — Sync Status & Testing Mode */}
-      <div className="p-3 border-t border-surface-border bg-surface-card flex flex-col gap-2">
-        {isAdmin && (
-          <div className="flex flex-col gap-2">
-            <button 
-              onClick={handleToggleLogin}
-              className={`w-full py-2 px-3 flex items-center justify-center gap-2 rounded-lg text-xs font-bold transition-all border ${loginActive ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30 border-green-500/30' : 'bg-red-500/20 text-red-500 hover:bg-red-500/30 border-red-500/30'}`}
-              title="Permitir o bloquear que los alumnos puedan hacer login"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-              {loginActive ? 'LOGIN ACTIVO' : 'LOGIN BLOQUEADO'}
-            </button>
+          {displayedItems.length === 0 && !isAdminOrAssistant && (
+             <div className="px-3 py-4 text-center mt-2">
+               <p className="text-xs text-brand-light border border-brand/20 bg-brand/5 p-3 rounded-lg">
+                 No tienes módulos habilitados en este momento.
+               </p>
+             </div>
+          )}
+        </nav>
 
-            <button 
-              onClick={() => window.location.href = isTesting ? '/' : '/testing'}
-              className={`w-full py-2 px-3 flex items-center justify-center gap-2 rounded-lg text-xs font-bold transition-colors ${isTesting ? 'bg-orange-500/20 text-orange-400 hover:bg-orange-500/30 border border-orange-500/30' : 'bg-surface hover:bg-surface-hover text-gray-400 hover:text-white border border-surface-border'}`}
-              title={isTesting ? "Volver al dashboard normal" : "Probar la app sin afectar a los alumnos"}
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-              {isTesting ? 'SALIR DE TESTING' : 'ENTRAR A TESTING'}
-            </button>
-          </div>
-        )}
-        <SyncStatus />
-      </div>
+        {/* Footer — Sync Status & Testing Mode */}
+        <div className="p-3 border-t border-surface-border bg-surface-card flex flex-col gap-2">
+          {isAdmin && (
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={handleToggleLogin}
+                className={`w-full py-2 px-3 flex items-center justify-center gap-2 rounded-lg text-xs font-bold transition-all border ${loginActive ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30 border-green-500/30' : 'bg-red-500/20 text-red-500 hover:bg-red-500/30 border-red-500/30'}`}
+                title="Permitir o bloquear que los alumnos puedan hacer login"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                {loginActive ? 'LOGIN ACTIVO' : 'LOGIN BLOQUEADO'}
+              </button>
+
+              <button
+                onClick={() => window.location.href = isTesting ? '/' : '/testing'}
+                className={`w-full py-2 px-3 flex items-center justify-center gap-2 rounded-lg text-xs font-bold transition-colors ${isTesting ? 'bg-orange-500/20 text-orange-400 hover:bg-orange-500/30 border border-orange-500/30' : 'bg-surface hover:bg-surface-hover text-gray-400 hover:text-white border border-surface-border'}`}
+                title={isTesting ? "Volver al dashboard normal" : "Probar la app sin afectar a los alumnos"}
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                {isTesting ? 'SALIR DE TESTING' : 'ENTRAR A TESTING'}
+              </button>
+            </div>
+          )}
+          <SyncStatus />
+        </div>
       </aside>
     </>
   )

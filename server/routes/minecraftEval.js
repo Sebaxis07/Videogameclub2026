@@ -15,7 +15,7 @@ function calculateEvals(evals) {
     let grupo = "C";
     let nivelName = "bajo";
     if (pts >= 10) { grupo = "A"; nivelName = "alto"; }
-    else if (pts >= 5) { grupo = "B"; nivelName = "medio"; }
+    else if (pts >= 4) { grupo = "B"; nivelName = "medio"; }
 
     return { ...raw, score: pts, grupo, nivelName };
   });

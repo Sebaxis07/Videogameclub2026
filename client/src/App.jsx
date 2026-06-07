@@ -24,6 +24,20 @@ import WaitingRoom from './components/WaitingRoom'
 import PollWidget from './components/PollWidget'
 import FormQR from './components/FormQR'
 import MinecraftEvaluation from './components/MinecraftEvaluation'
+import MinecraftTournament from './components/MinecraftTournament'
+import MortalKombatEvaluation from './components/MortalKombatEvaluation'
+import MortalKombatTournament from './components/MortalKombatTournament'
+import GarticArena from './components/GarticArena'
+import AdminGartic from './components/AdminGartic'
+import InfiltradoArena from './components/InfiltradoArena'
+import AdminInfiltrado from './components/AdminInfiltrado'
+import VotingArena from './components/VotingArena'
+import AdminVoting from './components/AdminVoting'
+import DirectMessages from './components/DirectMessages'
+import PixelQuizArena from './components/PixelQuizArena'
+import AdminPixelQuiz from './components/AdminPixelQuiz'
+import TournamentPlanner from './components/TournamentPlanner'
+import TimelineModule from './components/TimelineModule'
 import useStore from './store/useStore'
 import { fetchSettings } from './api/api'
 import { getSocket } from './api/socket'
@@ -35,6 +49,7 @@ const VIEW_TITLES = {
   players:           { title: 'Roster de Jugadores',    sub: 'Todos los inscritos · Fuente: Google Sheets' },
   hardware:          { title: 'Sesiones',               sub: 'Asistencia · Equipos por sesión · Reportes' },
   diplomas:          { title: 'Reconocimientos',        sub: 'Generación de Diplomas y Premios' },
+  timeline:          { title: 'Línea de Tiempo',         sub: 'Nuestra Historia & Hitos' },
   config:            { title: 'Configuración',          sub: 'Variables de entorno y servidor' },
   'student-history': { title: 'Mi Historial',           sub: 'Asistencia y Equipos Registrados' },
   trivia:            { title: 'Arena de Trivia',        sub: 'Preguntas en Tiempo Real · Facciones · Comodines' },
@@ -42,6 +57,15 @@ const VIEW_TITLES = {
   'waiting-room':    { title: 'Sala de Espera',          sub: 'Arcade Hall · Minijuegos Multijugador' },
   'form-qr':         { title: 'Formulario QR',           sub: 'Escaneo rápido para Google Forms' },
   'minecraft-eval':  { title: 'Escrutinio MC',           sub: 'Evaluación PvP Simultánea' },
+  'minecraft-torneo':{ title: 'Torneo Minecraft PvP',   sub: 'Gauntlet · Grupos A/B/C · Escalada al Título' },
+  'mk-eval':         { title: 'Escrutinio MK XL',         sub: 'Evaluación Mortal Kombat · Casual / Peleador / Experto' },
+  'mk-torneo':       { title: 'Torneo Mortal Kombat XL',  sub: 'Desafío a los Jefes · Bloques A/B · Boss Fight · Gran Final' },
+  gartic:            { title: 'Gartic Club',             sub: 'El teléfono descompuesto dibujado' },
+  infiltrado:        { title: 'Infiltrado Arena',        sub: 'Juego de deducción, asociación mental y camuflaje gamer' },
+  'direct-messages': { title: 'Mensajes Directos',       sub: 'Conversaciones 1-a-1' },
+  'voting':          { title: 'Votación de Juegos',      sub: 'Elige tu juego · Los 3 más votados definen la Trivia' },
+  'pixel-quiz':      { title: 'Pixel Quiz Arena',         sub: 'Trivia 1v1 · King of the Hill · 15s por pregunta' },
+  'planner':         { title: 'Planificador de Evento',   sub: 'Estimación de tiempos y gestión de estaciones' },
 }
 
 function ContentView({ view, user }) {
@@ -52,6 +76,7 @@ function ContentView({ view, user }) {
     case 'players':         return <PlayersTable />
     case 'hardware':        return <SessionModule />
     case 'diplomas':        return <DiplomasModule />
+    case 'timeline':        return <TimelineModule />
     case 'config':          return <ConfigModule />
     case 'student-history': return <StudentDashboard />
     case 'trivia':          return user?.role === 'student' ? <TriviaArena /> : <AdminTrivia />
@@ -59,6 +84,15 @@ function ContentView({ view, user }) {
     case 'waiting-room':    return <WaitingRoom />
     case 'form-qr':         return <FormQR />
     case 'minecraft-eval':  return <MinecraftEvaluation />
+    case 'minecraft-torneo': return <MinecraftTournament />
+    case 'mk-eval':         return <MortalKombatEvaluation />
+    case 'mk-torneo':       return <MortalKombatTournament />
+    case 'gartic':          return user?.role === 'student' ? <GarticArena /> : <AdminGartic />
+    case 'infiltrado':      return user?.role === 'student' ? <InfiltradoArena /> : <AdminInfiltrado />
+    case 'direct-messages': return <DirectMessages />
+    case 'voting':          return user?.role === 'student' ? <VotingArena /> : <AdminVoting />
+    case 'pixel-quiz':      return user?.role === 'student' ? <PixelQuizArena /> : <AdminPixelQuiz />
+    case 'planner':         return <TournamentPlanner />
     default:                return <StudentDashboard />
   }
 }

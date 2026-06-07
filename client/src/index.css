@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800;900&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pinyon+Script&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -226,4 +228,43 @@
   .animate-confetti-drop {
     animation: confetti-drop linear forwards;
   }
+}
+
+/* ── Estilos de Impresión y Certificados ─────────────────────────── */
+@media print {
+  /* Ocultar todo en la página por defecto */
+  body * {
+    visibility: hidden !important;
+  }
+  
+  /* Mostrar solo el contenedor del diploma/reporte y sus hijos */
+  .print-cert-container,
+  .print-cert-container *,
+  .print-report-container,
+  .print-report-container * {
+    visibility: visible !important;
+  }
+  
+  /* Posicionar el contenedor para que ocupe toda la página física */
+  .print-cert-container,
+  .print-report-container {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 297mm !important;
+    height: 210mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background-color: #faf8f5 !important; /* Forzar fondo en impresión si es necesario */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    z-index: 9999999 !important;
+  }
+}
+
+@page {
+  size: A4 landscape;
+  margin: 0;
 }

@@ -1,0 +1,57 @@
+# ==============================================================================
+# Git Ignore — Dashboard Club de Videojuegos
+# ==============================================================================
+
+# Dependencias
+node_modules/
+jspm_packages/
+web_modules/
+
+# Builds / Compilados del Frontend
+client/dist/
+client/dist-ssr/
+out/
+build/
+
+# Variables de Entorno y Configuración Sensible
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+client/.env
+server/.env
+
+# Claves de Google Service Account y Archivos de Credenciales
+*serviceAccountKey.json
+*serviceaccountkey.json
+server/serviceAccountKey.json
+server/thermal-land-*.json
+*.json.key
+*.pem
+
+# Archivos de Pruebas y Scratch Temporales
+server/scratch_test.js
+server/fetch_evals.js
+server/evaluaciones_dump.json
+scratch/
+
+# Depuración / Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# Editores y Entornos de Desarrollo
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db

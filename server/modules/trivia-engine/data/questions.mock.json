@@ -1,0 +1,37 @@
+[
+  {
+    "id": "pq-001",
+    "categoria": "Lore",
+    "pregunta": "En el universo de The Legend of Zelda: Ocarina of Time, ¿cuál es el nombre del caballo de Link?",
+    "opciones": ["Epona", "Aryll", "Malon", "Saria"],
+    "respuesta_correcta": 0
+  },
+  {
+    "id": "pq-002",
+    "categoria": "Hardware/Historia",
+    "pregunta": "¿Qué empresa lanzó la consola Dreamcast en 1998?",
+    "opciones": ["Nintendo", "Sony", "Sega", "Atari"],
+    "respuesta_correcta": 2
+  },
+  {
+    "id": "pq-003",
+    "categoria": "Audio",
+    "pregunta": "¿Quién compuso la banda sonora original de la saga Final Fantasy?",
+    "opciones": ["Koji Kondo", "Nobuo Uematsu", "Yoko Shimomura", "Yasunori Mitsuda"],
+    "respuesta_correcta": 1
+  },
+  {
+    "id": "pq-004",
+    "categoria": "Gameplay",
+    "pregunta": "En Counter-Strike, ¿cuántas rondas se necesitan ganar por defecto en formato MR12 para llevarse el mapa?",
+    "opciones": ["8", "10", "13", "16"],
+    "respuesta_correcta": 2
+  },
+  {
+    "id": "pq-005",
+    "categoria": "Lore",
+    "pregunta": "En la saga Halo, ¿cuál es la designación del Jefe Maestro como Spartan?",
+    "opciones": ["Spartan-117", "Spartan-IV", "Spartan-A239", "Spartan-B312"],
+    "respuesta_correcta": 0
+  }
+]

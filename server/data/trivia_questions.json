@@ -1,316 +1,2102 @@
 [
   {
     "id": 1,
-    "pregunta": "¿Qué campeón de League of Legends es conocido como 'El Explorador Pródigo'?",
-    "categoria": "League of Legends",
-    "tipo_dificultad": "Casual",
     "tipo_pregunta": "alternativas",
-    "opciones": [
-      "Garen",
-      "Ezreal",
-      "Teemo",
-      "Yasuo"
-    ],
-    "respuesta_correcta": 1
-  },
-  {
-    "id": 16,
-    "pregunta": "¿En qué fecha se celebra tradicionalmente la chilenidad y la Primera Junta Nacional de Gobierno (Fiestas Patrias)?",
-    "categoria": "Cultura Chilena",
+    "categoria": "Fortnite",
     "tipo_dificultad": "Casual",
-    "tipo_pregunta": "alternativas",
+    "pregunta": "¿Qué compañía desarrolló Fortnite?",
     "opciones": [
-      "18 de Octubre",
-      "21 de Mayo",
-      "18 de Septiembre",
-      "19 de Septiembre"
-    ],
-    "respuesta_correcta": 2
-  },
-  {
-    "id": 5,
-    "pregunta": "¿Qué rol en League of Legends se juega habitualmente en la línea central (Mid)?",
-    "categoria": "League of Legends",
-    "tipo_dificultad": "Casual",
-    "tipo_pregunta": "alternativas",
-    "opciones": [
-      "Mago/Asesino",
-      "Tirador (ADC)",
-      "Tanque/Luchador",
-      "Curandero (Support)"
-    ],
-    "respuesta_correcta": 0
-  },
-  {
-    "id": 8,
-    "pregunta": "¿Pikachu evolucionó a Raichu usando una Piedra Trueno en la serie original acompañando a Ash?",
-    "categoria": "Pokemon",
-    "tipo_dificultad": "Casual",
-    "tipo_pregunta": "verdadero_falso",
-    "opciones": [
-      "Verdadero",
-      "Falso"
-    ],
-    "respuesta_correcta": 1
-  },
-  {
-    "id": 17,
-    "pregunta": "¿Cómo se llama el ave voladora que figura como símbolo de fuerza en el Escudo Nacional de Chile?",
-    "categoria": "Cultura Chilena",
-    "tipo_dificultad": "Casual",
-    "tipo_pregunta": "alternativas",
-    "opciones": [
-      "Águila Mora",
-      "Pudú",
-      "Tiuque",
-      "Cóndor"
-    ],
-    "respuesta_correcta": 3
-  },
-  {
-    "id": 15,
-    "pregunta": "¿Cuántos stacks (acumulaciones máximas) puede llevar un jugador de Minecraft de Ender Pearls por casilla?",
-    "categoria": "Minecraft",
-    "tipo_dificultad": "Competitiva",
-    "tipo_pregunta": "alternativas",
-    "opciones": [
-      "16",
-      "64",
-      "99",
-      "12"
-    ],
-    "respuesta_correcta": 0
-  },
-  {
-    "id": 3,
-    "pregunta": "¿En Ultrakill, la sangre funciona como combustible y barra de curación para el protagonista V1?",
-    "categoria": "Ultrakill",
-    "tipo_dificultad": "Casual",
-    "tipo_pregunta": "verdadero_falso",
-    "opciones": [
-      "Verdadero",
-      "Falso"
-    ],
-    "respuesta_correcta": 0
-  },
-  {
-    "id": 4,
-    "pregunta": "¿Cuál es el nombre del mapa principal en el modo clásico de Mobile Legends?",
-    "categoria": "Mobile Legends",
-    "tipo_dificultad": "Competitiva",
-    "tipo_pregunta": "alternativas",
-    "opciones": [
-      "Tierra del Amanecer",
-      "Grieta del Invocador",
-      "Valle de los Reyes",
-      "Cuenca Estelar"
-    ],
-    "respuesta_correcta": 0
-  },
-  {
-    "id": 18,
-    "pregunta": "El conocido personaje de historietas 'Condorito', fue creado originalmente por el dibujante chileno Pepo.",
-    "categoria": "Cultura Chilena",
-    "tipo_dificultad": "Casual",
-    "tipo_pregunta": "verdadero_falso",
-    "opciones": [
-      "Verdadero",
-      "Falso"
-    ],
-    "respuesta_correcta": 0
-  },
-  {
-    "id": 9,
-    "pregunta": "¿Qué clase en Team Fortress 2 puede hacerse invisible y disfrazarse del equipo enemigo?",
-    "categoria": "Team Fortress 2",
-    "tipo_dificultad": "Casual",
-    "tipo_pregunta": "alternativas",
-    "opciones": [
-      "Sniper",
-      "Medic",
-      "Spy",
-      "Scout"
-    ],
-    "respuesta_correcta": 2
-  },
-  {
-    "pregunta": "¿Como se llama el lider del club de videojuegos?",
-    "categoria": "Club",
-    "tipo_dificultad": "Casual",
-    "tipo_pregunta": "alternativas",
-    "opciones": [
-      "Sebastian Rojas",
-      "Sebastian Vasquez",
-      "Sebastian Callejas",
-      "Marcelo Leiva"
+      "Valve",
+      "Epic Games",
+      "Riot Games",
+      "Activision"
     ],
     "respuesta_correcta": 1,
-    "id": 21
-  },
-  {
-    "id": 12,
-    "pregunta": "¿Cómo se llamaba la moneda virtual original de Roblox que podía conseguirse gratis antes de ser eliminada?",
-    "categoria": "Roblox",
-    "tipo_dificultad": "Competitiva",
-    "tipo_pregunta": "alternativas",
-    "opciones": [
-      "Tix (Tickets)",
-      "Roblox Coins",
-      "Blox Bux",
-      "R-Points"
-    ],
-    "respuesta_correcta": 0
+    "desactivada": true
   },
   {
     "id": 2,
-    "pregunta": "¿En qué año se lanzó originalmente Mortal Kombat XL?",
-    "categoria": "Mortal Kombat XL",
-    "tipo_dificultad": "Competitiva",
     "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama el vehículo volador que lanza a los jugadores al mapa?",
     "opciones": [
-      "2014",
-      "2015",
-      "2016",
-      "2017"
+      "Nave de Descenso",
+      "V-Jet",
+      "Autobús de Batalla",
+      "Avión de la Tormenta"
     ],
-    "respuesta_correcta": 2
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 3,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cuál de estos materiales NO se usa para construir en Fortnite?",
+    "opciones": [
+      "Madera",
+      "Cristal",
+      "Ladrillo",
+      "Metal"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 4,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cuál es el número máximo de jugadores en una partida estándar de Battle Royale?",
+    "opciones": [
+      "50",
+      "64",
+      "100",
+      "150"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 5,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama la moneda premium que se usa en Fortnite?",
+    "opciones": [
+      "F-Coins",
+      "PaVos (V-Bucks)",
+      "Puntos Epic",
+      "Barras de Oro"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
   },
   {
     "id": 6,
-    "pregunta": "¿Qué material es necesario para crear una Mesa de Encantamientos en Minecraft?",
-    "categoria": "Minecraft",
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
     "tipo_dificultad": "Casual",
-    "tipo_pregunta": "alternativas",
+    "pregunta": "¿Qué objeto arrojadizo obliga a los jugadores a bailar sin control?",
     "opciones": [
-      "Hierro, Diamante, Libro",
-      "Oro, Redstone, Libro",
-      "Obsidiana, Diamante, Libro",
-      "Piedra, Carbón, Libro"
+      "Granada de Ritmo",
+      "Bola de Disco",
+      "Bomba Boogie",
+      "Trampa de Baile"
     ],
-    "respuesta_correcta": 2
-  },
-  {
-    "id": 13,
-    "pregunta": "¿Qué juego se lanzó primero de manera oficial entre estas populares opciones?",
-    "categoria": "Overwatch / LoL / TF2",
-    "tipo_dificultad": "Competitiva",
-    "tipo_pregunta": "alternativas",
-    "opciones": [
-      "League of Legends",
-      "Team Fortress 2",
-      "Overwatch",
-      "Valorant"
-    ],
-    "respuesta_correcta": 1
-  },
-  {
-    "id": 11,
-    "pregunta": "¿Marvel Rivals es un juego de disparos en primera persona (FPS) idéntico a la cámara de Valorant?",
-    "categoria": "Marvel Rivals",
-    "tipo_dificultad": "Competitiva",
-    "tipo_pregunta": "verdadero_falso",
-    "opciones": [
-      "Verdadero",
-      "Falso"
-    ],
-    "respuesta_correcta": 1
-  },
-  {
-    "id": 10,
-    "pregunta": "¿Cómo se llama el primer jefe nocturno (un globo ocular gigante con colmillos) en Terraria?",
-    "categoria": "Terraria",
-    "tipo_dificultad": "Casual",
-    "tipo_pregunta": "alternativas",
-    "opciones": [
-      "Cerebro de Cthulhu",
-      "Rey Slime",
-      "Ovalo Demoniaco",
-      "Ojo de Cthulhu"
-    ],
-    "respuesta_correcta": 3
-  },
-  {
-    "id": 20,
-    "pregunta": "Aproximadamente, ¿cuál es la longitud total del territorio continental de Chile medida de norte a sur en kilómetros?",
-    "categoria": "Cultura Chilena",
-    "tipo_dificultad": "Competitiva",
-    "tipo_pregunta": "alternativas",
-    "opciones": [
-      "4.300 km",
-      "2.100 km",
-      "7.000 km",
-      "1.500 km"
-    ],
-    "respuesta_correcta": 0
+    "respuesta_correcta": 2,
+    "desactivada": true
   },
   {
     "id": 7,
-    "pregunta": "¿Cuántos créditos cuesta un rifle francotirador Operator en Valorant?",
-    "categoria": "Valorant",
-    "tipo_dificultad": "Competitiva",
     "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Qué famoso músico realizó el primer gran concierto virtual en vivo en Fortnite?",
     "opciones": [
-      "4500",
-      "4700",
-      "5000",
-      "4900"
+      "Travis Scott",
+      "Ariana Grande",
+      "Eminem",
+      "Marshmello"
     ],
-    "respuesta_correcta": 1
+    "respuesta_correcta": 3,
+    "desactivada": true
+  },
+  {
+    "id": 8,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué color representa la rareza 'Legendaria' de un arma?",
+    "opciones": [
+      "Morado",
+      "Naranja / Dorado",
+      "Azul",
+      "Verde"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 9,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Qué consumible restaura 15 de salud pero no puede curarte por encima de 75 de salud?",
+    "opciones": [
+      "Botiquín",
+      "Vendaje",
+      "Jugo Sorbo",
+      "Salpicón Saludable"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 10,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué sucede cuando un jugador pierde toda su salud en una partida de Dúos o Escuadrones?",
+    "opciones": [
+      "Es eliminado al instante",
+      "Reaparece en la base",
+      "Queda derribado en el suelo",
+      "Deja caer todas sus armas"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 11,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Cuál fue el apodo de la comunidad para el cubo morado gigante que se movía por el mapa en el Capítulo 1?",
+    "opciones": [
+      "Bob",
+      "Kevin",
+      "Steve",
+      "Gary"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 12,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué icónica ubicación de la ciudad es famosa por su alta torre del reloj y sus caídas caóticas?",
+    "opciones": [
+      "Ciudad Comercio",
+      "Parque Placentero",
+      "Señorío de la Sal",
+      "Pisos Picados (Tilted Towers)"
+    ],
+    "respuesta_correcta": 3,
+    "desactivada": true
+  },
+  {
+    "id": 13,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Qué objeto tarda 15 segundos en consumirse y otorga salud y escudos completos?",
+    "opciones": [
+      "Bidón de Plasma (Chug Jug)",
+      "Jugo Sorbo",
+      "Poción de Escudo",
+      "Botiquín"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": true
   },
   {
     "id": 14,
-    "pregunta": "¿Cuál es el nombre de la agente de Valorant, especializada en sanación y muros de jade?",
-    "categoria": "Valorant",
-    "tipo_dificultad": "Casual",
     "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama el modo de juego PvE (Jugador vs Entorno) en Fortnite?",
     "opciones": [
-      "Jett",
-      "Reyna",
-      "Killjoy",
-      "Sage"
+      "Battle Royale",
+      "Creativo",
+      "Salvar el Mundo",
+      "Lego Fortnite"
     ],
-    "respuesta_correcta": 3
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 15,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Cuál de estos personajes es la mascota del restaurante Durrr Burger?",
+    "opciones": [
+      "Un Tomate",
+      "Una Llama",
+      "Una Hamburguesa con lengua",
+      "Un Taco"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 16,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué trampa te permite lanzarte por los aires y volver a desplegar tu ala delta?",
+    "opciones": [
+      "Cama Elástica",
+      "Plataforma de Lanzamiento (Launch Pad)",
+      "Granada de Choque",
+      "Plataforma de Salto"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 17,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cuál de estos es la icónica piñata animal que suelta botín al romperse?",
+    "opciones": [
+      "Caballo",
+      "Llama",
+      "Unicornio",
+      "Burro"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 18,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Qué paso de baile, popular a nivel mundial en 2018, se asoció ampliamente con Fortnite?",
+    "opciones": [
+      "El Floss (El Hilo)",
+      "El Robot",
+      "La Macarena",
+      "El Moonwalk"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": true
   },
   {
     "id": 19,
-    "pregunta": "¿Cuál de las siguientes ciudades de Chile está ubicada más al norte?",
-    "categoria": "Cultura Chilena",
+    "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
     "tipo_dificultad": "Competitiva",
-    "tipo_pregunta": "alternativas",
+    "pregunta": "¿Qué material es mejor usar para construir defensas al final de la partida debido a su alta salud máxima?",
     "opciones": [
-      "Santiago",
-      "Antofagasta",
-      "Concepción",
-      "Iquique"
-    ],
-    "respuesta_correcta": 3
-  },
-  {
-    "pregunta": "¿Cuál es la dirección oficial de la sede INACAP Antofagasta?",
-    "categoria": "Inacap",
-    "tipo_dificultad": "Casual",
-    "tipo_pregunta": "alternativas",
-    "opciones": [
-      "Av. Angamos #601",
-      "Av. Universidad de Antofagasta #02800",
-      "Av. Edmundo Pérez Zujovic #11092",
-      "Av. Grecia #1702"
+      "Madera",
+      "Ladrillo",
+      "Metal",
+      "Obsidiana"
     ],
     "respuesta_correcta": 2,
-    "id": 22
+    "desactivada": true
   },
   {
-    "pregunta": "El acrónimo INACAP significa:",
-    "categoria": "Inacap",
-    "tipo_dificultad": "Casual",
+    "id": 20,
     "tipo_pregunta": "alternativas",
+    "categoria": "Fortnite",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué pasa si un jugador se queda fuera de la zona segura demasiado tiempo?",
     "opciones": [
-      "Instituto Nacional  de Capacitacion",
-      "ndustrias Nacionales de Capacitación y Perfeccionamiento",
-      "Instituto Nacional de Ciencias Aplicadas y Profesionales",
-      "Instituto de Nivelación Académica y Capacitación Profesional"
+      "Se mueve más lento",
+      "Pierde sus armas",
+      "Recibe daño de la Tormenta",
+      "Es expulsado de la partida"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 21,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantos jugadores hay en cada equipo en una partida estandar de LoL?",
+    "opciones": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 22,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Como se llama la moneda principal de League of Legends?",
+    "opciones": [
+      "Puntos Azules",
+      "Esencias Azules",
+      "Puntos de Influencia",
+      "Riot Points"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 23,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cual es el objetivo principal que otorga mas ventaja al matarlo en LoL?",
+    "opciones": [
+      "Baron Nashor",
+      "Dragon",
+      "Heraldo del Abismo",
+      "Centinela"
     ],
     "respuesta_correcta": 0,
-    "id": 23
+    "desactivada": true
+  },
+  {
+    "id": 24,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que campeon tiene la habilidad llamada Remembrance y llora a sus aliados muertos?",
+    "opciones": [
+      "Thresh",
+      "Senna",
+      "Kayn",
+      "Yorick"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 25,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "En que carril suele ir el ADC?",
+    "opciones": [
+      "Top",
+      "Jungla",
+      "Mid",
+      "Bot"
+    ],
+    "respuesta_correcta": 3,
+    "desactivada": true
+  },
+  {
+    "id": 26,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cuantos dragones elementales existen en el juego base sin contar Elder?",
+    "opciones": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 27,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que dice el Teemo cuando se queda quieto?",
+    "opciones": [
+      "Capitan Teemo en posicion!",
+      "Teemo al ataque!",
+      "Un paso mas!",
+      "Cuidado!"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": true
+  },
+  {
+    "id": 28,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que campeon fue el primero en ser lanzado en LoL?",
+    "opciones": [
+      "Ryze",
+      "Ashe",
+      "Annie",
+      "Sivir"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": true
+  },
+  {
+    "id": 29,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Como se llama la tienda donde compras objetos en LoL?",
+    "opciones": [
+      "El Nexo",
+      "La Tienda Magica",
+      "La Tiendecilla",
+      "La Taberna"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 30,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cuantas torres hay en total en Summoner Rift sin contar inhibidores?",
+    "opciones": [
+      "9",
+      "11",
+      "12",
+      "14"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 31,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cual es el movimiento mas iconico al final de una pelea en Mortal Kombat?",
+    "opciones": [
+      "Ultra Combo",
+      "X-Ray",
+      "Fatality",
+      "Brutality"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 32,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Quien es el dios del trueno en Mortal Kombat?",
+    "opciones": [
+      "Shao Kahn",
+      "Raiden",
+      "Liu Kang",
+      "Shinnok"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 33,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cual es el nombre de la hija de Johnny Cage y Sonya Blade?",
+    "opciones": [
+      "Kitana",
+      "Cassie Cage",
+      "Jade",
+      "Mileena"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 34,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que personaje tiene un sombrero de aro con pinchos como arma principal?",
+    "opciones": [
+      "Shang Tsung",
+      "Kung Lao",
+      "Sub-Zero",
+      "Scorpion"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 35,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que frase grita Scorpion al lanzar su kunai?",
+    "opciones": [
+      "Come here!",
+      "Get over here!",
+      "You will die!",
+      "Face me!"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 36,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que DLC de Mortal Kombat XL incluye al Alien de la pelicula?",
+    "opciones": [
+      "Kombat Pack 1",
+      "Kombat Pack 2",
+      "XL Pack",
+      "Horror Pack"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 37,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "En que reino vive Shao Kahn?",
+    "opciones": [
+      "Outworld",
+      "Netherrealm",
+      "Edenia",
+      "Earthrealm"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 38,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cuantas rondas se deben ganar para vencer en una pelea estandar?",
+    "opciones": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 39,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que personaje tiene el poder de congelar a sus oponentes?",
+    "opciones": [
+      "Scorpion",
+      "Raiden",
+      "Sub-Zero",
+      "Kitana"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 40,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Como se llama el modo historia principal de MKX?",
+    "opciones": [
+      "Living Towers",
+      "The Krypt",
+      "Story Mode",
+      "Faction War"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 41,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Ultrakill",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que tipo de entidad es el protagonista de ULTRAKILL?",
+    "opciones": [
+      "Un angel caido",
+      "Una maquina robotica",
+      "Un demonio",
+      "Un humano cyborg"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 42,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Ultrakill",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cual es el recurso principal que usa V1 para recargarse en ULTRAKILL?",
+    "opciones": [
+      "Energia Solar",
+      "Aceite de motor",
+      "Sangre",
+      "Baterias"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 43,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Ultrakill",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Donde esta ambientado ULTRAKILL?",
+    "opciones": [
+      "El espacio",
+      "El Infierno",
+      "Una ciudad futurista",
+      "El Purgatorio"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 44,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Ultrakill",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cual es la calificacion maxima que puedes obtener en un nivel de ULTRAKILL?",
+    "opciones": [
+      "S",
+      "SS",
+      "SSS",
+      "P"
+    ],
+    "respuesta_correcta": 3,
+    "desactivada": true
+  },
+  {
+    "id": 45,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Ultrakill",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Quien desarrollo ULTRAKILL?",
+    "opciones": [
+      "Devolver Digital",
+      "Arsi Patala (Hakita)",
+      "Double Fine",
+      "id Software"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 46,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Ultrakill",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Como se llama el jefe final del Acto 1 de ULTRAKILL?",
+    "opciones": [
+      "Gabriel",
+      "V2",
+      "Minos Prime",
+      "Leviathan"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": true
+  },
+  {
+    "id": 47,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Ultrakill",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que estilo de juego define mejor a ULTRAKILL?",
+    "opciones": [
+      "Battle Royale",
+      "FPS de accion frenetica",
+      "MMORPG",
+      "Roguelike"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 48,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Ultrakill",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cual de estas armas NO existe en ULTRAKILL?",
+    "opciones": [
+      "Revolver",
+      "Escopeta",
+      "Fusil de Francotirador",
+      "Lanzacohetes"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 49,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Ultrakill",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantas capas del infierno tiene el juego completo planeadas?",
+    "opciones": [
+      "7",
+      "9",
+      "10",
+      "12"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 50,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Ultrakill",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que mecanismo permite a V1 recuperar salud activamente durante el combate?",
+    "opciones": [
+      "Recoger kits medicos",
+      "Estar cerca de enemigos",
+      "Golpear enemigos con sangre reciente",
+      "Permanecer quieto"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 51,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mobile Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantos jugadores componen cada equipo en Mobile Legends Bang Bang?",
+    "opciones": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 52,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mobile Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cual es el monstruo principal del mapa en Mobile Legends equivalente al Baron Nashor?",
+    "opciones": [
+      "Lord",
+      "Turtle",
+      "Crab",
+      "Savage"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": true
+  },
+  {
+    "id": 53,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mobile Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Como se llama la moneda premium de Mobile Legends?",
+    "opciones": [
+      "Tickets",
+      "BP Battle Points",
+      "Diamonds",
+      "Tokens"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 54,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mobile Legends",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que heroe de Mobile Legends tiene la habilidad pasiva que le permite acumular poder con cada muertes de enemigos?",
+    "opciones": [
+      "Layla",
+      "Aldous",
+      "Miya",
+      "Moskov"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 55,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mobile Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantos carriles tiene el mapa estandar de Mobile Legends?",
+    "opciones": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 56,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mobile Legends",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que rol en Mobile Legends se encarga principalmente de absorber dano?",
+    "opciones": [
+      "Mage",
+      "Marksman",
+      "Tank",
+      "Support"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 57,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mobile Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cual es el nombre del torneo oficial mas importante de Mobile Legends?",
+    "opciones": [
+      "M-Series World Championship",
+      "Bang Bang Cup",
+      "MLBB Finals",
+      "Global Clash"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": true
+  },
+  {
+    "id": 58,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mobile Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que heroe es famoso por ser Assassin con alto dano y muchos dashes desde el inicio del juego?",
+    "opciones": [
+      "Tigreal",
+      "Gusion",
+      "Eudora",
+      "Nana"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 59,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mobile Legends",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cuantas habilidades activas tiene un heroe estandar en Mobile Legends?",
+    "opciones": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 60,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mobile Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que continente o region desarrollo Mobile Legends Bang Bang?",
+    "opciones": [
+      "Japon",
+      "Corea del Sur",
+      "China Moonton",
+      "Estados Unidos"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 61,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Overwatch",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que heroe de Overwatch dice la frase The world could always use more heroes?",
+    "opciones": [
+      "McCree",
+      "Soldier 76",
+      "Tracer",
+      "Reaper"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 62,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Overwatch",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantos jugadores hay en cada equipo en una partida estandar de Overwatch?",
+    "opciones": [
+      "4",
+      "5",
+      "6",
+      "8"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 63,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Overwatch",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que rol de Overwatch se enfoca en curar y proteger a los companeros?",
+    "opciones": [
+      "Damage",
+      "Tank",
+      "Support",
+      "Flex"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 64,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Overwatch",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cual es el nombre real de Reaper en Overwatch?",
+    "opciones": [
+      "Jack Morrison",
+      "Gabriel Reyes",
+      "Jesse McCree",
+      "Genji Shimada"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 65,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Overwatch",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que pais defiende Pharah en la historia de Overwatch?",
+    "opciones": [
+      "Arabia Saudita",
+      "Israel",
+      "Egipto",
+      "Turquia"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 66,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Overwatch",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cuantas habilidades Ultimate puede activar un jugador por partida?",
+    "opciones": [
+      "1",
+      "Ilimitadas",
+      "Solo 2",
+      "3 maximo"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 67,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Overwatch",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cual es el mapa de Overwatch basado en Japon?",
+    "opciones": [
+      "Hanamura",
+      "Dorado",
+      "Numbani",
+      "Hollywood"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": true
+  },
+  {
+    "id": 68,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Overwatch",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que heroe puede crear paredes de hielo y usa un escudo de energia?",
+    "opciones": [
+      "Mei",
+      "Moira",
+      "Symmetra",
+      "Brigitte"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 69,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Overwatch",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Quien desarrollo Overwatch?",
+    "opciones": [
+      "Riot Games",
+      "Valve",
+      "Blizzard Entertainment",
+      "Bungie"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 70,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Overwatch",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Como se llama la organizacion villana principal en la historia de Overwatch?",
+    "opciones": [
+      "Blackwatch",
+      "Talon",
+      "Null Sector",
+      "LumeriCo"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 71,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cual es el primer objeto recomendado a craftear en Minecraft para sobrevivir?",
+    "opciones": [
+      "Una espada",
+      "Una cama",
+      "Una mesa de trabajo",
+      "Un horno"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 72,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que material necesitas para crear herramientas del nivel mas alto en Minecraft estandar?",
+    "opciones": [
+      "Hierro",
+      "Oro",
+      "Diamante",
+      "Netherita"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 73,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Como se llama el jefe final de Minecraft que vive en The End?",
+    "opciones": [
+      "El Wither",
+      "El Guardian",
+      "Ender Dragon",
+      "El Golem"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 74,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que arbol en Minecraft crece sin necesitar tierra normal?",
+    "opciones": [
+      "Abedul",
+      "Acacia",
+      "Hongo gigante",
+      "Roble"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 75,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que sucede si duermes en una cama en el Nether?",
+    "opciones": [
+      "Descansas normalmente",
+      "Te teletransporta al Overworld",
+      "La cama explota",
+      "Invocas un fantasma"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 76,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cual de estos mobs NO aparece de noche en Minecraft?",
+    "opciones": [
+      "Zombie",
+      "Esqueleto",
+      "Creeper",
+      "Ghast"
+    ],
+    "respuesta_correcta": 3,
+    "desactivada": false
+  },
+  {
+    "id": 77,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cuantos bloques de obsidiana se necesitan para construir un portal al Nether?",
+    "opciones": [
+      "8",
+      "10",
+      "12",
+      "14"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 78,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Como se llama la moneda de Minecraft usada para comerciar con aldeanos?",
+    "opciones": [
+      "Oro",
+      "Esmeraldas",
+      "Diamantes",
+      "Rubies"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 79,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que animal de Minecraft NO deja drop util al morir?",
+    "opciones": [
+      "Vaca",
+      "Cerdo",
+      "Murcielago",
+      "Oveja"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 80,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que bloque emite mas luz en Minecraft?",
+    "opciones": [
+      "Antorcha",
+      "Glowstone",
+      "Sea Lantern",
+      "Lava"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 81,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Valorant",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantos jugadores componen cada equipo en Valorant?",
+    "opciones": [
+      "4",
+      "5",
+      "6",
+      "8"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 82,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Valorant",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Como se llama el dispositivo que deben plantar los atacantes en Valorant?",
+    "opciones": [
+      "Bomba",
+      "Spike",
+      "Orbe",
+      "Detonador"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 83,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Valorant",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que compania desarrollo Valorant?",
+    "opciones": [
+      "Blizzard",
+      "Valve",
+      "Riot Games",
+      "Epic Games"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 84,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Valorant",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que agente de Valorant puede crear paredes de hielo y tiene habilidades de curar?",
+    "opciones": [
+      "Sage",
+      "Viper",
+      "Brimstone",
+      "Omen"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": true
+  },
+  {
+    "id": 85,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Valorant",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantas rondas son necesarias para ganar un mapa en Valorant modo estandar?",
+    "opciones": [
+      "10",
+      "13",
+      "16",
+      "20"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 86,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Valorant",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que tipo de elemento hace unico a los agentes en Valorant ademas de armas?",
+    "opciones": [
+      "Solo armas",
+      "Habilidades unicas",
+      "Solo granadas",
+      "Poderes magicos"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 87,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Valorant",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cuantos creditos tienen los jugadores en la primera ronda pistol round?",
+    "opciones": [
+      "0",
+      "500",
+      "800",
+      "1000"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 88,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Valorant",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Como se llama el agente de Valorant con poderes de teletransporte y sombras?",
+    "opciones": [
+      "Reyna",
+      "Omen",
+      "Yoru",
+      "Neon"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 89,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Valorant",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cual es el arma tipo rifle de largo alcance mas cara del juego?",
+    "opciones": [
+      "Vandal",
+      "Phantom",
+      "Operator",
+      "Odin"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 90,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Valorant",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que mapa de Valorant esta ambientado en Venecia Italia?",
+    "opciones": [
+      "Bind",
+      "Haven",
+      "Ascent",
+      "Split"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 91,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Pokemon",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cual es el numero de Pikachu en la Pokedex Nacional?",
+    "opciones": [
+      "023",
+      "025",
+      "035",
+      "027"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 92,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Pokemon",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cual es el Pokemon legendario de 1ra generacion que puede clonar a otros Pokemon?",
+    "opciones": [
+      "Mew",
+      "Mewtwo",
+      "Ditto",
+      "Arceus"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 93,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Pokemon",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que tipos de Pokemon son efectivos contra el tipo Agua?",
+    "opciones": [
+      "Fuego",
+      "Planta y Electrico",
+      "Roca",
+      "Tierra"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 94,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Pokemon",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Como se llama la evolucion final de Charmander?",
+    "opciones": [
+      "Charizard",
+      "Charmeleon",
+      "Charcoal",
+      "Blaziken"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": true
+  },
+  {
+    "id": 95,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Pokemon",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantas generaciones de Pokemon existian hasta 2023?",
+    "opciones": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 96,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Pokemon",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que objeto se necesita para evolucionar a Eevee en Flareon?",
+    "opciones": [
+      "Piedra Agua",
+      "Piedra Fuego",
+      "Piedra Rayo",
+      "Piedra Hoja"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 97,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Pokemon",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cual es el movimiento de tipo Normal con buena potencia y 100 de precision?",
+    "opciones": [
+      "Hiperrayo",
+      "Doble Filo",
+      "Triataque",
+      "Rapidez"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 98,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Pokemon",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cual es el Pokemon de tipo Normal que puede transformarse en cualquier otro Pokemon?",
+    "opciones": [
+      "Castform",
+      "Rotom",
+      "Ditto",
+      "Smeargle"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 99,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Pokemon",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que organizacion malvada aparece en la primera generacion de Pokemon?",
+    "opciones": [
+      "Team Aqua",
+      "Team Magma",
+      "Team Rocket",
+      "Team Plasma"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 100,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Pokemon",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que Pokemon tiene el stat de Velocidad mas alto del juego hasta la Gen 9?",
+    "opciones": [
+      "Deoxys",
+      "Ninjask",
+      "Regieleki",
+      "Electrode"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 101,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Team Fortress 2",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantas clases tiene Team Fortress 2?",
+    "opciones": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 102,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Team Fortress 2",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que clase de TF2 tiene un lanzacohetes como arma principal?",
+    "opciones": [
+      "Demoman",
+      "Soldier",
+      "Heavy",
+      "Pyro"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 103,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Team Fortress 2",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuales son los dos equipos que se enfrentan en TF2?",
+    "opciones": [
+      "RED vs BLUE",
+      "Allied vs Axis",
+      "Mercs vs Robots",
+      "Alpha vs Beta"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 104,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Team Fortress 2",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que clase en TF2 puede volverse invisible usando un reloj?",
+    "opciones": [
+      "Spy",
+      "Scout",
+      "Medic",
+      "Engineer"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 105,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Team Fortress 2",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que clase de TF2 usa una ballesta y puede curar a distancia?",
+    "opciones": [
+      "Heavy",
+      "Medic",
+      "Sniper",
+      "Engineer"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 106,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Team Fortress 2",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que compania desarrollo Team Fortress 2?",
+    "opciones": [
+      "Blizzard",
+      "Valve",
+      "EA",
+      "Riot"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 107,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Team Fortress 2",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Como se llama el arma iconica del Scout en TF2?",
+    "opciones": [
+      "Pistola",
+      "Scatter Gun",
+      "Pistola de Luz",
+      "Escopeta de Mano"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 108,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Team Fortress 2",
+    "tipo_dificultad": "Casual",
+    "pregunta": "En que modo de juego deben empujar un carro hasta la meta en TF2?",
+    "opciones": [
+      "Capture the Flag",
+      "Payload",
+      "King of the Hill",
+      "Attack Defend"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 109,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Team Fortress 2",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que clase tiene la mayor cantidad de puntos de vida en TF2?",
+    "opciones": [
+      "Soldier",
+      "Demoman",
+      "Heavy",
+      "Engineer"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 110,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Team Fortress 2",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Como se llama el robot jefe que aparece en el modo Mann vs Machine?",
+    "opciones": [
+      "Giant Soldier",
+      "Tank",
+      "Giant Heavy",
+      "Bomb Bot"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 111,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Terraria",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Como se llama el jefe final de la version estandar de Terraria?",
+    "opciones": [
+      "Eye of Cthulhu",
+      "Moon Lord",
+      "Wall of Flesh",
+      "Skeletron"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 112,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Terraria",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que NPC aparece primero al iniciar una partida de Terraria?",
+    "opciones": [
+      "Goblin",
+      "Guia Guide",
+      "Comerciante",
+      "Enfermera"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 113,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Terraria",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantos modos de dificultad tiene Terraria para el personaje?",
+    "opciones": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 114,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Terraria",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que bioma es la alternativa a la Corruption en Terraria?",
+    "opciones": [
+      "Hallow",
+      "Crimson",
+      "Jungle",
+      "Desert"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 115,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Terraria",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cual es el mineral mas poderoso de Terraria en la capa del inframundo?",
+    "opciones": [
+      "Obsidiana",
+      "Hellstone",
+      "Meteorite",
+      "Lihzahrd Brick"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 116,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Terraria",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que evento nocturno puede invocar de forma natural al Eye of Cthulhu?",
+    "opciones": [
+      "Lluvia",
+      "Aparece solo al azar",
+      "Blood Moon",
+      "Solar Eclipse"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 117,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Terraria",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cuantos jefes mecanicos hay en Terraria?",
+    "opciones": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 118,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Terraria",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que debes hacer para activar el modo Hardmode en Terraria?",
+    "opciones": [
+      "Matar al Eye of Cthulhu",
+      "Matar al Wall of Flesh",
+      "Encontrar una llave",
+      "Construir un altar"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 119,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Terraria",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Como se llama la actualizacion mas grande de contenido de Terraria lanzada gratis?",
+    "opciones": [
+      "Journey Mode Update",
+      "Journeys End 1.4",
+      "Hardmode Update",
+      "Blood and Iron"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 120,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Terraria",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que tipo de juego es Terraria?",
+    "opciones": [
+      "FPS",
+      "MOBA",
+      "Sandbox 2D de aventura",
+      "Battle Royale"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 121,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Marvel Rivals",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que tipo de juego es Marvel Rivals?",
+    "opciones": [
+      "Battle Royale",
+      "Hero Shooter 6v6",
+      "MOBA",
+      "Juego de peleas"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 122,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Marvel Rivals",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que compania desarrollo Marvel Rivals?",
+    "opciones": [
+      "Riot Games",
+      "NetEase Games",
+      "Blizzard",
+      "Marvel Studios"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 123,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Marvel Rivals",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantos jugadores hay en cada equipo en Marvel Rivals?",
+    "opciones": [
+      "4",
+      "5",
+      "6",
+      "8"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 124,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Marvel Rivals",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que heroe de Marvel Rivals tiene la habilidad de convertirse en Hulk?",
+    "opciones": [
+      "Thor",
+      "Iron Man",
+      "Bruce Banner",
+      "Spider-Man"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 125,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Marvel Rivals",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuales son los tres roles de heroes en Marvel Rivals?",
+    "opciones": [
+      "Attacker Defender Healer",
+      "Vanguard Duelist Strategist",
+      "Tank DPS Support",
+      "Hero Villain Neutral"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 126,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Marvel Rivals",
+    "tipo_dificultad": "Casual",
+    "pregunta": "En que ano fue lanzado Marvel Rivals?",
+    "opciones": [
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 127,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Marvel Rivals",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que personaje de Marvel Rivals usa escudos de energia y rayos repulsores?",
+    "opciones": [
+      "Thor",
+      "Iron Man",
+      "Captain America",
+      "Black Panther"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 128,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Marvel Rivals",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que supervillano de los X-Men es jugable en Marvel Rivals?",
+    "opciones": [
+      "Thanos",
+      "Magneto",
+      "Doctor Doom",
+      "Loki"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 129,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Marvel Rivals",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cual es el modo de juego principal competitivo en Marvel Rivals?",
+    "opciones": [
+      "Deathmatch",
+      "Domination y Convoy",
+      "Capture the Flag",
+      "Battle Royale"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 130,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Marvel Rivals",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que heroe de Marvel Rivals puede lanzar telaranas para desplazarse?",
+    "opciones": [
+      "Daredevil",
+      "Venom",
+      "Spider-Man",
+      "Black Cat"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 131,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Dragon Ball FighterZ",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantos personajes componen un equipo en Dragon Ball FighterZ?",
+    "opciones": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 132,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Dragon Ball FighterZ",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que compania desarrollo Dragon Ball FighterZ?",
+    "opciones": [
+      "Capcom",
+      "Arc System Works",
+      "Bandai Namco",
+      "SNK"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 133,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Dragon Ball FighterZ",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que personaje es el antagonista principal de la historia de Dragon Ball FighterZ?",
+    "opciones": [
+      "Freezer",
+      "Cell",
+      "Android 21",
+      "Majin Buu"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 134,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Dragon Ball FighterZ",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Como se llama la mecanica de llamar a companeros para atacar mientras juegas?",
+    "opciones": [
+      "Tag Cancel",
+      "Assist",
+      "Sparking",
+      "Dragon Rush"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 135,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Dragon Ball FighterZ",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Cuantas Dragon Balls debes coleccionar durante la partida para invocar ayuda especial?",
+    "opciones": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
+  },
+  {
+    "id": 136,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Dragon Ball FighterZ",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que tecnica iconica usa Goku que tambien esta en el juego?",
+    "opciones": [
+      "Galick Gun",
+      "Kamehameha",
+      "Big Bang Attack",
+      "Final Flash"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 137,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Dragon Ball FighterZ",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Cual de estas versiones de Vegeta es jugable en FighterZ?",
+    "opciones": [
+      "Vegeta SSJ4",
+      "Vegeta SSJ Blue",
+      "Vegeta Ultra Ego",
+      "Vegeta GT"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 138,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Dragon Ball FighterZ",
+    "tipo_dificultad": "Casual",
+    "pregunta": "Que tipo de juego es Dragon Ball FighterZ?",
+    "opciones": [
+      "RPG de turno",
+      "Juego de peleas 2D",
+      "Battle Royale",
+      "Shooter"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": true
+  },
+  {
+    "id": 139,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Dragon Ball FighterZ",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "Que personaje tiene el movimiento Photon Flash en Dragon Ball FighterZ?",
+    "opciones": [
+      "Gohan",
+      "Freezer",
+      "Android 16",
+      "Beerus"
+    ],
+    "respuesta_correcta": 3,
+    "desactivada": true
+  },
+  {
+    "id": 140,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Dragon Ball FighterZ",
+    "tipo_dificultad": "Casual",
+    "pregunta": "En que ano fue lanzado Dragon Ball FighterZ?",
+    "opciones": [
+      "2016",
+      "2017",
+      "2018",
+      "2019"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": true
   }
 ]

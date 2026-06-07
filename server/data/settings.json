@@ -1,6 +1,10 @@
 {
   "visibleModules": [
-    "minecraft-eval"
+    "pixel-quiz",
+    "trivia",
+    "timeline"
   ],
-  "loginActive": true
+  "loginActive": true,
+  "minecraftFormUrl": "https://forms.office.com/r/M7aFZBPxiY?origin=lprLink",
+  "minecraftExcelUrl": "https://inacapmailcl-my.sharepoint.com/:x:/g/personal/sebastian_vasquez88_inacapmail_cl/IQCXrYlAOVLMRL8tkt1stsA_AYC8AyBfYnoGwtvjajdX5tg?e=if91rW"
 }

@@ -239,6 +239,15 @@ function DifBadge({ dif }) {
   );
 }
 
+function StatusBadge({ deactivated }) {
+  if (!deactivated) return null;
+  return (
+    <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-red-500/20 text-red-400 border border-red-500/30 uppercase tracking-tighter">
+      ✕ Desactivada
+    </span>
+  );
+}
+
 // ─── Formulario dinámico ─────────────────────────────────────────────────────
 function QuestionForm({ initial, onSave, onCancel }) {
   const [q, setQ] = useState(initial);
@@ -536,17 +545,18 @@ export default function QuestionManager() {
           <div className="divide-y divide-surface-border/30">
             {filtered.map(q => (
               <div key={q.id}
-                className="flex items-start sm:items-center gap-3 px-4 py-3 hover:bg-surface-border/10 transition-colors group">
+                className={`flex items-start sm:items-center gap-3 px-4 py-3 hover:bg-surface-border/10 transition-colors group ${q.desactivada ? 'bg-red-500/5' : ''}`}>
                 {/* ID */}
                 <span className="text-[10px] text-gray-600 font-mono w-6 flex-shrink-0 mt-0.5">#{q.id}</span>
 
                 {/* Contenido principal */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-white text-sm font-medium leading-snug truncate" title={q.pregunta}>{q.pregunta}</p>
+                  <p className={`text-sm font-medium leading-snug truncate ${q.desactivada ? 'text-gray-500 line-through' : 'text-white'}`} title={q.pregunta}>{q.pregunta}</p>
                   <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
                     <TipoBadge tipo={q.tipo_pregunta || 'alternativas'} />
                     <DifBadge dif={q.tipo_dificultad} />
                     <span className="text-[10px] text-gray-600 bg-surface border border-surface-border px-2 py-0.5 rounded-md">{q.categoria}</span>
+                    <StatusBadge deactivated={q.desactivada} />
                   </div>
                 </div>
 

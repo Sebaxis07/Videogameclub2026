@@ -49,4 +49,17 @@ router.post("/login/toggle", wrap((req, res) => {
   res.json({ success: true, loginActive });
 }));
 
+// POST /api/settings/update
+router.post("/update", wrap((req, res) => {
+  const settingsService = require("../services/settingsService");
+  const updated = settingsService.updateSettings(req.body);
+
+  const io = req.app.get("io");
+  if (io) {
+    io.emit("settings:updated", updated);
+  }
+
+  res.json({ success: true, settings: updated });
+}));
+
 module.exports = router;

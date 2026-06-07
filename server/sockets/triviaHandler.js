@@ -20,7 +20,7 @@
 
 const fs   = require("fs");
 const path = require("path");
-const { getJudgeChatResponse } = require("../services/groqService");
+const { getJudgeVerdict } = require("../services/groqService");
 
 // ─── Constantes de Scoring ────────────────────────────────────────────────────
 const P_BASE   = 500;
@@ -45,67 +45,26 @@ function createInitialState() {
     factions: {},            // { factionId: { members: [rut], score, isLoner } }
     nextFactionId: 1,
     isInterrupted: false,    // Estado de pausa anti-trampa
-    isPaused: false,         // Estado de pausa técnica (profesor)
-    pausedAt: null,
     disqualifiedPlayers: new Set(), // Set of RUTs
+    courtSession: {          // Estado del minijuego de juicio
+      active: false,
+      stage: 0,
+      defendant: null,       // { rut, nombre }
+      lawyer: null,          // { rut, nombre }
+      phase: 'none',         // none | roulette | opening | statements | defendant_speech | evidence | ai_duel | closing | deliberation | verdict
+      evidence: [],
+      aiBattle: [],
+      judgeMessage: '',
+      defendantStatement: '',
+      argument: '',
+      verdict: null,         // 'pardon' | 'guilty'
+      verdictReason: ''
+    }
   };
 }
 
 let state = createInitialState();
 let ioInstance = null;
-let gameLoopTimer = null;
-
-function stopGameLoop() {
-  if (gameLoopTimer) {
-    clearInterval(gameLoopTimer);
-    gameLoopTimer = null;
-  }
-}
-
-function processGameLoop() {
-  if (!ioInstance) return;
-  if (state.isInterrupted || state.isPaused) return;
-
-  if (state.status === "question") {
-    if (!state.currentQuestion || !state.currentQuestion.startedAt) return;
-    const elapsed = Date.now() - state.currentQuestion.startedAt;
-    const t_remaining = Math.max(0, T_TOTAL - elapsed);
-
-    if (t_remaining <= 0) {
-      state.status = "reviewing";
-      state.reviewStartedAt = Date.now();
-      
-      const q = state.deck[state.currentQuestionIndex];
-      const tipo = q.tipo_pregunta || "alternativas";
-      const correctAnswerPayload = {
-        tipo_pregunta:      tipo,
-        respuesta_correcta: q.respuesta_correcta,
-        respuesta_texto:    q.respuesta_texto   || null,
-        orden_correcto:     q.orden_correcto    || null,
-        respuesta_numero:   q.respuesta_numero  || null,
-        opciones:           q.opciones          || [],
-      };
-
-      ioInstance.to("triviaRoom").emit("question:timeout", {
-        correctAnswer: correctAnswerPayload,
-        correctIndex: q.respuesta_correcta
-      });
-      broadcastAdminSnapshot();
-      console.log(`[Trivia] Tiempo activo finalizado. Fase de Descanso (5s).`);
-    }
-  } else if (state.status === "reviewing") {
-    if (!state.reviewStartedAt) return;
-    const elapsed = Date.now() - state.reviewStartedAt;
-    if (elapsed >= 5000) { 
-      startNextQuestion();
-    }
-  }
-}
-
-function startGameLoop() {
-  stopGameLoop();
-  gameLoopTimer = setInterval(processGameLoop, 1000);
-}
 
 // ─── Utilidades ───────────────────────────────────────────────────────────────
 
@@ -163,7 +122,39 @@ function checkAnswer(question, answer) {
   }
 }
 
+function buildEvidenceReport(defendantName) {
+  return [
+    `Salida de foco detectada mientras ${defendantName} respondía.`, 
+    'Cambio de visibilidad de la pestaña durante pregunta activa.',
+    'Captura de pantalla periódica enviada para auditoría de integridad.'
+  ];
+}
 
+function buildAIDuel(evidenceList, defendantName, lawyerName) {
+  const evidenceSummary = evidenceList.map((item, idx) => `${idx + 1}. ${item}`).join(' ');
+  return [
+    {
+      role: 'prosecutor',
+      label: 'Fiscal IA',
+      message: `El Ministerio Digital presenta la evidencia en bloque: ${evidenceSummary}`
+    },
+    {
+      role: 'defense',
+      label: 'Defensa IA',
+      message: `La defensa sintetiza un contraataque: ${lawyerName} cuestiona la validez del registro y exige juicio justo para ${defendantName}.`
+    },
+    {
+      role: 'prosecutor',
+      label: 'Fiscal IA',
+      message: 'La secuencia de eventos y la coincidencia de los datos obligan a considerar la falta como plausible.'
+    },
+    {
+      role: 'defense',
+      label: 'Defensa IA',
+      message: 'Sin contexto completo, la Corte no puede castigar. Exijo la presunción de inocencia y la revisión de las pruebas.'
+    }
+  ];
+}
 
 /** Calcula M_categoria */
 function getMultiplier(question) {
@@ -202,13 +193,29 @@ function broadcastFactionRanking() {
 
 /** Asigna una facción al jugador que acaba de unirse */
 function assignFaction(rut) {
-  // Juego individual (Todos contra Todos)
-  const factionId = `F${state.nextFactionId++}`;
-  state.factions[factionId] = { members: [rut], score: 0, isLoner: false };
-  state.players[rut].factionId = factionId;
+  // Busca facción abierta (que tenga 1 miembro)
+  const open = Object.entries(state.factions).find(
+    ([, f]) => f.members.length === 1 && !f.isLoner
+  );
+
+  if (open) {
+    const [factionId, faction] = open;
+    faction.members.push(rut);
+    state.players[rut].factionId = factionId;
+  } else {
+    // Crear nueva facción (provisionalmente solitaria)
+    const factionId = `F${state.nextFactionId++}`;
+    state.factions[factionId] = { members: [rut], score: 0, isLoner: true };
+    state.players[rut].factionId = factionId;
+  }
+
+  // Actualizar isLoner de todas las facciones
+  Object.values(state.factions).forEach(f => {
+    f.isLoner = f.members.length === 1;
+  });
 }
 
-/** Suma puntos al jugador y su facción */
+/** Suma puntos al jugador y su facción (aplica ×2 si es Lobo Solitario) */
 function addPointsToPlayer(rut, basePoints) {
   const player  = state.players[rut];
   if (!player) return;
@@ -218,7 +225,8 @@ function addPointsToPlayer(rut, basePoints) {
   const faction = state.factions[player.factionId];
   if (!faction) return;
 
-  faction.score = Math.max(0, faction.score + basePoints);
+  const contribution = faction.isLoner ? basePoints * 2 : basePoints;
+  faction.score = Math.max(0, faction.score + contribution);
 }
 
 /** Resta puntos a una facción (Doble o Nada fallido) */
@@ -235,7 +243,6 @@ function buildAdminSnapshot() {
   const deckLength = state.deck ? state.deck.length : 0;
   return {
     status:               state.status,
-    isPaused:             state.isPaused,
     currentQuestionIndex: state.currentQuestionIndex,
     totalQuestions:       deckLength,
     currentQuestion:      state.currentQuestion
@@ -250,7 +257,8 @@ function buildAdminSnapshot() {
       : null,
     answeredCount: Object.keys(state.answers).length,
     playerCount:   Object.keys(state.players).length,
-    players:       state.players,
+    players:       state.players, 
+    courtSession:  state.courtSession, // Sync court state
   };
 }
 
@@ -264,61 +272,6 @@ function broadcastAdminSnapshot() {
     s => s.handshake.query.role === "admin"
   );
   adminSockets.forEach(s => s.emit("admin:trivia:snapshot", snapshot));
-}
-
-/** Ejecuta el paso a la siguiente pregunta */
-function startNextQuestion() {
-  state.currentQuestionIndex++;
-
-  if (state.currentQuestionIndex >= state.deck.length) {
-    // ── Fin de la ronda ───────────────────────────────────────────
-    state.status = "finished";
-    stopGameLoop();
-    const finalRanking = Object.entries(state.factions)
-      .map(([id, f]) => ({
-        factionId: id,
-        isLoner:   f.isLoner,
-        members:   f.members.map(rut => ({
-          rut,
-          nombre: state.players[rut]?.nombre || rut,
-          score:  state.players[rut]?.score  || 0,
-        })),
-        factionScore: f.score,
-      }))
-      .sort((a, b) => b.factionScore - a.factionScore);
-
-    ioInstance.to("triviaRoom").emit("trivia:finished", finalRanking);
-    broadcastAdminSnapshot();
-    console.log("[Trivia] Partida finalizada.");
-    return;
-  }
-
-  // ── Preparar pregunta ────────────────────────────────────────────
-  state.answers = {};
-  state.status  = "question";
-  const q = state.deck[state.currentQuestionIndex];
-  state.currentQuestion = { ...q, startedAt: Date.now() };
-
-  // Solo enviamos al estudiante sin la respuesta correcta
-  const studentPayload = {
-    id:              q.id,
-    pregunta:        q.pregunta,
-    tipo_pregunta:   q.tipo_pregunta   || "alternativas",
-    opciones:        q.opciones        || [],
-    // Para rango numérico enviamos el rango (pero no la respuesta)
-    rango_min:       q.rango_min       !== undefined ? q.rango_min : null,
-    rango_max:       q.rango_max       !== undefined ? q.rango_max : null,
-    // Para texto libre enviamos las pistas si existen
-    pistas:          q.pistas          || null,
-    categoria:       q.categoria,
-    tipo_dificultad: q.tipo_dificultad,
-    questionNumber:  state.currentQuestionIndex + 1,
-    totalQuestions:  state.deck.length,
-  };
-
-  ioInstance.to("triviaRoom").emit("question:new", studentPayload);
-  broadcastAdminSnapshot();
-  console.log(`[Trivia] Pregunta ${state.currentQuestionIndex + 1} (${q.tipo_pregunta || "alternativas"}) enviada: "${q.pregunta.slice(0, 50)}..."`);
 }
 
 module.exports = function (io) {
@@ -350,13 +303,61 @@ module.exports = function (io) {
     /** Admin avanza a la siguiente pregunta */
     socket.on("question:start", () => {
       if (role !== "admin") return;
-      if (state.status === "lobby") startGameLoop();
-      startNextQuestion();
+      state.currentQuestionIndex++;
+
+      if (state.currentQuestionIndex >= state.deck.length) {
+        // ── Fin de la ronda ───────────────────────────────────────────
+        state.status = "finished";
+        const finalRanking = Object.entries(state.factions)
+          .map(([id, f]) => ({
+            factionId: id,
+            isLoner:   f.isLoner,
+            members:   f.members.map(rut => ({
+              rut,
+              nombre: state.players[rut]?.nombre || rut,
+              score:  state.players[rut]?.score  || 0,
+            })),
+            factionScore: f.score,
+          }))
+          .sort((a, b) => b.factionScore - a.factionScore);
+
+        io.to("triviaRoom").emit("trivia:finished", finalRanking);
+        socket.emit("admin:trivia:snapshot", buildAdminSnapshot());
+        console.log("[Trivia] Partida finalizada.");
+        return;
+      }
+
+      // ── Preparar pregunta ────────────────────────────────────────────
+      state.answers = {};
+      state.status  = "question";
+      const q = state.deck[state.currentQuestionIndex];
+      state.currentQuestion = { ...q, startedAt: Date.now() };
+
+      // Solo enviamos al estudiante sin la respuesta correcta
+      const studentPayload = {
+        id:              q.id,
+        pregunta:        q.pregunta,
+        tipo_pregunta:   q.tipo_pregunta   || "alternativas",
+        opciones:        q.opciones        || [],
+        // Para rango numérico enviamos el rango (pero no la respuesta)
+        rango_min:       q.rango_min       !== undefined ? q.rango_min : null,
+        rango_max:       q.rango_max       !== undefined ? q.rango_max : null,
+        // Para texto libre enviamos las pistas si existen
+        pistas:          q.pistas          || null,
+        categoria:       q.categoria,
+        tipo_dificultad: q.tipo_dificultad,
+        questionNumber:  state.currentQuestionIndex + 1,
+        totalQuestions:  state.deck.length,
+      };
+
+      io.to("triviaRoom").emit("question:new", studentPayload);
+      socket.emit("admin:trivia:snapshot", buildAdminSnapshot());
+      console.log(`[Trivia] Pregunta ${state.currentQuestionIndex + 1} (${q.tipo_pregunta || "alternativas"}) enviada: "${q.pregunta.slice(0, 50)}..."`);
     });
+
     /** Admin resetea la partida completa */
     socket.on("admin:trivia:reset", () => {
       if (role !== "admin") return;
-      stopGameLoop();
       state = createInitialState();
       io.to("triviaRoom").emit("trivia:reset");
       io.to("triviaRoom").emit("admin:trivia:disqualifiedList", []);
@@ -371,41 +372,6 @@ module.exports = function (io) {
       io.to("triviaRoom").emit("trivia:resumed");
       broadcastAdminSnapshot();
       console.log("[Trivia] Partida reanudada por el admin.");
-    });
-
-    /** Admin pausa o reanuda un congelamiento de tiempo técnico */
-    socket.on("admin:trivia:togglePause", () => {
-      if (role !== "admin") return;
-      if (state.status !== "question") return;
-
-      if (!state.isPaused) {
-        state.isPaused = true;
-        state.pausedAt = Date.now();
-        io.to("triviaRoom").emit("trivia:gamePaused");
-        console.log("[Trivia] Tiempo CONGELADO por el admin.");
-      } else {
-        const timePausedMs = Date.now() - state.pausedAt;
-        state.isPaused = false;
-        state.pausedAt = null;
-        if (state.currentQuestion && state.status === "question") {
-          state.currentQuestion.startedAt += timePausedMs;
-        } else if (state.status === "reviewing") {
-          state.reviewStartedAt += timePausedMs;
-        }
-        
-        let timeRemainingMs = 0;
-        if (state.status === "question" && state.currentQuestion) {
-          const elapsed = Date.now() - state.currentQuestion.startedAt;
-          timeRemainingMs = Math.max(0, T_TOTAL - elapsed);
-        } else if (state.status === "reviewing") {
-          const elapsed = Date.now() - state.reviewStartedAt;
-          timeRemainingMs = Math.max(0, 5000 - elapsed);
-        }
-        
-        io.to("triviaRoom").emit("trivia:timeResumed", { timeRemainingMs });
-        console.log(`[Trivia] Tiempo REANUDADO. Compensado ${timePausedMs}ms.`);
-      }
-      broadcastAdminSnapshot();
     });
 
     /** Admin solicita snapshot actualizado */
@@ -425,24 +391,14 @@ module.exports = function (io) {
       socket.join("triviaRoom");
 
       if (!state.players[rut]) {
-        // Late Joiner Catch-Up: Iguala al jugador con el menor score
-        let startingScore = 0;
-        if (state.status !== "idle" && state.status !== "lobby") {
-          const scores = Object.values(state.players).map(p => p.score);
-          if (scores.length > 0) startingScore = Math.min(...scores);
-        }
-
         state.players[rut] = {
           nombre:    nombre || rut,
           socketId:  socket.id,
-          score:     startingScore,
-          consecutiveFails: 0,
+          score:     0,
           wildcards: ["5050", "flashbang", "doublenada"],
           factionId: null,
         };
         assignFaction(rut);
-        const faction = state.factions[state.players[rut].factionId];
-        if (faction) faction.score = startingScore;
       } else {
         // Reconexión: actualizar socketId
         state.players[rut].socketId = socket.id;
@@ -496,21 +452,7 @@ module.exports = function (io) {
       const resolvedAnswer = answer !== undefined ? answer : answerIndex;
 
       const isCorrect = checkAnswer(question, resolvedAnswer);
-      const player = state.players[rut];
-      let points = 0;
-      let multiplierApplied = 1.0;
-
-      if (isCorrect) {
-        if (player.consecutiveFails === 1) multiplierApplied = 1.1;
-        else if (player.consecutiveFails === 2) multiplierApplied = 1.25;
-        else if (player.consecutiveFails === 3) multiplierApplied = 1.5;
-        else if (player.consecutiveFails >= 4) multiplierApplied = 2.0;
-
-        points = Math.floor(calcScore(question, receivedAt) * multiplierApplied);
-        player.consecutiveFails = 0;
-      } else {
-        player.consecutiveFails = (player.consecutiveFails || 0) + 1;
-      }
+      let   points    = isCorrect ? calcScore(question, receivedAt) : 0;
 
       // ── Doble o Nada ──────────────────────────────────────────────────
       const isDoubleOrNothing = wildcardFlag === "doublenada";
@@ -586,9 +528,6 @@ module.exports = function (io) {
       }
       if (state.status !== "question" || !state.currentQuestion) {
         return socket.emit("wildcard:error", "No hay pregunta activa.");
-      }
-      if (state.currentQuestion.tipo_pregunta !== "alternativas") {
-        return socket.emit("wildcard:error", "El comodín 50/50 solo se puede usar en preguntas de alternativas.");
       }
 
       // Quitar de la lista de disponibles
@@ -733,8 +672,226 @@ module.exports = function (io) {
       }
     });
 
+    // ══════════════════════════════════════════════════════════════════
+    // LA CORTE DE LA ARENA (AI JUDGE SYSTEM)
+    // ══════════════════════════════════════════════════════════════════
 
+    /** Estudiante apela su castigo */
+    socket.on("trivia:appeal", ({ rut, nombre }) => {
+      if (!state.disqualifiedPlayers.has(rut)) return;
+      if (state.courtSession.active) return;
 
+      const defendant = state.players[rut] || { rut, nombre: nombre || 'Estudiante' };
+      const candidates = Object.keys(state.players).filter(r => 
+        r !== rut && !state.disqualifiedPlayers.has(r)
+      );
+
+      let candidatesForSession = [];
+      let lawyerDesignated = null;
+
+      if (candidates.length === 0) {
+        lawyerDesignated = { rut: 'AI_LAWYER', nombre: 'Defensor de Oficio (IA)' };
+        candidatesForSession = [lawyerDesignated];
+      } else {
+        candidatesForSession = candidates.map(r => ({ rut: r, nombre: state.players[r].nombre }));
+      }
+
+      // Etapa 1: Ruleta
+      const evidenceRecords = buildEvidenceReport(defendant.nombre);
+      state.courtSession = {
+        active: true,
+        stage: 1,
+        defendant: { rut, nombre: defendant.nombre },
+        lawyer: null,
+        phase: 'roulette',
+        evidence: evidenceRecords,
+        aiBattle: [],
+        candidates: candidatesForSession,
+        judgeMessage: '¡SILENCIO EN LA ARENA! Una apelación ha sido presentada.',
+        argument: '',
+        defendantStatement: '',
+        verdict: null,
+        verdictReason: '',
+        timer: 7
+      };
+
+      state.isInterrupted = true;
+      io.to("triviaRoom").emit("court:start", state.courtSession);
+      broadcastAdminSnapshot();
+
+      setTimeout(() => {
+        if (candidates.length === 0) {
+          state.courtSession.lawyer = lawyerDesignated;
+        } else {
+          const WINNER_RUT = candidates[Math.floor(Math.random() * candidates.length)];
+          state.courtSession.lawyer = { rut: WINNER_RUT, nombre: state.players[WINNER_RUT].nombre };
+        }
+        advanceCourtPhase('opening');
+      }, 7000);
+    });
+
+    function advanceCourtPhase(nextPhase) {
+      if (!state.courtSession.active) return;
+      state.courtSession.phase = nextPhase;
+
+      switch (nextPhase) {
+        case 'opening':
+          state.courtSession.stage = 2;
+          state.courtSession.judgeMessage = `Audiencia Abierta. Se verifica al acusado ${state.courtSession.defendant.nombre} y su defensa ${state.courtSession.lawyer.nombre}.`;
+          state.courtSession.timer = 6;
+          io.to("triviaRoom").emit("court:update", state.courtSession);
+          setTimeout(() => advanceCourtPhase('statements'), 6000);
+          break;
+
+        case 'statements':
+          state.courtSession.stage = 3;
+          state.courtSession.judgeMessage = `Alegatos de Apertura. Fiscalía presenta cargos. Abogado ${state.courtSession.lawyer.nombre}, ¿cómo se declara su cliente?`;
+          state.courtSession.timer = 15;
+          io.to("triviaRoom").emit("court:update", state.courtSession);
+          
+          if (state.courtSession.lawyer.rut === 'AI_LAWYER') {
+            setTimeout(() => advanceCourtPhase('defendant_speech'), 5000);
+          } else {
+            const currentPhase = state.courtSession.phase;
+            setTimeout(() => { if (state.courtSession.phase === currentPhase) advanceCourtPhase('defendant_speech'); }, 15000);
+          }
+          break;
+
+        case 'defendant_speech':
+          state.courtSession.stage = 4;
+          state.courtSession.judgeMessage = `Declaración del Imputado. ${state.courtSession.defendant.nombre}, tiene la palabra.`;
+          state.courtSession.timer = 15;
+          io.to("triviaRoom").emit("court:update", state.courtSession);
+          
+          const currentPhaseDS = state.courtSession.phase;
+          setTimeout(() => { if (state.courtSession.phase === currentPhaseDS) advanceCourtPhase('evidence'); }, 15000);
+          break;
+
+        case 'evidence':
+          state.courtSession.stage = 5;
+          state.courtSession.judgeMessage = `Producción de la Prueba. Analizando registros de actividad...`;
+          state.courtSession.timer = 10;
+          io.to("triviaRoom").emit("court:update", state.courtSession);
+          setTimeout(() => advanceCourtPhase('ai_duel'), 10000);
+          break;
+
+        case 'ai_duel':
+          state.courtSession.stage = 6;
+          state.courtSession.judgeMessage = `Duelo de IAs en curso: Fiscal sintético contra Defensa sintética.`;
+          state.courtSession.timer = 12;
+          state.courtSession.aiBattle = buildAIDuel(
+            state.courtSession.evidence,
+            state.courtSession.defendant.nombre,
+            state.courtSession.lawyer.nombre
+          );
+          io.to("triviaRoom").emit("court:update", state.courtSession);
+          setTimeout(() => advanceCourtPhase('closing'), 12000);
+          break;
+
+        case 'closing':
+          state.courtSession.stage = 7;
+          state.courtSession.judgeMessage = `Alegatos de Clausura. Abogado, su última oportunidad para convencer a la Corte.`;
+          state.courtSession.timer = 15;
+          io.to("triviaRoom").emit("court:update", state.courtSession);
+          
+          if (state.courtSession.lawyer.rut === 'AI_LAWYER') {
+            setTimeout(() => {
+              state.courtSession.argument = "¡Es inocente!";
+              advanceCourtPhase('deliberation');
+            }, 5000);
+          } else {
+            const currentPhaseCL = state.courtSession.phase;
+            setTimeout(() => { if (state.courtSession.phase === currentPhaseCL) advanceCourtPhase('deliberation'); }, 15000);
+          }
+          break;
+
+        case 'deliberation':
+          state.courtSession.stage = 8;
+          state.courtSession.judgeMessage = `Cerrado el debate. El tribunal inicia la deliberación...`;
+          state.courtSession.timer = 5;
+          io.to("triviaRoom").emit("court:update", state.courtSession);
+          
+          processVerdict();
+          break;
+      }
+      broadcastAdminSnapshot();
+    }
+
+    async function processVerdict() {
+      try {
+        const battleSummary = state.courtSession.aiBattle
+          .map((item) => `${item.label}: ${item.message}`)
+          .join(' ');
+
+        const result = await getJudgeVerdict(
+          state.courtSession.defendant.nombre,
+          state.courtSession.lawyer.nombre,
+          state.courtSession.evidence,
+          `Declaración: ${state.courtSession.defendantStatement}. Argumento: ${state.courtSession.argument}`,
+          battleSummary
+        );
+
+        state.courtSession.phase = 'verdict';
+        state.courtSession.verdict = result.verdict;
+        state.courtSession.verdictReason = result.reason || '';
+        state.courtSession.judgeMessage = result.judgeSpeech;
+        state.courtSession.rewardPoints = (result.verdict === 'pardon' ? 3000 : 0);
+        
+        io.to("triviaRoom").emit("court:update", state.courtSession);
+
+        if (result.verdict === 'pardon') {
+          state.disqualifiedPlayers.delete(state.courtSession.defendant.rut);
+          const studentSocket = [...io.sockets.sockets.values()].find(s => s.handshake.query.rut === state.courtSession.defendant.rut);
+          if (studentSocket) studentSocket.emit("trivia:playerStatus", { disqualified: false });
+          
+          if (state.courtSession.lawyer.rut !== 'AI_LAWYER') {
+            addPointsToPlayer(state.courtSession.lawyer.rut, 3000);
+            broadcastFactionRanking();
+          }
+        }
+
+        setTimeout(() => {
+          state.courtSession.active = false;
+          state.isInterrupted = false;
+          io.to("triviaRoom").emit("court:closed");
+          io.to("triviaRoom").emit("trivia:resumed");
+          broadcastAdminSnapshot();
+        }, 12000);
+      } catch (err) {
+        state.courtSession.active = false;
+        state.isInterrupted = false;
+        io.to("triviaRoom").emit("court:closed");
+      }
+    }
+
+    socket.on("court:submitDefendantStatement", ({ argument }) => {
+      if (state.courtSession.phase !== 'defendant_speech') return;
+      if (socket.handshake.query.rut !== state.courtSession.defendant.rut) return;
+      state.courtSession.defendantStatement = argument;
+      advanceCourtPhase('evidence');
+    });
+
+    socket.on("court:submitOpeningStatement", ({ argument }) => {
+      if (state.courtSession.phase !== 'statements') return;
+      if (socket.handshake.query.rut !== state.courtSession.lawyer.rut) return;
+      advanceCourtPhase('defendant_speech');
+    });
+
+    socket.on("court:submitClosingArgument", ({ argument }) => {
+      if (state.courtSession.phase !== 'closing') return;
+      if (socket.handshake.query.rut !== state.courtSession.lawyer.rut) return;
+      state.courtSession.argument = argument;
+      advanceCourtPhase('deliberation');
+    });
+
+    socket.on("court:submitArgument", ({ argument }) => {
+       if (state.courtSession.phase === 'closing') {
+         state.courtSession.argument = argument;
+         advanceCourtPhase('deliberation');
+       }
+    });
+
+    // ══════════════════════════════════════════════════════════════════
     // DISCONNECT
     // ══════════════════════════════════════════════════════════════════
     socket.on("disconnect", () => {

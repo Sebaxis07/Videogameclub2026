@@ -23,7 +23,7 @@ export default function WaitingRoom() {
   const { user } = useStore();
   const isAdmin = user?.role === 'admin';
   
-  const [roomState, setRoomState] = useState({ isOpen: false, players: [], activeGame: null });
+  const [roomState, setRoomState] = useState({ isOpen: false, players: [], activeGame: null, canvasCooldownEnabled: true });
   const [clickRanking, setClickRanking] = useState([]);
   const [dinoRecord, setDinoRecord] = useState(null);
   const [simonRecord, setSimonRecord] = useState(null);
@@ -39,7 +39,7 @@ export default function WaitingRoom() {
     socket.emit('wr:join');
 
     socket.on('wr:init', (data) => {
-      setRoomState({ isOpen: data.isOpen, players: data.players, activeGame: data.activeGame });
+      setRoomState({ isOpen: data.isOpen, players: data.players, activeGame: data.activeGame, canvasCooldownEnabled: data.canvasCooldownEnabled !== false });
       setClickRanking(data.clickRanking);
       setDinoRecord(data.dinoRecord);
       setSimonRecord(data.simonRecord);
@@ -104,6 +104,7 @@ export default function WaitingRoom() {
   const setGame = (gameId) => socketRef.current?.emit('wr:admin-set-game', gameId);
   const nextCharacter = () => socketRef.current?.emit('wr:admin-new-character');
   const resetCanvas = () => socketRef.current?.emit('wr:admin-canvas-new');
+  const toggleCanvasCooldown = () => socketRef.current?.emit('wr:admin-toggle-canvas-cooldown');
 
   // Si no está abierta y es alumno
   if (!roomState.isOpen && !isAdmin) {
@@ -199,9 +200,14 @@ export default function WaitingRoom() {
                 </button>
               )}
               {roomState.activeGame === 'canvas' && (
-                <button onClick={resetCanvas} className="text-xs px-3 py-1 bg-pink-600 hover:bg-pink-500 text-white rounded-lg transition-colors">
-                  💥 Cambiar Tema (Limpia Lienzo)
-                </button>
+                <>
+                  <button onClick={toggleCanvasCooldown} className={`text-xs px-3 py-1 text-white rounded-lg transition-colors ${roomState.canvasCooldownEnabled ? 'bg-red-600 hover:bg-red-500' : 'bg-green-600 hover:bg-green-500'}`}>
+                    {roomState.canvasCooldownEnabled ? '⏳ Cooldown ON' : '⚡ Cooldown OFF'}
+                  </button>
+                  <button onClick={resetCanvas} className="text-xs px-3 py-1 bg-pink-600 hover:bg-pink-500 text-white rounded-lg transition-colors">
+                    💥 Cambiar Tema
+                  </button>
+                </>
               )}
             </div>
           </div>
@@ -220,7 +226,7 @@ export default function WaitingRoom() {
           ) : roomState.activeGame === 'simon' ? (
             <SimonSays socket={socketRef.current} record={simonRecord} />
           ) : roomState.activeGame === 'canvas' ? (
-            <PixelCanvas socket={socketRef.current} initialTopic={canvasTopic} />
+            <PixelCanvas socket={socketRef.current} initialTopic={canvasTopic} cooldownEnabled={roomState.canvasCooldownEnabled} isAdmin={isAdmin} />
           ) : null}
         </div>
       </div>

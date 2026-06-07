@@ -6,49 +6,122 @@ import { getSocket } from '../api/socket';
 const OPTIONS = ["Sí", "Más o menos", "No"];
 
 const EVAL_FIELDS = [
-  { key: 'controlHotbar', label: 'Control Hotbar' },
-  { key: 'controlCriticos', label: 'Control Criticos' },
-  { key: 'dominioPvP', label: 'Dominio en PvP' },
-  { key: 'dominioClicks', label: 'Dominio Clicks (Butterfly/Drag)' },
+  { key: 'controlHotbar',  label: 'Control Hotbar',            icon: '🎒', desc: 'Manejo ágil del inventario en combate' },
+  { key: 'controlCriticos', label: 'Control Críticos',         icon: '⚔️', desc: 'Golpes críticos con timing correcto' },
+  { key: 'dominioPvP',     label: 'Dominio en PvP',            icon: '🛡️', desc: 'Lectura y respuesta de combate' },
+  { key: 'dominioClicks',  label: 'Dominio Clicks (Butterfly/Drag)', icon: '🖱️', desc: 'Velocidad y precisión de clicks' },
 ];
 
-const BLANK_EVAL = { controlHotbar: 'Más o menos', controlCriticos: 'Más o menos', dominioPvP: 'Más o menos', dominioClicks: 'Más o menos' };
+const BLANK_EVAL = {
+  controlHotbar: 'Más o menos',
+  controlCriticos: 'Más o menos',
+  dominioPvP: 'Más o menos',
+  dominioClicks: 'Más o menos',
+};
+
+const OPTION_CONFIG = {
+  'Sí':          { color: '#4ade80', bg: 'rgba(74,222,128,0.15)', border: 'rgba(74,222,128,0.4)',  glyph: '✓' },
+  'Más o menos': { color: '#fbbf24', bg: 'rgba(251,191,36,0.15)',  border: 'rgba(251,191,36,0.4)',  glyph: '~' },
+  'No':          { color: '#f87171', bg: 'rgba(248,113,113,0.15)', border: 'rgba(248,113,113,0.4)', glyph: '✗' },
+};
+
+/* ── Reusable sub-components ─────────────────────────────────────────── */
+
+function SkillRow({ field, value, onChange, readOnly = false }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 14 }}>{field.icon}</span>
+        <span style={{ fontSize: 12, fontWeight: 700, color: '#d1d5db' }}>{field.label}</span>
+        <span style={{ fontSize: 10, color: '#4b5563', marginLeft: 'auto' }}>{field.desc}</span>
+      </div>
+      <div style={{ display: 'flex', gap: 4 }}>
+        {OPTIONS.map(opt => {
+          const cfg = OPTION_CONFIG[opt];
+          const isSelected = value === opt;
+          return readOnly ? (
+            <div
+              key={opt}
+              style={{
+                flex: 1, textAlign: 'center', padding: '7px 4px',
+                borderRadius: 8, fontSize: 11, fontWeight: 700,
+                background: isSelected ? cfg.bg : 'rgba(255,255,255,0.03)',
+                border: `1px solid ${isSelected ? cfg.border : 'rgba(255,255,255,0.06)'}`,
+                color: isSelected ? cfg.color : '#374151',
+                transition: 'all 0.2s',
+              }}
+            >
+              {isSelected && <span style={{ marginRight: 3 }}>{cfg.glyph}</span>}{opt}
+            </div>
+          ) : (
+            <label
+              key={opt}
+              style={{
+                flex: 1, textAlign: 'center', padding: '7px 4px',
+                borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: 'pointer',
+                background: isSelected ? cfg.bg : 'rgba(255,255,255,0.03)',
+                border: `1px solid ${isSelected ? cfg.border : 'rgba(255,255,255,0.06)'}`,
+                color: isSelected ? cfg.color : '#6b7280',
+                transition: 'all 0.15s',
+                userSelect: 'none',
+              }}
+              onMouseEnter={e => { if (!isSelected) e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; }}
+              onMouseLeave={e => { if (!isSelected) e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; }}
+            >
+              <input type="radio" name={`${field.key}`} value={opt} checked={isSelected}
+                onChange={() => onChange(field.key, opt)} style={{ display: 'none' }} />
+              {isSelected && <span style={{ marginRight: 3 }}>{cfg.glyph}</span>}{opt}
+            </label>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function EvalBadge({ status }) {
+  const cfg = OPTION_CONFIG[status] || { color: '#6b7280', bg: 'rgba(107,114,128,0.15)', border: 'rgba(107,114,128,0.3)', glyph: '?' };
+  return (
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', gap: 4,
+      padding: '3px 10px', borderRadius: 20, fontSize: 11, fontWeight: 700,
+      background: cfg.bg, border: `1px solid ${cfg.border}`, color: cfg.color,
+    }}>
+      {cfg.glyph} {status}
+    </span>
+  );
+}
+
+/* ── Main component ──────────────────────────────────────────────────── */
 
 export default function MinecraftEvaluation() {
   const { players, user, setPlayers } = useStore();
   const [evaluations, setEvaluations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // ── Own slot (whoever is logged in evaluates here)
   const [player1, setPlayer1Raw] = useState('');
   const [eval1, setEval1] = useState({ ...BLANK_EVAL });
 
-  // ── Partner slot (auto-filled via WebSocket)
   const [player2, setPlayer2] = useState('');
   const [eval2, setEval2] = useState({ ...BLANK_EVAL });
   const [partnerOnline, setPartnerOnline] = useState(false);
   const [partnerLabel, setPartnerLabel] = useState('');
-  const [partnerScores, setPartnerScores] = useState({});  // live scores from WS
+  const [partnerScores, setPartnerScores] = useState({});
 
   const socketRef = useRef(null);
-  const isAdmin     = user?.role === 'admin';
-  const isAssistant = user?.role === 'asistente';
+  const isAdmin          = user?.role === 'admin';
+  const isAssistant      = user?.role === 'asistente';
   const isAdminOrAssistant = isAdmin || isAssistant;
 
-  // My role label for display
-  const myLabel      = isAdmin ? 'Admin' : 'Asistente';
-  const partnerRole  = isAdmin ? 'asistente' : 'admin';   // who the partner IS
+  const myLabel     = isAdmin ? 'Admin' : 'Asistente';
+  const partnerRole = isAdmin ? 'asistente' : 'admin';
 
-  // ───────────────────────────────────────────────────────────────────────────
-  // WebSocket setup
-  // ───────────────────────────────────────────────────────────────────────────
+  /* WebSocket */
   useEffect(() => {
     if (!isAdminOrAssistant) return;
-
     const socket = getSocket(user.role);
     socketRef.current = socket;
 
-    // Receive initial full state
     socket.on('eval:fullState', (state) => {
       const partnerData = state[partnerRole];
       if (partnerData?.rut) {
@@ -59,8 +132,7 @@ export default function MinecraftEvaluation() {
       }
     });
 
-    // Receive live updates when partner changes player OR ratings
-    socket.on('eval:partnerUpdate', ({ role, rut, nombre, scores }) => {
+    socket.on('eval:partnerUpdate', ({ role, rut, scores }) => {
       if (role === partnerRole) {
         setPlayer2(rut || '');
         setPartnerScores(scores || {});
@@ -75,24 +147,31 @@ export default function MinecraftEvaluation() {
     };
   }, [isAdminOrAssistant, partnerRole, user?.role]);
 
-  // Helper: emit current own state (player + scores)
   const emitMyState = (rut, nombre, scores) => {
-    socketRef.current?.emit('eval:update', {
-      role: user.role,
-      rut: rut || null,
-      nombre: nombre || null,
-      scores,
-    });
+    socketRef.current?.emit('eval:update', { role: user.role, rut: rut || null, nombre: nombre || null, scores });
   };
 
-  // When I change my own player selection → emit
   const setPlayer1 = (rut) => {
     setPlayer1Raw(rut);
     const p = players.find(pl => pl.rut === rut);
-    emitMyState(rut, p?.nombre, eval1);
+    
+    let newEval = { ...BLANK_EVAL };
+    if (rut) {
+      const existingEval = evaluations.find(ev => ev.jugador?.rut === rut);
+      if (existingEval) {
+        newEval = {
+          controlHotbar: existingEval.controlHotbar || 'Más o menos',
+          controlCriticos: existingEval.controlCriticos || 'Más o menos',
+          dominioPvP: existingEval.dominioPvP || 'Más o menos',
+          dominioClicks: existingEval.dominioClicks || 'Más o menos',
+        };
+      }
+    }
+    
+    setEval1(newEval);
+    emitMyState(rut, p?.nombre, newEval);
   };
 
-  // When I change any radio → update local state AND emit
   const handleEval1Change = (key, value) => {
     const next = { ...eval1, [key]: value };
     setEval1(next);
@@ -100,9 +179,7 @@ export default function MinecraftEvaluation() {
     emitMyState(player1, p?.nombre, next);
   };
 
-  // ───────────────────────────────────────────────────────────────────────────
-  // Data loading
-  // ───────────────────────────────────────────────────────────────────────────
+  /* Data */
   useEffect(() => {
     if (isAdminOrAssistant) fetchEvaluations();
     if (players.length === 0) loadPlayers();
@@ -112,19 +189,16 @@ export default function MinecraftEvaluation() {
     try {
       const res = await fetchPlayers();
       if (res?.players) setPlayers(res.players);
-    } catch (e) { console.error("Error fetching players", e); }
+    } catch (e) { console.error(e); }
   };
 
   const fetchEvaluations = async () => {
     try {
       const res = await fetch('/api/minecraft-eval');
       if (res.ok) setEvaluations(await res.json());
-    } catch (e) { console.error("Error fetching evaluations", e); }
+    } catch (e) { console.error(e); }
   };
 
-  // ───────────────────────────────────────────────────────────────────────────
-  // Save
-  // ───────────────────────────────────────────────────────────────────────────
   const handleSave = async () => {
     setIsLoading(true);
     const toSave = [];
@@ -133,287 +207,378 @@ export default function MinecraftEvaluation() {
       toSave.push({ jugador: { rut: p1Obj.rut, nombre: p1Obj.nombre }, ...eval1 });
     }
     if (player2 && isAdmin) {
-      // Only Admin saves both; assistant only saves their own
       const p2Obj = players.find(p => p.rut === player2);
-      if (p2Obj) toSave.push({ jugador: { rut: p2Obj.rut, nombre: p2Obj.nombre }, ...eval2 });
+      if (p2Obj) toSave.push({ jugador: { rut: p2Obj.rut, nombre: p2Obj.nombre }, ...partnerScores });
     }
-
-    if (toSave.length === 0) {
-      alert("Selecciona al menos un jugador para evaluar.");
-      setIsLoading(false);
-      return;
-    }
-    if (player1 && player2 && player1 === player2) {
-      alert("No puedes evaluar al mismo jugador en ambas columnas.");
-      setIsLoading(false);
-      return;
-    }
+    if (toSave.length === 0) { alert('Selecciona al menos un jugador.'); setIsLoading(false); return; }
+    if (player1 && player2 && player1 === player2) { alert('No puedes evaluar al mismo jugador en ambas columnas.'); setIsLoading(false); return; }
 
     try {
       const res = await fetch('/api/minecraft-eval', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ evaluations: toSave })
+        body: JSON.stringify({ evaluations: toSave }),
       });
       if (res.ok) {
-        setPlayer1(''); // also emits WS clear
-        setEval1({ ...BLANK_EVAL });
-        setEval2({ ...BLANK_EVAL });
+        setPlayer1('');
         fetchEvaluations();
-      } else {
-        alert("Hubo un error al guardar las evaluaciones.");
-      }
-    } catch (e) {
-      console.error("Save error", e);
-      alert("Error de red.");
-    } finally {
-      setIsLoading(false);
-    }
+      } else alert('Error al guardar.');
+    } catch (e) { alert('Error de red.'); }
+    finally { setIsLoading(false); }
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("¿Estás seguro de eliminar esta calificación?")) return;
+    if (!window.confirm('¿Eliminar esta evaluación?')) return;
     try {
       const res = await fetch(`/api/minecraft-eval/${id}`, { method: 'DELETE' });
       if (res.ok) fetchEvaluations();
-      else alert("Error al eliminar la calificación");
-    } catch (e) { console.error(e); alert("Error de red"); }
+    } catch { alert('Error de red'); }
   };
 
   if (!isAdminOrAssistant) return null;
 
-  // ──────────────────────────────────────────────────────────────────────────
-  // Helpers
-  // ──────────────────────────────────────────────────────────────────────────
   const partnerPlayerObj = players.find(p => p.rut === player2);
-  const partnerName = partnerPlayerObj?.nombre || '';
+  const partnerName      = partnerPlayerObj?.nombre || '';
+
+  /* ── Styles ── */
+  const cardStyle = (accent = '#4ade80') => ({
+    background: 'rgba(10, 20, 12, 0.85)',
+    border: `1px solid ${accent}22`,
+    borderRadius: 18,
+    padding: 22,
+    backdropFilter: 'blur(12px)',
+    position: 'relative',
+    overflow: 'hidden',
+  });
 
   return (
-    <div className="flex flex-col gap-6 animate-fade-in">
-      <div className="bg-surface-card border border-surface-border p-6 rounded-2xl relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-1.5 h-full bg-brand" />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24, animation: 'mcFadeIn 0.4s ease' }}>
+      <style>{`
+        @keyframes mcFadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes mcPulse  { 0%,100% { box-shadow:0 0 0 0 rgba(74,222,128,0.5); } 50% { box-shadow:0 0 0 6px rgba(74,222,128,0); } }
+        @keyframes mcSpin   { to { transform:rotate(360deg); } }
+        .mc-btn { transition: all 0.18s ease !important; }
+        .mc-btn:hover:not(:disabled) { transform: translateY(-1px) !important; filter: brightness(1.1); }
+        .mc-btn:active:not(:disabled) { transform: translateY(0) !important; }
+        .mc-row:hover { background: rgba(74,222,128,0.05) !important; }
+      `}</style>
 
-        {/* Header */}
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6 text-brand-light">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-            Evaluación Minecraft PvP Simultánea
+      {/* ── Header ───────────────────────────────────────── */}
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(5,46,22,0.9) 0%, rgba(8,15,10,0.95) 100%)',
+        border: '1px solid rgba(74,222,128,0.2)',
+        borderRadius: 20, padding: '20px 26px',
+        display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap',
+        boxShadow: '0 8px 40px rgba(74,222,128,0.08), inset 0 1px 0 rgba(255,255,255,0.05)',
+      }}>
+        <div style={{
+          width: 56, height: 56, borderRadius: 14, flexShrink: 0,
+          background: 'linear-gradient(135deg, #166534, #14532d)',
+          border: '2px solid rgba(74,222,128,0.3)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 28, boxShadow: '0 4px 20px rgba(74,222,128,0.2)',
+        }}>⚔️</div>
+        <div style={{ flex: 1 }}>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 900, color: '#fff',
+            background: 'linear-gradient(90deg, #fff 30%, #4ade80)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            Evaluación Minecraft PvP
           </h2>
-
-          {/* Live sync indicator */}
-          <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border transition-all ${
-            partnerOnline
-              ? 'bg-green-500/10 border-green-500/30 text-green-400'
-              : 'bg-surface border-surface-border text-gray-500'
-          }`}>
-            <span className={`w-2 h-2 rounded-full ${partnerOnline ? 'bg-green-400 animate-pulse' : 'bg-gray-600'}`} />
-            {partnerOnline
-              ? `🔗 Sync con ${partnerLabel}: evaluando "${partnerName}"`
-              : `⬜ Esperando a ${partnerRole === 'admin' ? 'Admin' : 'Asistente'}...`}
-          </div>
+          <p style={{ margin: '4px 0 0', fontSize: 12, color: '#6b7280' }}>
+            Evaluando simultáneamente con dos evaluadores · Sincronización en tiempo real
+          </p>
         </div>
 
-        <p className="text-sm text-gray-400 mb-6 max-w-2xl">
-          <strong className="text-brand-light">{myLabel}</strong>: selecciona tu jugador en <em>Escrutinio A</em>.
-          El <em>Escrutinio B</em> se sincroniza automáticamente con lo que evalúa tu compañero.
-        </p>
+        {/* Sync badge */}
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 8,
+          padding: '8px 16px', borderRadius: 40,
+          background: partnerOnline ? 'rgba(74,222,128,0.1)' : 'rgba(255,255,255,0.04)',
+          border: `1px solid ${partnerOnline ? 'rgba(74,222,128,0.3)' : 'rgba(255,255,255,0.08)'}`,
+          fontSize: 12, fontWeight: 600,
+          color: partnerOnline ? '#4ade80' : '#4b5563',
+        }}>
+          <span style={{
+            width: 8, height: 8, borderRadius: '50%', flexShrink: 0,
+            background: partnerOnline ? '#4ade80' : '#374151',
+            animation: partnerOnline ? 'mcPulse 2s infinite' : 'none',
+          }} />
+          {partnerOnline
+            ? `🔗 ${partnerLabel} · "${partnerName}"`
+            : `⬜ Esperando a ${partnerRole === 'admin' ? 'Admin' : 'Asistente'}…`}
+        </div>
+      </div>
 
-        {/* Evaluation grids */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* ── Instruction strip ────────────────────────────── */}
+      <div style={{
+        background: 'rgba(74,222,128,0.06)', border: '1px solid rgba(74,222,128,0.12)',
+        borderRadius: 12, padding: '12px 18px', fontSize: 13, color: '#9ca3af',
+        borderLeft: '3px solid #4ade80',
+      }}>
+        <strong style={{ color: '#4ade80' }}>{myLabel}</strong>: selecciona tu jugador en{' '}
+        <em style={{ color: '#d1d5db' }}>Escrutinio A</em>. El{' '}
+        <em style={{ color: '#d1d5db' }}>Escrutinio B</em> se sincroniza automáticamente con tu compañero.
+      </div>
 
-          {/* ── Escrutinio A — My player (editable) ── */}
-          <div className="bg-surface border border-surface-border p-5 rounded-xl flex flex-col gap-4">
-            <h3 className="text-sm font-semibold text-brand tracking-widest uppercase flex items-center gap-2">
-              Escrutinio A
-              <span className="text-[10px] bg-brand/15 text-brand-light px-2 py-0.5 rounded-full border border-brand/30 normal-case">
-                {myLabel} (Tú)
-              </span>
-            </h3>
+      {/* ── Dual evaluation columns ───────────────────────── */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
 
+        {/* ── Escrutinio A — editable ─── */}
+        <div style={{ ...cardStyle('#4ade80'), border: '1px solid rgba(74,222,128,0.2)' }}>
+          {/* top accent bar */}
+          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: 3,
+            background: 'linear-gradient(90deg, #4ade80, #16a34a)', borderRadius: '18px 18px 0 0' }} />
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
+            <div style={{
+              width: 32, height: 32, borderRadius: 10,
+              background: 'rgba(74,222,128,0.15)', border: '1px solid rgba(74,222,128,0.3)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16,
+            }}>A</div>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 800, color: '#4ade80' }}>Escrutinio A</div>
+              <div style={{ fontSize: 10, color: '#6b7280' }}>{myLabel} (Tú)</div>
+            </div>
+            <div style={{
+              marginLeft: 'auto', padding: '3px 10px', borderRadius: 20,
+              background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)',
+              fontSize: 10, fontWeight: 700, color: '#4ade80',
+            }}>EDITABLE</div>
+          </div>
+
+          {/* Player select */}
+          <div style={{ marginBottom: 16, position: 'relative' }}>
             <select
+              id="mc-eval-player1-select"
               value={player1}
-              onChange={(e) => setPlayer1(e.target.value)}
-              className="w-full bg-surface-card border border-surface-border rounded-lg text-white px-3 py-2 text-sm focus:outline-none focus:border-brand transition-colors"
+              onChange={e => setPlayer1(e.target.value)}
+              style={{
+                width: '100%', background: 'rgba(0,0,0,0.4)',
+                border: '1px solid rgba(74,222,128,0.2)', borderRadius: 12,
+                padding: '10px 14px', color: player1 ? '#fff' : '#6b7280',
+                fontSize: 13, outline: 'none', cursor: 'pointer',
+                appearance: 'none', WebkitAppearance: 'none',
+              }}
             >
-              <option value="">Seleccionar Jugador 1...</option>
+              <option value="">👤 Seleccionar Jugador 1...</option>
               {players.map(p => {
                 const isEval = evaluations.some(ev => ev.jugador?.rut === p.rut);
                 return (
                   <option key={p.rut} value={p.rut}>
-                    {p.nombre}{isEval ? ' ✔️ -EVALUADO-' : ''}
+                    {p.nombre}{isEval ? ' ✔ (Evaluado)' : ''}
                   </option>
                 );
               })}
             </select>
-
-            <div className="flex flex-col gap-4">
-              {EVAL_FIELDS.map((field) => (
-                <div key={`p1-${field.key}`}>
-                  <label className="text-sm text-gray-300 font-medium mb-2 block">{field.label}</label>
-                  <div className="flex bg-surface-card rounded-lg border border-surface-border overflow-hidden">
-                    {OPTIONS.map(opt => {
-                      const isSelected = eval1[field.key] === opt;
-                      return (
-                        <label key={opt} className={`flex-1 text-center py-2 text-xs font-semibold cursor-pointer transition-colors border-r last:border-0 border-surface-border ${isSelected ? 'bg-brand/20 text-brand-light' : 'text-gray-500 hover:bg-surface-hover hover:text-gray-300'}`}>
-                          <input
-                            type="radio"
-                            name={`p1-${field.key}`}
-                            value={opt}
-                            checked={isSelected}
-                            onChange={() => handleEval1Change(field.key, opt)}
-                            className="hidden"
-                          />
-                          {opt}
-                        </label>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
+            <span style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', color: '#4ade80', pointerEvents: 'none' }}>▾</span>
           </div>
 
-          {/* ── Escrutinio B — Partner's player (WS-synced) ── */}
-          <div className={`border p-5 rounded-xl flex flex-col gap-4 transition-all ${
-            partnerOnline
-              ? 'bg-surface border-yellow-500/30'
-              : 'bg-surface/50 border-surface-border opacity-50'
-          }`}>
-            <h3 className="text-sm font-semibold text-yellow-500 tracking-widest uppercase flex items-center gap-2">
-              Escrutinio B
-              <span className="text-[10px] bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full border border-yellow-500/30 normal-case">
-                {partnerLabel || (partnerRole === 'admin' ? 'Admin' : 'Asistente')} (Compañero)
-              </span>
-              {partnerOnline && (
-                <span className="ml-auto text-[10px] text-green-400 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse inline-block" />
-                  En Vivo
-                </span>
-              )}
-            </h3>
-
-            {/* Read-only display of partner's selected player */}
-            <div className={`rounded-lg border px-3 py-2 text-sm font-medium transition-all ${
-              partnerOnline && partnerName
-                ? 'bg-yellow-500/10 border-yellow-500/40 text-yellow-200'
-                : 'bg-surface-card border-surface-border text-gray-600 italic'
-            }`}>
-              {partnerOnline && partnerName
-                ? `👤 ${partnerName}`
-                : 'Sin selección del compañero aún...'}
-            </div>
-
-            {/* Live partner ratings — always shown when partner online */}
-            {partnerOnline && (
-              <div className="flex flex-col gap-3">
-                {EVAL_FIELDS.map((field) => {
-                  const val = partnerScores[field.key];
-                  return (
-                    <div key={`partner-${field.key}`}>
-                      <label className="text-xs text-gray-500 font-medium mb-1.5 block">{field.label}</label>
-                      <div className="flex bg-surface-card rounded-lg border border-surface-border overflow-hidden opacity-80">
-                        {OPTIONS.map(opt => {
-                          const isSelected = val === opt;
-                          let activeStyle = 'bg-yellow-500/20 text-yellow-400';
-                          if (isSelected && opt === 'Sí')           activeStyle = 'bg-green-500/20 text-green-400';
-                          if (isSelected && opt === 'No')           activeStyle = 'bg-red-500/20 text-red-400';
-                          if (isSelected && opt === 'Más o menos')  activeStyle = 'bg-yellow-500/20 text-yellow-400';
-                          return (
-                            <div
-                              key={opt}
-                              className={`flex-1 text-center py-2 text-xs font-semibold border-r last:border-0 border-surface-border select-none ${
-                                isSelected ? activeStyle : 'text-gray-600'
-                              }`}
-                            >
-                              {isSelected && <span className="mr-0.5">●</span>}{opt}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {!partnerOnline && (
-              <p className="text-xs text-gray-600 italic mt-auto">
-                Se rellenará automáticamente cuando el {partnerRole === 'admin' ? 'Admin' : 'Asistente'} seleccione un jugador.
-              </p>
-            )}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {EVAL_FIELDS.map(field => (
+              <SkillRow key={field.key} field={field} value={eval1[field.key]} onChange={handleEval1Change} />
+            ))}
           </div>
         </div>
 
-        <div className="mt-6 flex justify-end">
-          <button
-            onClick={handleSave}
-            disabled={isLoading || !player1}
-            className="bg-brand hover:brightness-110 text-white font-bold py-2 px-6 rounded-lg shadow-lg shadow-brand/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-          >
-            {isLoading ? 'Guardando...' : (isAdmin ? 'Guardar Ambos Registros' : 'Guardar Mi Evaluación')}
-          </button>
+        {/* ── Escrutinio B — read-only (partner) ─── */}
+        <div style={{
+          ...cardStyle('#fbbf24'),
+          border: `1px solid ${partnerOnline ? 'rgba(251,191,36,0.25)' : 'rgba(255,255,255,0.05)'}`,
+          opacity: partnerOnline ? 1 : 0.65,
+          transition: 'all 0.3s',
+        }}>
+          <div style={{
+            position: 'absolute', top: 0, left: 0, width: '100%', height: 3,
+            background: partnerOnline
+              ? 'linear-gradient(90deg, #fbbf24, #d97706)'
+              : 'rgba(255,255,255,0.08)',
+            borderRadius: '18px 18px 0 0',
+          }} />
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
+            <div style={{
+              width: 32, height: 32, borderRadius: 10,
+              background: partnerOnline ? 'rgba(251,191,36,0.15)' : 'rgba(255,255,255,0.05)',
+              border: `1px solid ${partnerOnline ? 'rgba(251,191,36,0.3)' : 'rgba(255,255,255,0.08)'}`,
+              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16,
+              color: partnerOnline ? '#fbbf24' : '#4b5563',
+            }}>B</div>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 800, color: partnerOnline ? '#fbbf24' : '#4b5563' }}>Escrutinio B</div>
+              <div style={{ fontSize: 10, color: '#6b7280' }}>{partnerLabel || (partnerRole === 'admin' ? 'Admin' : 'Asistente')} (Compañero)</div>
+            </div>
+            {partnerOnline && (
+              <div style={{
+                marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 5,
+                padding: '3px 10px', borderRadius: 20,
+                background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.25)',
+                fontSize: 10, fontWeight: 700, color: '#4ade80',
+              }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80', display: 'inline-block' }} />
+                EN VIVO
+              </div>
+            )}
+          </div>
+
+          {/* Partner player display */}
+          <div style={{
+            marginBottom: 16, padding: '10px 14px', borderRadius: 12,
+            background: partnerOnline && partnerName ? 'rgba(251,191,36,0.08)' : 'rgba(255,255,255,0.03)',
+            border: `1px solid ${partnerOnline && partnerName ? 'rgba(251,191,36,0.2)' : 'rgba(255,255,255,0.06)'}`,
+            fontSize: 13, fontWeight: 600,
+            color: partnerOnline && partnerName ? '#fde68a' : '#374151',
+            fontStyle: partnerOnline && partnerName ? 'normal' : 'italic',
+          }}>
+            {partnerOnline && partnerName ? `👤 ${partnerName}` : 'Sin selección del compañero aún…'}
+          </div>
+
+          {partnerOnline ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              {EVAL_FIELDS.map(field => (
+                <SkillRow key={field.key} field={field} value={partnerScores[field.key] || 'Más o menos'} readOnly />
+              ))}
+            </div>
+          ) : (
+            <div style={{ textAlign: 'center', padding: '30px 0', color: '#374151' }}>
+              <div style={{ fontSize: 36, marginBottom: 8 }}>📡</div>
+              <p style={{ fontSize: 13, fontWeight: 600 }}>
+                Esperando conexión del {partnerRole === 'admin' ? 'Admin' : 'Asistente'}…
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Tabla de Registros */}
-      <div className="bg-surface-card border border-surface-border rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-surface-border bg-surface flex justify-between items-center">
-          <h3 className="text-lg font-bold text-white">Tabla de Calificaciones Almacenadas</h3>
-          <span className="text-xs text-gray-500">Visible sólo por Admin y Asistente</span>
+      {/* ── Save Button ───────────────────────────────────── */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <button
+          id="mc-eval-save-btn"
+          className="mc-btn"
+          onClick={handleSave}
+          disabled={isLoading || !player1}
+          style={{
+            background: isLoading || !player1
+              ? 'rgba(74,222,128,0.2)'
+              : 'linear-gradient(135deg, #16a34a 0%, #4ade80 100%)',
+            border: `1px solid ${!player1 ? 'rgba(74,222,128,0.1)' : 'rgba(74,222,128,0.4)'}`,
+            borderRadius: 14, padding: '12px 28px', color: '#fff',
+            fontWeight: 800, fontSize: 15, cursor: !player1 || isLoading ? 'not-allowed' : 'pointer',
+            opacity: !player1 ? 0.5 : 1,
+            boxShadow: player1 ? '0 6px 24px rgba(74,222,128,0.25)' : 'none',
+            display: 'flex', alignItems: 'center', gap: 10,
+          }}
+        >
+          {isLoading ? (
+            <>
+              <span style={{ width: 14, height: 14, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', display: 'inline-block', animation: 'mcSpin 0.8s linear infinite' }} />
+              Guardando…
+            </>
+          ) : (
+            <>
+              💾 {isAdmin ? 'Guardar Ambos Registros' : 'Guardar Mi Evaluación'}
+            </>
+          )}
+        </button>
+      </div>
+
+      {/* ── Stored evaluations table ──────────────────────── */}
+      <div style={{
+        background: 'rgba(10,15,12,0.9)', border: '1px solid rgba(74,222,128,0.12)',
+        borderRadius: 18, overflow: 'hidden',
+        boxShadow: '0 4px 30px rgba(0,0,0,0.3)',
+      }}>
+        {/* Table header */}
+        <div style={{
+          padding: '16px 22px',
+          background: 'linear-gradient(90deg, rgba(22,101,52,0.6), rgba(10,15,12,0.6))',
+          borderBottom: '1px solid rgba(74,222,128,0.12)',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 18 }}>📊</span>
+            <div>
+              <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: '#fff' }}>Registros de Evaluación</h3>
+              <p style={{ margin: 0, fontSize: 11, color: '#6b7280' }}>{evaluations.length} jugador{evaluations.length !== 1 ? 'es' : ''} evaluado{evaluations.length !== 1 ? 's' : ''}</p>
+            </div>
+          </div>
+          <span style={{
+            padding: '4px 12px', borderRadius: 20, fontSize: 10, fontWeight: 700,
+            background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80',
+          }}>🔒 Solo Admin & Asistente</span>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-max">
-            <thead className="bg-[#0b64be] text-white">
-              <tr>
-                <th className="px-4 py-3 text-xs uppercase tracking-wider font-semibold border-r border-[#095199]">Estudiante</th>
-                <th className="px-4 py-3 text-xs uppercase tracking-wider font-semibold border-r border-[#095199]">Control Hotbar</th>
-                <th className="px-4 py-3 text-xs uppercase tracking-wider font-semibold border-r border-[#095199]">Control Críticos</th>
-                <th className="px-4 py-3 text-xs uppercase tracking-wider font-semibold border-r border-[#095199]">Dominio PvP</th>
-                <th className="px-4 py-3 text-xs uppercase tracking-wider font-semibold border-r border-[#095199]">Dom. Clicks</th>
-                {isAdmin && <th className="px-4 py-3 text-xs uppercase tracking-wider font-semibold">Acciones</th>}
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 580 }}>
+            <thead>
+              <tr style={{ background: 'rgba(22,101,52,0.3)' }}>
+                {['Estudiante', 'Control Hotbar', 'Control Críticos', 'Dominio PvP', 'Dom. Clicks', ...(isAdmin ? ['Acciones'] : [])].map(h => (
+                  <th key={h} style={{
+                    padding: '12px 18px', textAlign: 'left',
+                    fontSize: 11, fontWeight: 700, color: '#4ade80',
+                    textTransform: 'uppercase', letterSpacing: '0.06em',
+                    borderBottom: '1px solid rgba(74,222,128,0.15)',
+                  }}>{h}</th>
+                ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-surface-border bg-surface text-sm">
+            <tbody>
               {evaluations.length === 0 ? (
                 <tr>
-                  <td colSpan={isAdmin ? 6 : 5} className="px-4 py-8 text-center text-gray-500">Aún no se ha evaluado a ningún estudiante.</td>
-                </tr>
-              ) : evaluations.map((ev) => (
-                <tr key={ev._id} className="hover:bg-surface-hover transition-colors">
-                  <td className="px-4 py-3 font-medium text-brand-light whitespace-nowrap">
-                    {ev.jugador ? ev.jugador.nombre : 'Estudiante Eliminado'}
+                  <td colSpan={isAdmin ? 6 : 5} style={{ padding: '48px 24px', textAlign: 'center', color: '#374151' }}>
+                    <div style={{ fontSize: 36, marginBottom: 10 }}>⚔️</div>
+                    <p style={{ margin: 0, fontWeight: 600 }}>Aún no hay evaluaciones registradas.</p>
+                    <p style={{ margin: '6px 0 0', fontSize: 12, color: '#374151' }}>Evalúa jugadores usando el formulario de arriba.</p>
                   </td>
-                  <td className="px-4 py-3 whitespace-nowrap"><Badge status={ev.controlHotbar} /></td>
-                  <td className="px-4 py-3 whitespace-nowrap"><Badge status={ev.controlCriticos} /></td>
-                  <td className="px-4 py-3 whitespace-nowrap"><Badge status={ev.dominioPvP} /></td>
-                  <td className="px-4 py-3 whitespace-nowrap"><Badge status={ev.dominioClicks} /></td>
-                  {isAdmin && (
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      <button
-                        onClick={() => handleDelete(ev._id)}
-                        className="text-red-400 hover:text-red-300 transition-colors text-xs font-bold"
-                      >
-                        Eliminar
-                      </button>
-                    </td>
-                  )}
                 </tr>
-              ))}
+              ) : (
+                evaluations.map((ev, idx) => (
+                  <tr
+                    key={ev._id}
+                    className="mc-row"
+                    style={{
+                      borderBottom: '1px solid rgba(255,255,255,0.04)',
+                      background: idx % 2 === 0 ? 'rgba(255,255,255,0.01)' : 'transparent',
+                      transition: 'background 0.15s',
+                    }}
+                  >
+                    <td style={{ padding: '12px 18px', fontWeight: 700, color: '#e2e8f0', whiteSpace: 'nowrap' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <div style={{
+                          width: 32, height: 32, borderRadius: 8, flexShrink: 0,
+                          background: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.2)',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          fontSize: 11, fontWeight: 800, color: '#4ade80',
+                        }}>
+                          {(ev.jugador?.nombre || '??').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
+                        </div>
+                        {ev.jugador ? ev.jugador.nombre : <span style={{ color: '#4b5563', fontStyle: 'italic' }}>Estudiante eliminado</span>}
+                      </div>
+                    </td>
+                    <td style={{ padding: '12px 18px', whiteSpace: 'nowrap' }}><EvalBadge status={ev.controlHotbar} /></td>
+                    <td style={{ padding: '12px 18px', whiteSpace: 'nowrap' }}><EvalBadge status={ev.controlCriticos} /></td>
+                    <td style={{ padding: '12px 18px', whiteSpace: 'nowrap' }}><EvalBadge status={ev.dominioPvP} /></td>
+                    <td style={{ padding: '12px 18px', whiteSpace: 'nowrap' }}><EvalBadge status={ev.dominioClicks} /></td>
+                    {isAdmin && (
+                      <td style={{ padding: '12px 18px', whiteSpace: 'nowrap' }}>
+                        <button
+                          className="mc-btn"
+                          onClick={() => handleDelete(ev._id)}
+                          style={{
+                            background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)',
+                            borderRadius: 8, padding: '5px 12px', color: '#f87171',
+                            fontSize: 11, fontWeight: 700, cursor: 'pointer',
+                          }}
+                        >
+                          🗑 Eliminar
+                        </button>
+                      </td>
+                    )}
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
       </div>
     </div>
   );
-}
-
-function Badge({ status }) {
-  let bg = "bg-gray-500/20 text-gray-400";
-  if (status === "Sí")           bg = "bg-green-500/20 text-green-400 border border-green-500/30";
-  if (status === "Más o menos")  bg = "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30";
-  if (status === "No")           bg = "bg-red-500/20 text-red-400 border border-red-500/30";
-  return <span className={`px-2 py-1 rounded inline-flex text-xs font-semibold ${bg}`}>{status}</span>;
 }

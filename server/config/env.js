@@ -14,9 +14,10 @@ const config = {
   SHEET_NAME: process.env.SHEET_NAME || "ClubVideojuegos",
   
   // Auth Config
+  GOOGLE_SERVICE_ACCOUNT_KEY_JSON: process.env.GOOGLE_SERVICE_ACCOUNT_KEY_JSON,
   GOOGLE_SERVICE_ACCOUNT_KEY_FILE: process.env.GOOGLE_SERVICE_ACCOUNT_KEY_FILE
     ? path.resolve(process.env.GOOGLE_SERVICE_ACCOUNT_KEY_FILE)
-    : path.resolve("./serviceAccountKey.json"),
+    : null,
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || "Becky0704"
 };
 
@@ -25,8 +26,8 @@ const missingVars = [];
 if (!config.SPREADSHEET_ID) {
   missingVars.push("SPREADSHEET_ID");
 }
-if (!config.GOOGLE_SERVICE_ACCOUNT_KEY_FILE) {
-  missingVars.push("GOOGLE_SERVICE_ACCOUNT_KEY_FILE");
+if (!config.GOOGLE_SERVICE_ACCOUNT_KEY_JSON && !config.GOOGLE_SERVICE_ACCOUNT_KEY_FILE) {
+  missingVars.push("GOOGLE_SERVICE_ACCOUNT_KEY_JSON o GOOGLE_SERVICE_ACCOUNT_KEY_FILE");
 }
 
 if (missingVars.length > 0) {

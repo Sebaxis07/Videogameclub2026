@@ -222,6 +222,11 @@ export default function AdminTrivia() {
       setActiveTab('control');
     });
 
+    s.on('trivia:prepared', (info) => {
+      // Opcional: mostrar una notificación o forzar el tab de control
+      console.log("Trivia preparada automáticamente:", info);
+    });
+
     return () => {
       s.off('admin:trivia:snapshot');
       s.off('trivia:ranking');
@@ -334,6 +339,22 @@ export default function AdminTrivia() {
         </div>
       </div>
 
+      {/* ── Treasure Roulette Notice ───────────────────────────────────────── */}
+      {snapshot?.isRouletteActive && (
+        <div className="bg-brand/10 border-2 border-brand/50 rounded-2xl p-5 flex flex-col md:flex-row items-center gap-4 animate-pulse">
+          <div className="w-12 h-12 bg-brand/20 rounded-full flex items-center justify-center shrink-0">
+            <span className="text-2xl">💎</span>
+          </div>
+          <div className="flex-1 text-center md:text-left">
+            <h4 className="text-brand-light font-black text-lg">Ruleta del Tesoro Activa</h4>
+            <p className="text-white text-sm">
+              Un alumno ha activado un evento especial. El tiempo se ha detenido automáticamente.
+            </p>
+            <p className="text-[10px] text-brand-light/70 uppercase tracking-widest mt-1 font-bold">La partida se reanudará cuando termine la animación.</p>
+          </div>
+        </div>
+      )}
+
       {/* ── Cheat Alert Notice ─────────────────────────────────────────────── */}
       {cheatAlert && (
         <div className="bg-red-500/10 border-2 border-red-500/50 rounded-2xl p-5 flex flex-col md:flex-row items-center gap-4">
@@ -382,6 +403,56 @@ export default function AdminTrivia() {
               color="text-emerald-400"
             />
           </div>
+
+          {/* ── 📝 PREPARACIÓN AUTOMÁTICA NOTICE ─────────────────────────────── */}
+          {snapshot?.preparationInfo && (
+            <div className="bg-brand/10 border-2 border-brand/40 rounded-3xl p-6 flex flex-col md:flex-row items-center gap-6 animate-fade-in relative overflow-hidden">
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand/5 to-transparent -translate-x-full animate-[shimmer_3s_infinite]" />
+              
+              <div className="w-16 h-16 bg-brand/20 rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-brand/10">
+                <span className="text-3xl">⚙️</span>
+              </div>
+              
+              <div className="flex-1 text-center md:text-left relative z-10">
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <h4 className="text-brand-light font-black text-xl">Trivia Preparada Automáticamente</h4>
+                  <span className="bg-green-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter">Listo para iniciar</span>
+                </div>
+                <p className="text-gray-300 text-sm mb-3">
+                  El sistema ha filtrado <span className="text-white font-black">{snapshot.preparationInfo.questionCount} preguntas</span> de los juegos ganadores.
+                </p>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    onClick={handleStart}
+                    className="flex items-center gap-2 px-5 py-2.5 bg-green-500 hover:bg-green-400 text-gray-900 font-black rounded-xl transition-all hover:scale-105 shadow-lg shadow-green-500/20 text-sm"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    ABRIR ARENA PARA ESTUDIANTES
+                  </button>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {snapshot.preparationInfo.top3.map((game, i) => (
+                      <span key={game} className="bg-surface/50 border border-surface-border/50 px-2 py-1 rounded-lg flex items-center gap-1.5">
+                        <span className="text-[10px]">{['🥇','🥈','🥉'][i]}</span>
+                        <span className="text-[10px] font-bold text-gray-300">{game}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center gap-1 shrink-0">
+                <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Hora de Prep.</p>
+                <p className="text-white font-mono text-sm">
+                  {new Date(snapshot.preparationInfo.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* ── 🏆 PODIUM ANIMADO (cuando finaliza) ───────────────────────────── */}
           {isFinished && displayRanking.length > 0 && (
@@ -594,6 +665,24 @@ export default function AdminTrivia() {
                 Resetear
               </button>
             )}
+
+            {/* ── Ruleta Config ── */}
+            {isAdmin && (
+              <div className="flex-1 min-w-[200px] bg-surface/50 border border-surface-border p-3 rounded-xl flex flex-col gap-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-[10px] font-black uppercase text-gray-500">Prob. Ruleta Global</span>
+                  <span className="text-brand-light font-mono text-xs">
+                    {Math.round((snapshot?.rouletteProbability ?? 0.15) * 100)}%
+                  </span>
+                </div>
+                <input 
+                  type="range" min="0" max="100" step="1"
+                  value={Math.round((snapshot?.rouletteProbability ?? 0.15) * 100)}
+                  onChange={(e) => socket?.emit('admin:trivia:setRouletteConfig', { probability: parseInt(e.target.value) / 100 })}
+                  className="w-full h-1.5 bg-surface-border rounded-lg appearance-none cursor-pointer accent-brand"
+                />
+              </div>
+            )}
           </div>
 
           {/* ── Faction Ranking En Vivo ─────────────────────────────────────── */}
@@ -665,12 +754,24 @@ export default function AdminTrivia() {
                           }
                         </div>
                         <p className={`font-bold ${i === 0 ? 'text-amber-300' : 'text-gray-200'}`}>{p.nombre}</p>
-                        <p className={`font-black text-lg tabular-nums text-right ${
-                          i === 0 ? 'text-amber-300' : 'text-gray-300'
-                        }`}>
-                          {p.score.toLocaleString()}
-                          <span className="text-gray-600 text-xs font-normal ml-1">pts</span>
-                        </p>
+                        
+                        <div className="flex items-center gap-2">
+                          {isAdmin && !p.hasHadRoulette && (
+                            <button
+                              onClick={() => socket?.emit('admin:trivia:setRouletteConfig', { forceRut: p.rut })}
+                              title="Forzar Ruleta (Testeo)"
+                              className="w-8 h-8 rounded-lg bg-surface border border-brand/20 text-brand-light flex items-center justify-center hover:bg-brand/10 transition-colors"
+                            >
+                              ⚡
+                            </button>
+                          )}
+                          <p className={`font-black text-lg tabular-nums text-right ${
+                            i === 0 ? 'text-amber-300' : 'text-gray-300'
+                          }`}>
+                            {p.score.toLocaleString()}
+                            <span className="text-gray-600 text-xs font-normal ml-1">pts</span>
+                          </p>
+                        </div>
                       </div>
                     );
                   })}

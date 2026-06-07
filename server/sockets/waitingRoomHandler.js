@@ -67,6 +67,7 @@ let roomState = {
   isOpen: false,
   connectedPlayers: new Map(), // socketId -> { name, rut, role }
   activeGame: null,            // null | 'guess' | 'rps' | 'clicker' | 'dino' | 'simon'
+  canvasCooldownEnabled: true,
 };
 
 // Clicker: sessionId -> { name, rut, clicks, lastBatch }
@@ -110,6 +111,7 @@ function broadcastRoomState() {
     isOpen:   roomState.isOpen,
     players:  getRoomPlayers(),
     activeGame: roomState.activeGame,
+    canvasCooldownEnabled: roomState.canvasCooldownEnabled,
   });
 }
 
@@ -270,6 +272,13 @@ module.exports = function (io) {
       launchNewCharacter();
     });
 
+    // ─── ADMIN: Activar/Desactivar cooldown del canvas ───────────────────────
+    socket.on("wr:admin-toggle-canvas-cooldown", () => {
+      if (role !== "admin") return;
+      roomState.canvasCooldownEnabled = !roomState.canvasCooldownEnabled;
+      broadcastRoomState();
+    });
+
     // ─────────────────────────────────────────────────────────────────────────
     // MINIJUEGO 1: Adivinar el Personaje
     // ─────────────────────────────────────────────────────────────────────────
@@ -409,19 +418,24 @@ module.exports = function (io) {
       if (x < 0 || x >= CANVAS_WIDTH || y < 0 || y >= CANVAS_HEIGHT) return;
       if (!color || typeof color !== "string") return;
 
-      // Validar cooldown (3000 ms)
-      const lastPlace = canvasCooldowns.get(socket.id) || 0;
       const now = Date.now();
-      if (now - lastPlace < 3000) return; // Cooldown no cumplido
+      const hasCooldown = role !== "admin" && roomState.canvasCooldownEnabled;
 
-      // Aplicar
-      canvasCooldowns.set(socket.id, now);
+      if (hasCooldown) {
+        // Validar cooldown (3000 ms)
+        const lastPlace = canvasCooldowns.get(socket.id) || 0;
+        if (now - lastPlace < 3000) return; // Cooldown no cumplido
+        canvasCooldowns.set(socket.id, now);
+        socket.emit("wr:canvas-cooldown", { readyAt: now + 3000 });
+      } else {
+        socket.emit("wr:canvas-cooldown", { readyAt: now });
+      }
+
       const index = y * CANVAS_WIDTH + x;
       canvasGrid[index] = color;
 
       // Broadcast a todos incluyéndolo a él mismo para confirmar
       io.to("waiting-room").emit("wr:canvas-update", { index, color });
-      socket.emit("wr:canvas-cooldown", { readyAt: now + 3000 });
     });
 
     socket.on("wr:admin-canvas-new", () => {

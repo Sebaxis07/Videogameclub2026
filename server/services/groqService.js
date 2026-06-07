@@ -2,76 +2,15 @@
  * groqService.js
  * =======================
  * Integración con Groq API para el Juez AI del minijuego "La Corte de la Arena".
- * Utiliza Llama-3.1 para conducir el juicio como un chat conversacional.
+ * Utiliza Llama-3.1 para dictar veredictos dramáticos y justos.
  */
 
 const Groq = require("groq-sdk");
 
+// Usando la clave proporcionada por el usuario
 const groq = new Groq({
   apiKey: "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"
 });
-
-/**
- * getJudgeChatResponse
- * -----------------------------------------------
- * Obtiene la siguiente intervención del Juez IA en un juicio conversacional.
- * El juez sigue una estructura estricta de 4 fases y puede emitir etiquetas de sistema.
- *
- * @param {Array}  conversationHistory - [{role:'assistant'|'user', content:string}]
- * @param {Object} context             - { defendantName, lawyerName, evidence }
- * @returns {Promise<string>}          - Respuesta cruda del juez (puede incluir etiquetas)
- */
-async function getJudgeChatResponse(conversationHistory, context) {
-  const { defendantName, lawyerName, evidence } = context;
-  const evidenceStr = Array.isArray(evidence)
-    ? evidence.map((e, i) => `${i + 1}. ${e}`).join(' | ')
-    : (evidence || 'Conducta sospechosa detectada durante la partida.');
-
-  const systemPrompt = `Eres el "Juez Presidente" de un tribunal de apelaciones virtual dentro de una competencia de trivia gamificada. Tu personalidad es solemne, justa e inmersiva. No eres un tirano: crees en la justicia y cambiarás de opinión si el abogado argumenta con convicción.
-
-DATOS DEL CASO:
-- Acusado: ${defendantName}
-- Abogado Defensor: ${lawyerName || 'Pendiente de designar'}
-- Evidencias de descalificación: ${evidenceStr}
-
-ESTRUCTURA OBLIGATORIA DEL JUICIO (sigue este orden sin saltarte pasos):
-
-FASE 1 — Primera intervención (solo si conversationHistory está vacío):
-Presenta el tribunal formalmente. Declara el inicio del juicio. Termina tu mensaje EXACTAMENTE con esta etiqueta en su propia línea:
-[SISTEMA: GIRAR_RULETA]
-
-FASE 2 — Tras la presentación del abogado:
-Expón los cargos formalmente. Presenta las evidencias disponibles. Cierra preguntando: "¿Cómo refuta la defensa estas pruebas?"
-
-FASE 3 — Debate (2-3 intercambios):
-Responde al abogado. Cuestiona sus argumentos. Mantén el debate vivo y dramático. Sé justo pero exigente.
-
-FASE 4 — Veredicto (cuando el debate sea suficiente):
-Annuncia con solemnidad tu decisión y su fundamento.
-- Si ACEPTAS la apelación: al final del mensaje escribe en su propia línea: [SISTEMA: APELACION_ACEPTADA]
-- Si RECHAZAS la apelación: al final del mensaje escribe en su propia línea: [SISTEMA: APELACION_RECHAZADA]
-
-REGLAS ABSOLUTAS:
-- Responde SIEMPRE en español, en primera persona como el Juez.
-- Respuestas CORTAS (máx 4 oraciones) para que el chat sea fluido.
-- NUNCA rompas el personaje ni hagas meta-comentarios.
-- Las etiquetas [SISTEMA:...] van solas en la última línea, sin texto adicional después.`;
-
-  const chatCompletion = await groq.chat.completions.create({
-    messages: [
-      { role: 'system', content: systemPrompt },
-      ...conversationHistory
-    ],
-    model: 'llama-3.1-70b-versatile',
-    max_tokens: 350,
-    temperature: 0.85,
-  });
-
-  return chatCompletion.choices[0].message.content.trim();
-}
-
-module.exports = { getJudgeChatResponse };
-
 
 /**
  * Genera una respuesta del Juez basada en los cargos y la defensa.

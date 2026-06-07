@@ -1,19 +1,3 @@
-/**
- * SessionModule.jsx — Módulo de Sesiones del Club
- * ==================================================
- * Pestaña "Sesión Activa":
- *   - Iniciar sesión (con juego opcional)
- *   - Pasar asistencia (toggle por alumno)
- *   - Registrar equipo por alumno presente
- *   - Marcar equipo como devuelto individualmente
- *   - Finalizar sesión (devuelve todo automáticamente)
- *
- * Pestaña "Reportes":
- *   - Selector: Hoy / Esta semana / Este mes
- *   - Métricas de asistencia y equipos
- *   - Historial de sesiones en el rango
- */
-
 import React, { useEffect, useState, useCallback } from 'react'
 import useStore from '../store/useStore'
 import {
@@ -28,7 +12,6 @@ import {
 import { fetchPlayers, fetchRsvps, clearRsvps } from '../api/api'
 import { getSocket } from '../api/socket'
 
-// ─── Constantes ───────────────────────────────────────────────────────────────
 
 const EQ_TYPES = ['Consola', 'Televisión', 'Periférico', 'PC', 'Router/Red', 'Otro']
 
@@ -54,12 +37,11 @@ function elapsed(startIso) {
   return h > 0 ? `${h}h ${m}m` : `${m}m`
 }
 
-// ─── Sub: Formulario de inicio de sesión ─────────────────────────────────────
 function StartSessionModal({ players, onClose, onStarted }) {
-  const [game, setGame]     = useState('')
-  const [notes, setNotes]   = useState('')
-  const [busy, setBusy]     = useState(false)
-  const [err, setErr]       = useState(null)
+  const [game, setGame] = useState('')
+  const [notes, setNotes] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [err, setErr] = useState(null)
 
   async function handleStart(e) {
     e.preventDefault()
@@ -106,7 +88,6 @@ function StartSessionModal({ players, onClose, onStarted }) {
   )
 }
 
-// ─── Sub: Formulario inline de equipo ────────────────────────────────────────
 function AddEquipmentForm({ onAdd, onCancel }) {
   const [form, setForm] = useState({ ...EMPTY_EQ_FORM })
   const [busy, setBusy] = useState(false)
@@ -142,7 +123,6 @@ function AddEquipmentForm({ onAdd, onCancel }) {
   )
 }
 
-// ─── Sub: Fila de alumno en sesión activa ─────────────────────────────────────
 function AttendeeRow({ attendee, sessionId, onSessionUpdate }) {
   const [addingEq, setAddingEq] = useState(false)
   const [toggling, setToggling] = useState(false)
@@ -183,17 +163,14 @@ function AttendeeRow({ attendee, sessionId, onSessionUpdate }) {
 
   return (
     <div className={`rounded-xl border transition-all duration-200 ${attendee.present ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-surface-border bg-surface-card'}`}>
-      {/* Header del alumno */}
       <div className="flex items-center gap-3 px-4 py-3">
-        {/* Checkbox de asistencia */}
         <button
           onClick={handleToggle}
           disabled={toggling}
-          className={`w-6 h-6 rounded-md shrink-0 border-2 flex items-center justify-center transition-all ${
-            attendee.present
-              ? 'bg-emerald-500 border-emerald-500 text-white'
-              : 'border-surface-border hover:border-gray-400'
-          }`}
+          className={`w-6 h-6 rounded-md shrink-0 border-2 flex items-center justify-center transition-all ${attendee.present
+            ? 'bg-emerald-500 border-emerald-500 text-white'
+            : 'border-surface-border hover:border-gray-400'
+            }`}
         >
           {attendee.present && (
             <svg viewBox="0 0 12 12" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -202,7 +179,6 @@ function AttendeeRow({ attendee, sessionId, onSessionUpdate }) {
           )}
         </button>
 
-        {/* Avatar + Nombre */}
         <div className="w-7 h-7 rounded-full bg-brand/20 border border-brand/30 flex items-center justify-center text-xs font-bold text-brand-light shrink-0">
           {(attendee.playerName || '?').slice(0, 1).toUpperCase()}
         </div>
@@ -225,15 +201,13 @@ function AttendeeRow({ attendee, sessionId, onSessionUpdate }) {
         )}
       </div>
 
-      {/* Equipos del alumno */}
       {attendee.present && (
         <div className="px-4 pb-3 space-y-2">
           {attendee.equipment.length > 0 && attendee.equipment.map((eq) => (
-            <div key={eq.id} className={`flex flex-wrap items-center gap-2 text-xs rounded-lg px-3 py-2 border transition-all ${
-              eq.returnedAt
-                ? 'border-gray-700/50 bg-gray-800/30 text-gray-600 line-through'
-                : 'border-amber-500/20 bg-amber-500/5 text-gray-300'
-            }`}>
+            <div key={eq.id} className={`flex flex-wrap items-center gap-2 text-xs rounded-lg px-3 py-2 border transition-all ${eq.returnedAt
+              ? 'border-gray-700/50 bg-gray-800/30 text-gray-600 line-through'
+              : 'border-amber-500/20 bg-amber-500/5 text-gray-300'
+              }`}>
               <span className="text-base">{TYPE_ICONS[eq.type] || ''}</span>
               <span className="font-medium no-underline not-italic">{eq.type}</span>
               {eq.brand && <span className="text-gray-500 no-underline not-italic">· {eq.brand} {eq.model}</span>}
@@ -269,14 +243,13 @@ function AttendeeRow({ attendee, sessionId, onSessionUpdate }) {
   )
 }
 
-// ─── Sub: Equipos de la Universidad (nivel sesión) ───────────────────────────
 
 const EMPTY_UNI_FORM = { type: 'Consola', brand: '', model: '', serial: '', description: '' }
 
 function UniversityEquipmentSection({ session, onSessionUpdate }) {
-  const [open, setOpen]     = useState(false)
-  const [form, setForm]     = useState({ ...EMPTY_UNI_FORM })
-  const [busy, setBusy]     = useState(false)
+  const [open, setOpen] = useState(false)
+  const [form, setForm] = useState({ ...EMPTY_UNI_FORM })
+  const [busy, setBusy] = useState(false)
   function f(k, v) { setForm((p) => ({ ...p, [k]: v })) }
 
   const uniEq = session.universityEquipment || []
@@ -313,7 +286,6 @@ function UniversityEquipmentSection({ session, onSessionUpdate }) {
 
   return (
     <div className="rounded-2xl border border-sky-500/25 bg-sky-500/5 p-4 space-y-3">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h4 className="text-sm font-semibold text-sky-300">Equipos de la Universidad</h4>
@@ -334,7 +306,6 @@ function UniversityEquipmentSection({ session, onSessionUpdate }) {
         </button>
       </div>
 
-      {/* Formulario inline */}
       {open && (
         <form onSubmit={handleAdd} className="p-3 rounded-xl bg-surface border border-sky-500/20 space-y-2 animate-slide-up">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -357,17 +328,15 @@ function UniversityEquipmentSection({ session, onSessionUpdate }) {
         </form>
       )}
 
-      {/* Lista de equipos universitarios */}
       {uniEq.length > 0 && (
         <div className="space-y-2">
           {uniEq.map((eq) => (
             <div
               key={eq.id}
-              className={`flex flex-wrap items-center gap-2 text-xs rounded-lg px-3 py-2 border transition-all ${
-                eq.returnedAt
-                  ? 'border-gray-700/50 bg-gray-800/30 text-gray-600 line-through'
-                  : 'border-sky-500/20 bg-sky-500/5 text-gray-300'
-              }`}
+              className={`flex flex-wrap items-center gap-2 text-xs rounded-lg px-3 py-2 border transition-all ${eq.returnedAt
+                ? 'border-gray-700/50 bg-gray-800/30 text-gray-600 line-through'
+                : 'border-sky-500/20 bg-sky-500/5 text-gray-300'
+                }`}
             >
               <span className="text-base">{TYPE_ICONS[eq.type] || ''}</span>
               <span className="font-medium no-underline not-italic">{eq.type}</span>
@@ -411,9 +380,9 @@ function UniversityEquipmentSection({ session, onSessionUpdate }) {
 const EMPTY_LOAN_FORM = { equipmentId: '', borrowerName: '' }
 
 function PeerLoansSection({ session, onSessionUpdate }) {
-  const [open, setOpen]     = useState(false)
-  const [form, setForm]     = useState({ ...EMPTY_LOAN_FORM })
-  const [busy, setBusy]     = useState(false)
+  const [open, setOpen] = useState(false)
+  const [form, setForm] = useState({ ...EMPTY_LOAN_FORM })
+  const [busy, setBusy] = useState(false)
   function f(k, v) { setForm((p) => ({ ...p, [k]: v })) }
 
   const loans = session.peerLoans || []
@@ -526,11 +495,10 @@ function PeerLoansSection({ session, onSessionUpdate }) {
           {loans.map((loan) => (
             <div
               key={loan.id}
-              className={`flex flex-wrap items-center gap-2 text-xs rounded-lg px-3 py-2 border transition-all ${
-                loan.returnedAt
-                  ? 'border-gray-700/50 bg-gray-800/30 text-gray-600 line-through'
-                  : 'border-purple-500/20 bg-purple-500/5 text-gray-300'
-              }`}
+              className={`flex flex-wrap items-center gap-2 text-xs rounded-lg px-3 py-2 border transition-all ${loan.returnedAt
+                ? 'border-gray-700/50 bg-gray-800/30 text-gray-600 line-through'
+                : 'border-purple-500/20 bg-purple-500/5 text-gray-300'
+                }`}
             >
               <span className="font-medium no-underline not-italic">{loan.item}</span>
               <span className="text-gray-500 no-underline not-italic">· De <strong className="text-purple-300 font-normal">{loan.providerName}</strong> a <strong className="text-purple-300 font-normal">{loan.borrowerName}</strong></span>
@@ -589,9 +557,9 @@ function ActiveSessionView({ session, players, onSessionUpdate, onEndSession }) 
     finally { setEnding(false) }
   }
 
-  const presentCount  = session.attendance.filter((a) => a.present).length
+  const presentCount = session.attendance.filter((a) => a.present).length
   const totalEquipment = session.attendance.reduce((acc, a) => acc + a.equipment.length, 0)
-  const pendingReturn  = session.attendance.reduce((acc, a) => acc + a.equipment.filter((e) => !e.returnedAt).length, 0)
+  const pendingReturn = session.attendance.reduce((acc, a) => acc + a.equipment.filter((e) => !e.returnedAt).length, 0)
 
   return (
     <div className="space-y-4">
@@ -676,7 +644,7 @@ function ActiveSessionView({ session, players, onSessionUpdate, onEndSession }) 
 
 // ─── Sub: Sesión finalizada (read-only) ───────────────────────────────────────
 function EndedSessionView({ session, onNewSession }) {
-  const presentCount   = session.attendance.filter((a) => a.present).length
+  const presentCount = session.attendance.filter((a) => a.present).length
   const totalEquipment = session.attendance.reduce((acc, a) => acc + a.equipment.length, 0)
 
   return (
@@ -741,8 +709,8 @@ function NoSessionView({ onNewSession, rsvps, setRsvps }) {
                 <span className="text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-lg">Sí: {yesCount}</span>
                 <span className="text-rose-400 bg-rose-400/10 px-2 py-1 rounded-lg">No: {noCount}</span>
               </div>
-              <button 
-                onClick={handleClear} 
+              <button
+                onClick={handleClear}
                 disabled={clearing}
                 className="text-xs bg-surface border border-surface-border text-gray-400 hover:text-white hover:bg-surface-hover px-3 py-1.5 rounded-lg transition-colors"
                 title="Limpiar todas las respuestas"
@@ -785,13 +753,13 @@ function NoSessionView({ onNewSession, rsvps, setRsvps }) {
 
 // ─── Sub: Reportes ───────────────────────────────────────────────────────────
 const RANGES = [
-  { id: 'day',   label: 'Hoy' },
-  { id: 'week',  label: 'Esta semana' },
+  { id: 'day', label: 'Hoy' },
+  { id: 'week', label: 'Esta semana' },
   { id: 'month', label: 'Este mes' },
 ]
 
 function ReportsView() {
-  const [range, setRange]   = useState('week')
+  const [range, setRange] = useState('week')
   const [report, setReport] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -812,11 +780,10 @@ function ReportsView() {
           <button
             key={r.id}
             onClick={() => setRange(r.id)}
-            className={`px-4 py-1.5 rounded-xl text-sm font-medium border transition-all whitespace-nowrap ${
-              range === r.id
-                ? 'bg-brand/20 border-brand/50 text-brand-light'
-                : 'border-surface-border text-gray-400 hover:text-white hover:border-gray-500'
-            }`}
+            className={`px-4 py-1.5 rounded-xl text-sm font-medium border transition-all whitespace-nowrap ${range === r.id
+              ? 'bg-brand/20 border-brand/50 text-brand-light'
+              : 'border-surface-border text-gray-400 hover:text-white hover:border-gray-500'
+              }`}
           >
             {r.label}
           </button>
@@ -867,7 +834,7 @@ function ReportsView() {
                   <p className="text-[10px] text-gray-600 uppercase tracking-widest mb-2">Equipo más traído</p>
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-base">
-                      
+
                     </div>
                     <div>
                       <p className="font-semibold text-white text-sm">{report.topEquipment.label}</p>
@@ -924,11 +891,10 @@ function ReportsView() {
                           <td className="px-4 py-3 text-white font-medium">{eqCount}</td>
                           <td className="px-4 py-3 text-gray-400">{dur}</td>
                           <td className="px-4 py-3">
-                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${
-                              s.status === 'active'
-                                ? 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20'
-                                : 'text-gray-500 bg-surface-hover border-surface-border'
-                            }`}>
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${s.status === 'active'
+                              ? 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20'
+                              : 'text-gray-500 bg-surface-hover border-surface-border'
+                              }`}>
                               {s.status === 'active' ? 'En curso' : 'Finalizada'}
                             </span>
                           </td>
@@ -1003,7 +969,7 @@ function PlayerHistoryView({ players }) {
           </div>
 
           <h4 className="text-sm font-semibold text-gray-400 mt-6 mb-3">Línea de tiempo de asistencias</h4>
-          
+
           {data.history.length === 0 ? (
             <div className="text-center py-10 text-gray-600 border border-surface-border border-dashed rounded-2xl">
               No hay registros de sesiones para este alumno.
@@ -1029,7 +995,7 @@ function PlayerHistoryView({ players }) {
                           <span className="text-[10px] bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded-md border border-rose-500/20">Ausente</span>
                         )}
                       </div>
-                      
+
                       {eqCount > 0 ? (
                         <div className="mt-3 space-y-1.5 pt-3 border-t border-surface-border">
                           <p className="text-[10px] text-gray-500 uppercase font-semibold">Equipos ({eqCount})</p>
@@ -1090,7 +1056,7 @@ function UniversityEquipmentHistoryView() {
       {!loading && data && (
         <div className="space-y-4">
           <h4 className="text-sm font-semibold text-gray-400 mb-3">Línea de tiempo de préstamos</h4>
-          
+
           {data.length === 0 ? (
             <div className="text-center py-10 text-gray-600 border border-surface-border border-dashed rounded-2xl">
               No hay registros de préstamos de la universidad.
@@ -1112,12 +1078,12 @@ function UniversityEquipmentHistoryView() {
                       </div>
                       <span className="text-[10px] bg-sky-500/10 text-sky-400 px-2 py-0.5 rounded-md border border-sky-500/20 whitespace-nowrap">Encargado: S. Vásquez</span>
                     </div>
-                    
+
                     <div className="mt-3 pt-3 border-t border-surface-border">
                       <div className="text-xs flex flex-col gap-1 text-gray-300">
                         <div className="flex items-center gap-2">
-                           <span className="font-medium text-sky-400">{eq.type}</span>
-                           <span className="text-gray-400">{eq.brand} {eq.model}</span>
+                          <span className="font-medium text-sky-400">{eq.type}</span>
+                          <span className="text-gray-400">{eq.brand} {eq.model}</span>
                         </div>
                         {eq.serial && <code className="text-[10px] text-gray-500 bg-gray-800/50 px-1.5 py-0.5 rounded w-fit mt-1">S/N: {eq.serial}</code>}
                       </div>
@@ -1167,7 +1133,7 @@ function PeerLoansHistoryView() {
       {!loading && data && (
         <div className="space-y-4">
           <h4 className="text-sm font-semibold text-gray-400 mb-3">Línea de tiempo de préstamos P2P</h4>
-          
+
           {data.length === 0 ? (
             <div className="text-center py-10 text-gray-600 border border-surface-border border-dashed rounded-2xl">
               No hay registros de préstamos P2P.
@@ -1192,11 +1158,11 @@ function PeerLoansHistoryView() {
                         </span>
                       )}
                     </div>
-                    
+
                     <div className="mt-3 pt-3 border-t border-surface-border">
                       <div className="text-xs flex flex-col gap-1 text-gray-300">
                         <div className="flex items-center gap-2">
-                           <span className="font-medium text-purple-400">{loan.item}</span>
+                          <span className="font-medium text-purple-400">{loan.item}</span>
                         </div>
                         <p className="text-gray-400 mt-1">De <strong className="text-white font-normal">{loan.providerName}</strong> a <strong className="text-white font-normal">{loan.borrowerName}</strong></p>
                       </div>
@@ -1215,9 +1181,9 @@ function PeerLoansHistoryView() {
 // ─── Componente Principal ─────────────────────────────────────────────────────
 export default function SessionModule() {
   const { players, setPlayers, setLastSync, user } = useStore()
-  const [tab, setTab]         = useState('session')
+  const [tab, setTab] = useState('session')
   const [session, setSession] = useState(undefined)
-  const [rsvps, setRsvps]     = useState([])
+  const [rsvps, setRsvps] = useState([])
   const [showStart, setShowStart] = useState(false)
   const [loading, setLoading] = useState(true)
 
@@ -1269,11 +1235,10 @@ export default function SessionModule() {
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
-            className={`px-4 py-1.5 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${
-              tab === t.id
-                ? 'bg-brand/20 text-brand-light'
-                : 'text-gray-500 hover:text-white'
-            }`}
+            className={`px-4 py-1.5 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${tab === t.id
+              ? 'bg-brand/20 text-brand-light'
+              : 'text-gray-500 hover:text-white'
+              }`}
           >
             {t.label}
           </button>
