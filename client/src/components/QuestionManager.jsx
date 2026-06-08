@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import config from '../config/env';
 
 // ─── Tipos de pregunta disponibles ──────────────────────────────────────────
 const TIPOS_PREGUNTA = {
@@ -387,7 +388,7 @@ export default function QuestionManager() {
 
     setSaving(true);
     try {
-      const res = await fetch('/api/trivia/questions/bulk', {
+      const res = await fetch(`${config.API_URL}/trivia/questions/bulk`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(parsed),
@@ -412,7 +413,7 @@ export default function QuestionManager() {
   const fetchQuestions = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/trivia/questions');
+      const res = await fetch(`${config.API_URL}/trivia/questions`);
       if (res.ok) setQuestions(await res.json());
     } catch (err) { console.error(err); }
     setLoading(false);
@@ -423,7 +424,7 @@ export default function QuestionManager() {
   const handleSave = async (q) => {
     setSaving(true);
     const isNew = !q.id;
-    const url = isNew ? '/api/trivia/questions' : `/api/trivia/questions/${q.id}`;
+    const url = isNew ? `${config.API_URL}/trivia/questions` : `${config.API_URL}/trivia/questions/${q.id}`;
     const method = isNew ? 'POST' : 'PUT';
     try {
       const res = await fetch(url, {
@@ -447,14 +448,14 @@ export default function QuestionManager() {
   const handleDelete = async (id) => {
     if (!window.confirm('¿Eliminar esta pregunta? Esta acción no se puede deshacer.')) return;
     try {
-      const res = await fetch(`/api/trivia/questions/${id}`, { method: 'DELETE' });
+      const res = await fetch(`${config.API_URL}/trivia/questions/${id}`, { method: 'DELETE' });
       if (res.ok) { fetchQuestions(); showToast('Pregunta eliminada.'); }
     } catch { showToast('Error al eliminar.', 'error'); }
   };
 
   const handleDuplicate = async (q) => {
     const { id, ...rest } = q;
-    const res = await fetch('/api/trivia/questions', {
+    const res = await fetch(`${config.API_URL}/trivia/questions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(rest),
@@ -466,7 +467,7 @@ export default function QuestionManager() {
     if (!window.confirm('¿Mezclar aleatoriamente el banco de preguntas?')) return;
     setSaving(true);
     try {
-      const res = await fetch('/api/trivia/questions/shuffle', { method: 'POST' });
+      const res = await fetch(`${config.API_URL}/trivia/questions/shuffle`, { method: 'POST' });
       if (res.ok) { fetchQuestions(); showToast('Preguntas barajadas.'); }
       else showToast('Error al barajar.', 'error');
     } catch { showToast('Error de conexión.', 'error'); }
