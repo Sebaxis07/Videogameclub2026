@@ -569,4 +569,88 @@ router.get("/seed-players", async (req, res) => {
   }
 });
 
+// ─── CRUD JUGADORES ───────────────────────────────────────────────────────────
+
+// POST /api/players -> Crear nuevo jugador
+router.post("/players", async (req, res) => {
+  try {
+    const { rut, nombre, discord, juegosPropuesto, plataforma, horasJugadas, traeEquipo } = req.body;
+    if (!rut || !nombre) {
+      return res.status(400).json({ success: false, error: "RUT y Nombre son requeridos" });
+    }
+
+    const exist = await Jugador.findOne({ rut: rut.trim() });
+    if (exist) {
+      return res.status(400).json({ success: false, error: "El jugador con este RUT ya existe" });
+    }
+
+    const nuevoJugador = new Jugador({
+      rut: rut.trim(),
+      nombre: nombre.trim(),
+      discord: discord ? discord.trim() : "",
+      juegosPropuesto: juegosPropuesto ? juegosPropuesto.trim() : "Sin definir",
+      plataforma: plataforma ? plataforma.trim() : "",
+      horasJugadas: Number(horasJugadas) || 0,
+      traeEquipo: Boolean(traeEquipo)
+    });
+
+    await nuevoJugador.save();
+
+    // Sincronizar caché en memoria
+    await syncFromSheets();
+
+    res.status(201).json({ success: true, player: nuevoJugador });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// PUT /api/players/:rut -> Actualizar jugador existente
+router.put("/players/:rut", async (req, res) => {
+  try {
+    const { rut } = req.params;
+    const { nombre, discord, juegosPropuesto, plataforma, horasJugadas, traeEquipo } = req.body;
+
+    const jugador = await Jugador.findOne({ rut });
+    if (!jugador) {
+      return res.status(404).json({ success: false, error: "Jugador no encontrado" });
+    }
+
+    if (nombre) jugador.nombre = nombre.trim();
+    if (discord !== undefined) jugador.discord = discord.trim();
+    if (juegosPropuesto !== undefined) jugador.juegosPropuesto = juegosPropuesto.trim();
+    if (plataforma !== undefined) jugador.plataforma = plataforma.trim();
+    if (horasJugadas !== undefined) jugador.horasJugadas = Number(horasJugadas) || 0;
+    if (traeEquipo !== undefined) jugador.traeEquipo = Boolean(traeEquipo);
+
+    await jugador.save();
+
+    // Sincronizar caché en memoria
+    await syncFromSheets();
+
+    res.json({ success: true, player: jugador });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// DELETE /api/players/:rut -> Eliminar jugador
+router.delete("/players/:rut", async (req, res) => {
+  try {
+    const { rut } = req.params;
+    const result = await Jugador.deleteOne({ rut });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ success: false, error: "Jugador no encontrado" });
+    }
+
+    // Sincronizar caché en memoria
+    await syncFromSheets();
+
+    res.json({ success: true, message: "Jugador eliminado exitosamente" });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 module.exports = router;
