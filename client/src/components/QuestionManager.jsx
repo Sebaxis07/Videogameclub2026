@@ -45,6 +45,15 @@ const DIFICULTADES = [
   { value: 'Competitiva', label: 'Competitiva', mult: '×1.5', color: 'text-amber-400' },
 ];
 
+const JUEGOS_TRIVIA = [
+  { name: 'Minecraft', emoji: '⛏️', border: 'border-green-500/20', bg: 'bg-green-500/5' },
+  { name: 'Fortnite', emoji: '🚌', border: 'border-yellow-500/20', bg: 'bg-yellow-500/5' },
+  { name: 'Mortal Kombat XL', emoji: '🩸', border: 'border-red-500/20', bg: 'bg-red-500/5' },
+  { name: 'League of Legends', emoji: '⚔️', border: 'border-[#c89b3c]/20', bg: 'bg-[#c89b3c]/5' },
+  { name: 'Roblox', emoji: '🧱', border: 'border-red-500/20', bg: 'bg-red-500/5' },
+  { name: 'Elden Ring', emoji: '💍', border: 'border-amber-500/20', bg: 'bg-amber-500/5' },
+];
+
 const EMPTY_QUESTION = (tipo = 'alternativas') => {
   const base = {
     pregunta: '',
@@ -474,6 +483,26 @@ export default function QuestionManager() {
     setSaving(false);
   };
 
+  const handleToggleCategory = async (category, currentlyDeactivated) => {
+    setSaving(true);
+    try {
+      const res = await fetch(`${config.API_URL}/trivia/questions/toggle-category`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ category, deactivated: !currentlyDeactivated }),
+      });
+      if (res.ok) {
+        fetchQuestions();
+        showToast(`Categoría "${category}" ${!currentlyDeactivated ? 'desactivada' : 'activada'} con éxito.`);
+      } else {
+        showToast('Error al cambiar el estado de la categoría.', 'error');
+      }
+    } catch {
+      showToast('Error de conexión.', 'error');
+    }
+    setSaving(false);
+  };
+
   // Filtrado
   const filtered = questions.filter(q => {
     const tp = q.tipo_pregunta || 'alternativas';
@@ -541,6 +570,58 @@ export default function QuestionManager() {
               <span className="text-[10px] text-gray-500 leading-tight mt-0.5">{t.label}</span>
             </button>
           ))}
+        </div>
+      </div>
+
+      {/* Control de Preguntas por Juego */}
+      <div className="bg-surface-card border border-surface-border rounded-2xl p-5">
+        <h4 className="text-xs font-bold uppercase tracking-widest text-brand-light mb-1.5 flex items-center gap-2">
+          <span>🎮 Desactivación Manual por Juego</span>
+        </h4>
+        <p className="text-[11px] text-gray-500 mb-4">
+          Habilita o deshabilita en lote todas las preguntas de un videojuego específico. Las preguntas desactivadas no se incluirán en la trivia.
+        </p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+          {JUEGOS_TRIVIA.map(juego => {
+            const catQuestions = questions.filter(q => q.categoria && q.categoria.trim().toLowerCase() === juego.name.trim().toLowerCase());
+            const totalCount = catQuestions.length;
+            const deactivatedCount = catQuestions.filter(q => q.desactivada === true).length;
+            const isAllDeactivated = totalCount > 0 && deactivatedCount === totalCount;
+            const isSomeDeactivated = deactivatedCount > 0 && deactivatedCount < totalCount;
+
+            return (
+              <div
+                key={juego.name}
+                className={`p-3 rounded-xl border flex flex-col justify-between transition-all ${juego.bg} ${juego.border}`}
+              >
+                <div>
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className="text-lg">{juego.emoji}</span>
+                    <p className="text-xs font-bold text-white truncate leading-tight">{juego.name}</p>
+                  </div>
+                  <div className="flex justify-between items-center text-[10px] text-gray-400 mb-2">
+                    <span>Preguntas:</span>
+                    <span className="font-mono font-bold text-white">{totalCount - deactivatedCount}/{totalCount}</span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  disabled={totalCount === 0 || saving}
+                  onClick={() => handleToggleCategory(juego.name, isAllDeactivated)}
+                  className={`w-full py-1.5 px-2 rounded-lg text-[10px] font-black tracking-wider transition-all uppercase focus:outline-none ${
+                    isAllDeactivated
+                      ? 'bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/25'
+                      : isSomeDeactivated
+                        ? 'bg-amber-500/20 border border-amber-500/40 text-amber-300 hover:bg-amber-500/35'
+                        : 'bg-green-500/10 border border-green-500/30 text-green-400 hover:bg-green-500/25'
+                  } ${totalCount === 0 ? 'opacity-40 cursor-not-allowed' : ''}`}
+                >
+                  {isAllDeactivated ? '🚫 Desactivado' : isSomeDeactivated ? '⚠️ Activo Parcial' : '✅ Activo'}
+                </button>
+              </div>
+            );
+          })}
         </div>
       </div>
 

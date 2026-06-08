@@ -148,4 +148,30 @@ router.post('/questions/bulk', (req, res) => {
   }
 });
 
+// POST /api/trivia/questions/toggle-category
+router.post('/questions/toggle-category', (req, res) => {
+  try {
+    const { category, deactivated } = req.body;
+    if (!category) {
+      return res.status(400).json({ error: 'Category is required' });
+    }
+
+    const questions = getQuestions();
+    let updatedCount = 0;
+
+    const updatedQuestions = questions.map(q => {
+      if (q.categoria && q.categoria.trim().toLowerCase() === category.trim().toLowerCase()) {
+        updatedCount++;
+        return { ...q, desactivada: deactivated === true };
+      }
+      return q;
+    });
+
+    saveQuestions(updatedQuestions);
+    res.json({ success: true, count: updatedCount, category, deactivated });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to toggle category questions' });
+  }
+});
+
 module.exports = router;

@@ -90,7 +90,7 @@ function GameCard({ game, votes, totalVotes, selected, myVote, isOpen, onVote })
 }
 
 export default function VotingArena() {
-  const { user } = useStore();
+  const { user, setActiveView } = useStore();
   const [socket, setSocket] = useState(null);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -115,7 +115,11 @@ export default function VotingArena() {
       setTop3(data.top3 || []);
       setTotalVotes(data.totalVotes || 0);
       setIsOpen(data.isOpen);
-      setPhase(data.isOpen ? 'voting' : (data.top3?.length ? 'closed' : 'waiting'));
+      const currentPhase = data.isOpen ? 'voting' : (data.top3?.length ? 'closed' : 'waiting');
+      setPhase(currentPhase);
+      if (currentPhase === 'closed') {
+        setActiveView('trivia');
+      }
     });
 
     s.on('voting:update', (data) => {
@@ -123,9 +127,14 @@ export default function VotingArena() {
       setTop3(data.top3 || []);
       setTotalVotes(data.totalVotes || 0);
       setIsOpen(data.isOpen);
-      if (!data.isOpen && data.top3?.length > 0) setPhase('closed');
-      else if (data.isOpen) setPhase('voting');
-      else setPhase('waiting');
+      if (!data.isOpen && data.top3?.length > 0) {
+        setPhase('closed');
+        setActiveView('trivia');
+      } else if (data.isOpen) {
+        setPhase('voting');
+      } else {
+        setPhase('waiting');
+      }
     });
 
     s.on('voting:success', ({ myVote: mv }) => {
@@ -143,7 +152,7 @@ export default function VotingArena() {
       s.off('voting:success');
       s.off('voting:error');
     };
-  }, [user]);
+  }, [user, setActiveView]);
 
   const handleVote = useCallback((game) => {
     if (!socket || myVote || !isOpen) return;
