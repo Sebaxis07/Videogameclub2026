@@ -16,11 +16,7 @@
 
 "use strict";
 
-const config = require("../config/env");
-const { google } = require("googleapis");
-const fs = require("fs");
-const path = require("path");
-
+const Jugador = require("../models/Jugador");
 const MinecraftEval = require("../models/MinecraftEval");
 const MortalKombatEval = require("../models/MortalKombatEval");
 const MortalKombatTournament = require("../models/MortalKombatTournament");
@@ -28,90 +24,6 @@ const GauntletPlayer = require("../models/GauntletPlayer");
 const Duelo = require("../models/Duelo");
 
 let io = null;
-
-// ─── Auth ─────────────────────────────────────────────────────────────────────
-
-/**
- * Crea el cliente autenticado de Google Sheets usando Service Account.
- * @returns {import('googleapis').sheets_v4.Sheets}
- */
-function createSheetsClient() {
-  const keyJson = config.GOOGLE_SERVICE_ACCOUNT_KEY_JSON;
-  if (keyJson) {
-    try {
-      const credentials = JSON.parse(keyJson);
-      if (credentials.private_key) {
-        credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
-      }
-      const auth = new google.auth.GoogleAuth({
-        credentials,
-        scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
-      });
-      return google.sheets({ version: "v4", auth });
-    } catch (e) {
-      console.error("[Sheets] Error parsing GOOGLE_SERVICE_ACCOUNT_KEY_JSON:", e.message);
-    }
-  }
-
-  const keyFilePath = config.GOOGLE_SERVICE_ACCOUNT_KEY_FILE;
-  if (!keyFilePath || !fs.existsSync(keyFilePath)) {
-    throw new Error(
-      `Service Account key file not found.\n` +
-        "Configure GOOGLE_SERVICE_ACCOUNT_KEY_JSON o GOOGLE_SERVICE_ACCOUNT_KEY_FILE en .env"
-    );
-  }
-
-  const auth = new google.auth.GoogleAuth({
-    keyFile: keyFilePath,
-    scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
-  });
-
-  return google.sheets({ version: "v4", auth });
-}
-
-// ─── Mapeo de Tipos ───────────────────────────────────────────────────────────
-
-/**
- * Convierte una fila cruda del spreadsheet (array de strings) en un
- * objeto de jugador correctamente tipado.
- *
- * @param {string[]} row
- * @returns {{
- *   nombre: string,
- *   rut: string,
- *   discord: string,
- *   juegosPropuesto: string,
- *   plataforma: string,
- *   horasJugadas: number,
- *   traeEquipo: boolean,
- *   partidasJugadas: number,
- *   partidasGanadas: number
- * }|null}
- */
-function mapRowToPlayer(row) {
-  // Ignorar filas vacías o sin RUT
-  if (!row || row.length < 2 || !row[0]) return null;
-
-  const rawHoras = row[5] ? row[5].toString().replace(",", ".").trim() : "0";
-  const horasJugadas = parseFloat(rawHoras) || 0;
-
-  const rawTrae = (row[6] || "").toString().toLowerCase().trim();
-  const traeEquipo = rawTrae === "true" || rawTrae === "sí" || rawTrae === "si" || rawTrae === "1";
-
-  return {
-    rut: (row[0] || "").toString().trim(),           // Primary Key
-    nombre: (row[1] || "").toString().trim(),
-    discord: (row[2] || "").toString().trim(),
-    juegosPropuesto: (row[3] || "Sin definir").toString().trim(),
-    plataforma: (row[4] || "").toString().trim(),
-    horasJugadas,
-    traeEquipo,
-    // Campos de leaderboard — se pueden añadir más columnas al sheet
-    // Por ahora se inicializan en 0 hasta que el admin los complete
-    partidasJugadas: 0,
-    partidasGanadas: 0,
-  };
-}
 
 // ─── Cache en Memoria ─────────────────────────────────────────────────────────
 
@@ -122,66 +34,45 @@ let isSyncing = false;
 // ─── Fetch ────────────────────────────────────────────────────────────────────
 
 /**
- * Descarga los datos actuales del spreadsheet y actualiza la caché.
- * Incluye manejo de errores robusto: si falla, conserva la caché anterior.
+ * Descarga los datos actuales de MongoDB (Jugador) y actualiza la caché.
  *
  * @returns {Promise<{players: Array, lastSync: string, total: number}>}
  */
 async function syncFromSheets() {
   if (isSyncing) {
-    console.log("[Sheets] Sync ya en curso, saltando...");
+    console.log("[Sheets/DB] Sync ya en curso, saltando...");
     return { players: cachedPlayers, lastSync: lastSyncTime, total: cachedPlayers.length };
   }
 
   isSyncing = true;
-  console.log("[Sheets] Iniciando sync con Google Sheets...");
+  console.log("[Sheets/DB] Sincronizando jugadores desde la base de datos MongoDB...");
 
   try {
-    const sheets = createSheetsClient();
-    const spreadsheetId = config.SPREADSHEET_ID;
-    const range = config.SHEET_RANGE;
+    const dbPlayers = await Jugador.find({}).lean();
 
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId,
-      range,
-    });
+    cachedPlayers = dbPlayers.map((p) => ({
+      rut: p.rut || "",
+      nombre: p.nombre || "",
+      discord: p.discord || "",
+      juegosPropuesto: p.juegosPropuesto || p.juego_main || "Sin definir",
+      plataforma: p.plataforma || "",
+      horasJugadas: Number(p.horasJugadas) || 0,
+      traeEquipo: Boolean(p.traeEquipo),
+      partidasJugadas: Number(p.partidasJugadas) || 0,
+      partidasGanadas: Number(p.partidasGanadas) || 0,
+    }));
 
-    const rows = response.data.values || [];
-
-    if (rows.length === 0) {
-      console.warn("[Sheets] La hoja está vacía.");
-      cachedPlayers = [];
-      lastSyncTime = new Date().toISOString();
-      return { players: [], lastSync: lastSyncTime, total: 0 };
-    }
-
-    // La fila 0 son cabeceras → skip
-    const dataRows = rows.slice(1);
-    const players = dataRows
-      .map(mapRowToPlayer)
-      .filter((p) => p !== null && p.rut !== "");
-
-    // Deduplicar por RUT (Primary Key) — conserva la primera ocurrencia
-    const seen = new Set();
-    const unique = players.filter((p) => {
-      if (seen.has(p.rut)) return false;
-      seen.add(p.rut);
-      return true;
-    });
-
-    cachedPlayers = unique;
     lastSyncTime = new Date().toISOString();
 
-    console.log(`[Sheets] Sync OK — ${unique.length} jugadores cargados.`);
+    console.log(`[Sheets/DB] Sync OK — ${cachedPlayers.length} jugadores cargados desde MongoDB.`);
 
     // Ejecutar limpieza de datos (evaluaciones y torneos) para los que ya no están
-    const activeRuts = unique.map(p => p.rut);
+    const activeRuts = cachedPlayers.map((p) => p.rut);
     performCleanup(activeRuts);
 
     return { players: cachedPlayers, lastSync: lastSyncTime, total: cachedPlayers.length };
   } catch (error) {
-    console.error("[Sheets] Error en sync:", error.message);
-    // Conservar caché anterior para no romper el frontend
+    console.error("[Sheets/DB] Error en sync:", error.message);
     return {
       players: cachedPlayers,
       lastSync: lastSyncTime,

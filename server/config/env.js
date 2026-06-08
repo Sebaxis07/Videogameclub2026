@@ -21,19 +21,6 @@ const config = {
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || "Becky0704"
 };
 
-// Validate required environment variables
-const missingVars = [];
-if (!config.SPREADSHEET_ID) {
-  missingVars.push("SPREADSHEET_ID");
-}
-if (!config.GOOGLE_SERVICE_ACCOUNT_KEY_JSON && !config.GOOGLE_SERVICE_ACCOUNT_KEY_FILE) {
-  missingVars.push("GOOGLE_SERVICE_ACCOUNT_KEY_JSON o GOOGLE_SERVICE_ACCOUNT_KEY_FILE");
-}
-
-if (missingVars.length > 0) {
-  console.error(`[Config] Faltan variables de entorno requeridas: ${missingVars.join(", ")}`);
-  console.error("[Config] Por favor, configura estas variables en el archivo .env");
-  process.exit(1);
-}
+// No longer validating Google Sheets credentials as database is now local-first
 
 module.exports = Object.freeze(config);

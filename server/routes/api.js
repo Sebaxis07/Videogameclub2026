@@ -12,6 +12,7 @@
 
 const express = require("express");
 const router = express.Router();
+const Jugador = require("../models/Jugador");
 
 const {
   getPlayers,
@@ -343,6 +344,226 @@ router.get("/seed-evals", async (req, res) => {
     await MortalKombatEval.insertMany(mkEvals);
 
     res.json({ success: true, message: "Evaluaciones de Minecraft y Mortal Kombat pobladas con éxito en Atlas." });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ─── GET /api/seed-players ───────────────────────────────────────────────────
+router.get("/seed-players", async (req, res) => {
+  try {
+    const playersToSeed = [
+      {
+        rut: "22.169.741-3",
+        nombre: "Miguel aguilera",
+        discord: "56930611858",
+        juegosPropuesto: "Sin definir",
+        plataforma: "xbox",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "24.763.951-9",
+        nombre: "Angel Torres",
+        discord: "56997663772",
+        juegosPropuesto: "mortal Kombat XL",
+        plataforma: "ps4",
+        horasJugadas: 10,
+        traeEquipo: true
+      },
+      {
+        rut: "22.090.451-2",
+        nombre: "Tomas Pizarro",
+        discord: "56946185965",
+        juegosPropuesto: "ultrakill",
+        plataforma: "pc",
+        horasJugadas: 27,
+        traeEquipo: false
+      },
+      {
+        rut: "28.832.015-2",
+        nombre: "Carmen Huaman",
+        discord: "56978967516",
+        juegosPropuesto: "mobile legends",
+        plataforma: "movil",
+        horasJugadas: 20,
+        traeEquipo: false
+      },
+      {
+        rut: "21.355.768-8",
+        nombre: "Fernanda Carvajal",
+        discord: "lunita<3 56920973629",
+        juegosPropuesto: "Minecraft",
+        plataforma: "pc",
+        horasJugadas: 14,
+        traeEquipo: false
+      },
+      {
+        rut: "21.411.204-3",
+        nombre: "Sebastian Alexander Anabalon Rojas",
+        discord: "shn._ 56940705043",
+        juegosPropuesto: "Valorant",
+        plataforma: "PC",
+        horasJugadas: 450,
+        traeEquipo: false
+      },
+      {
+        rut: "22.315.927-3",
+        nombre: "Sebastián Rojas",
+        discord: "56991961303",
+        juegosPropuesto: "Pokemon",
+        plataforma: "Switch",
+        horasJugadas: 100,
+        traeEquipo: true
+      },
+      {
+        rut: "22288480-2",
+        nombre: "elias valenzuela",
+        discord: "933589167",
+        juegosPropuesto: "Sin definir",
+        plataforma: "",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "20.416.069-4",
+        nombre: "Deyanira Rojas",
+        discord: "945226696",
+        juegosPropuesto: "Valorant",
+        plataforma: "pc",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "44.444.444-4",
+        nombre: "Katalina Club",
+        discord: "",
+        juegosPropuesto: "Sin definir",
+        plataforma: "",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "26.324.548-2",
+        nombre: "deibi",
+        discord: "",
+        juegosPropuesto: "Sin definir",
+        plataforma: "",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "23189772-0",
+        nombre: "Derek Gallardo",
+        discord: "986211504",
+        juegosPropuesto: "Dragon ball fighter Z",
+        plataforma: "ps4",
+        horasJugadas: 17520,
+        traeEquipo: false
+      },
+      {
+        rut: "21336688-2",
+        nombre: "francisco ribeiro",
+        discord: "966101381",
+        juegosPropuesto: "mortal kombat x",
+        plataforma: "pc",
+        horasJugadas: 7.8,
+        traeEquipo: true
+      },
+      {
+        rut: "3.333.333-3",
+        nombre: "Cristopher",
+        discord: "",
+        juegosPropuesto: "Sin definir",
+        plataforma: "",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "2.222.222-2",
+        nombre: "Benjamin U",
+        discord: "",
+        juegosPropuesto: "Sin definir",
+        plataforma: "",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "21135332-K",
+        nombre: "Yamir",
+        discord: "",
+        juegosPropuesto: "Sin definir",
+        plataforma: "",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "22.340.829-k",
+        nombre: "Marcelo",
+        discord: "",
+        juegosPropuesto: "Sin definir",
+        plataforma: "",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "21586510-k",
+        nombre: "Francisca",
+        discord: "",
+        juegosPropuesto: "Sin definir",
+        plataforma: "",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "4.444.444-4",
+        nombre: "kevin",
+        discord: "",
+        juegosPropuesto: "Sin definir",
+        plataforma: "",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "11.111.111-1",
+        nombre: "Rodrigo2",
+        discord: "",
+        juegosPropuesto: "Sin definir",
+        plataforma: "",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "21985425-9",
+        nombre: "Gabriel",
+        discord: "",
+        juegosPropuesto: "Sin definir",
+        plataforma: "",
+        horasJugadas: 0,
+        traeEquipo: false
+      },
+      {
+        rut: "77.777.777-7",
+        nombre: "Sebastian Miranda",
+        discord: "",
+        juegosPropuesto: "Sin definir",
+        plataforma: "",
+        horasJugadas: 0,
+        traeEquipo: false
+      }
+    ];
+
+    await Jugador.deleteMany({});
+    await Jugador.insertMany(playersToSeed);
+
+    // Sincronizar la caché con los nuevos datos de MongoDB
+    await syncFromSheets();
+
+    res.json({
+      success: true,
+      message: "Jugadores poblados con éxito en la base de datos MongoDB Atlas y caché sincronizada.",
+      total: playersToSeed.length
+    });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }

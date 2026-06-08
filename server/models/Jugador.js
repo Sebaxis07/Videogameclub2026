@@ -12,18 +12,47 @@ const jugadorSchema = new mongoose.Schema({
     unique: true,
     trim: true
   },
+  discord: {
+    type: String,
+    trim: true,
+    default: ""
+  },
   correo: {
     type: String,
-    required: [true, "El correo electrónico es obligatorio"],
-    unique: true,
     lowercase: true,
     trim: true,
-    match: [/@inacap\.cl$/, "DENEGADO: El correo debe ser institucional (@inacap.cl)"]
+    default: ""
   },
   juego_main: {
     type: String,
     trim: true,
     default: "Por definir"
+  },
+  juegosPropuesto: {
+    type: String,
+    trim: true,
+    default: "Sin definir"
+  },
+  plataforma: {
+    type: String,
+    trim: true,
+    default: ""
+  },
+  horasJugadas: {
+    type: Number,
+    default: 0
+  },
+  traeEquipo: {
+    type: Boolean,
+    default: false
+  },
+  partidasJugadas: {
+    type: Number,
+    default: 0
+  },
+  partidasGanadas: {
+    type: Number,
+    default: 0
   },
   fecha_inscripcion: {
     type: Date,
