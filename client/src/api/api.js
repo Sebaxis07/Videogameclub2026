@@ -199,3 +199,34 @@ export const generateGauntletBracket = (game, standings) =>
 /** Obtiene las respuestas de evaluación de Minecraft PvP (con puntos + grupo) */
 export const fetchMinecraftEvaluations = () => request('/minecraft-eval')
 
+export const createPlayer = (playerData) =>
+  fetch(`${BASE_URL}/players`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(playerData),
+  }).then(async (r) => {
+    const res = await r.json()
+    if (!r.ok) throw new Error(res.error || 'Error al crear jugador')
+    return res
+  })
+
+export const updatePlayer = (rut, playerData) =>
+  fetch(`${BASE_URL}/players/${rut}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(playerData),
+  }).then(async (r) => {
+    const res = await r.json()
+    if (!r.ok) throw new Error(res.error || 'Error al actualizar jugador')
+    return res
+  })
+
+export const deletePlayer = (rut) =>
+  fetch(`${BASE_URL}/players/${rut}`, {
+    method: 'DELETE',
+  }).then(async (r) => {
+    const res = await r.json()
+    if (!r.ok) throw new Error(res.error || 'Error al eliminar jugador')
+    return res
+  })
+

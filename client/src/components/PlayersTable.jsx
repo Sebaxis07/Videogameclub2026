@@ -1,19 +1,38 @@
 /**
  * PlayersTable.jsx
  * =====================================
- * Vista de todos los jugadores registrados en Google Sheets.
- * Permite filtrar por plataforma y por TraeEquipo.
+ * Vista de todos los jugadores registrados en la base de datos.
+ * Permite filtrar por plataforma, buscar, y gestionar el CRUD de jugadores (Admin).
  */
 
 import React, { useEffect, useCallback, useState } from 'react'
 import useStore from '../store/useStore'
-import { fetchPlayers, setPlayerRole } from '../api/api'
+import {
+  fetchPlayers,
+  setPlayerRole,
+  createPlayer,
+  updatePlayer,
+  deletePlayer
+} from '../api/api'
 
 export default function PlayersTable() {
   const { user, players, setPlayers, setLastSync } = useStore()
   const isAdmin = user?.role === 'admin'
   const [filter, setFilter] = useState('')
   const [platformFilter, setPlatformFilter] = useState('all')
+
+  // Estado del Formulario / Modal
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [editingPlayer, setEditingPlayer] = useState(null)
+  const [formData, setFormData] = useState({
+    rut: '',
+    nombre: '',
+    discord: '',
+    juegosPropuesto: '',
+    plataforma: '',
+    horasJugadas: '',
+    traeEquipo: false
+  })
 
   const load = useCallback(async () => {
     try {
@@ -30,8 +49,9 @@ export default function PlayersTable() {
   const platforms = ['all', ...new Set(players.map((p) => p.plataforma).filter(Boolean))]
 
   const filtered = players.filter((p) => {
-    const matchesName = p.nombre.toLowerCase().includes(filter.toLowerCase()) ||
-      p.rut.includes(filter)
+    const nameMatch = p.nombre ? p.nombre.toLowerCase().includes(filter.toLowerCase()) : false
+    const rutMatch = p.rut ? p.rut.includes(filter) : false
+    const matchesName = nameMatch || rutMatch
     const matchesPlatform = platformFilter === 'all' || p.plataforma === platformFilter
     return matchesName && matchesPlatform
   })
@@ -42,8 +62,78 @@ export default function PlayersTable() {
       await setPlayerRole(rut, newRole)
       setPlayers(players.map(p => p.rut === rut ? { ...p, role: newRole } : p))
     } catch (e) {
-      console.error('Error cambando rol:', e)
-      alert("Error al cambiar rol")
+      console.error('Error cambiando rol:', e)
+      alert("Error al cambiar el rol")
+    }
+  }
+
+  const openAddModal = () => {
+    setEditingPlayer(null)
+    setFormData({
+      rut: '',
+      nombre: '',
+      discord: '',
+      juegosPropuesto: '',
+      plataforma: '',
+      horasJugadas: '',
+      traeEquipo: false
+    })
+    setIsModalOpen(true)
+  }
+
+  const openEditModal = (player) => {
+    setEditingPlayer(player)
+    setFormData({
+      rut: player.rut,
+      nombre: player.nombre,
+      discord: player.discord || '',
+      juegosPropuesto: player.juegosPropuesto || '',
+      plataforma: player.plataforma || '',
+      horasJugadas: player.horasJugadas || '',
+      traeEquipo: !!player.traeEquipo
+    })
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setEditingPlayer(null)
+  }
+
+  const handleDelete = async (rut) => {
+    if (!window.confirm("¿Estás seguro de que deseas eliminar permanentemente a este jugador?")) {
+      return
+    }
+    try {
+      await deletePlayer(rut)
+      setPlayers(players.filter(p => p.rut !== rut))
+    } catch (e) {
+      console.error('Error al eliminar jugador:', e)
+      alert(e.message || "Error al eliminar el jugador")
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      if (editingPlayer) {
+        // Modo Edición
+        const res = await updatePlayer(editingPlayer.rut, formData)
+        if (res.success) {
+          setPlayers(players.map(p => p.rut === editingPlayer.rut ? { ...p, ...formData, horasJugadas: Number(formData.horasJugadas) || 0 } : p))
+          closeModal()
+        }
+      } else {
+        // Modo Creación
+        const res = await createPlayer(formData)
+        if (res.success) {
+          await load() // Recargar para obtener todo limpio
+          closeModal()
+        }
+      }
+    } catch (e) {
+      console.error('Error al guardar jugador:', e)
+      alert(e.message || "Error al guardar el jugador. Verifica que el RUT no esté duplicado.")
     }
   }
 
@@ -56,6 +146,16 @@ export default function PlayersTable() {
           <p className="text-sm text-gray-400 mt-0.5">{filtered.length} de {players.length} jugadores</p>
         </div>
         <div className="flex flex-wrap gap-2">
+          {/* Action button for Admin */}
+          {isAdmin && (
+            <button
+              onClick={openAddModal}
+              className="bg-brand hover:bg-brand-hover text-white text-sm font-semibold px-4 py-2 rounded-xl transition-all shadow-md shadow-brand/10 hover:shadow-brand/20 active:scale-95"
+            >
+              ➕ Registrar Jugador
+            </button>
+          )}
+
           {/* Search */}
           <div className="relative">
             <input
@@ -90,16 +190,21 @@ export default function PlayersTable() {
                 </th>
               ))}
               {isAdmin && (
-                <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pr-4">
-                  Permisos
-                </th>
+                <>
+                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pr-4">
+                    Permisos
+                  </th>
+                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pr-4">
+                    Acciones
+                  </th>
+                </>
               )}
             </tr>
           </thead>
           <tbody>
             {filtered.length === 0 ? (
               <tr>
-                <td colSpan={7} className="text-center text-gray-500 py-10">
+                <td colSpan={isAdmin ? 9 : 7} className="text-center text-gray-500 py-10">
                   No se encontraron jugadores.
                 </td>
               </tr>
@@ -119,7 +224,7 @@ export default function PlayersTable() {
                   <td className="py-3 pr-4">
                     <span className="font-mono font-semibold text-accent-cyan">{p.horasJugadas}h</span>
                   </td>
-                  <td className="py-3">
+                  <td className="py-3 pr-4">
                     {p.traeEquipo ? (
                       <span className="badge bg-accent-green/20 text-accent-green">Sí</span>
                     ) : (
@@ -127,18 +232,38 @@ export default function PlayersTable() {
                     )}
                   </td>
                   {isAdmin && (
-                    <td className="py-3">
-                      <button
-                        onClick={() => handleRoleToggle(p.rut, p.role)}
-                        className={`text-xs px-2 py-1 rounded-md font-bold transition-colors ${
-                          p.role === 'asistente' 
-                            ? 'bg-brand/20 text-brand-light border border-brand/50' 
-                            : 'bg-surface hover:bg-surface-hover text-gray-400 border border-surface-border'
-                        }`}
-                      >
-                        {p.role === 'asistente' ? '🛡️ Asistente' : '👤 Estudiante'}
-                      </button>
-                    </td>
+                    <>
+                      <td className="py-3 pr-4">
+                        <button
+                          onClick={() => handleRoleToggle(p.rut, p.role)}
+                          className={`text-xs px-2 py-1 rounded-md font-bold transition-colors ${
+                            p.role === 'asistente' 
+                              ? 'bg-brand/20 text-brand-light border border-brand/50' 
+                              : 'bg-surface hover:bg-surface-hover text-gray-400 border border-surface-border'
+                          }`}
+                        >
+                          {p.role === 'asistente' ? '🛡️ Asistente' : '👤 Estudiante'}
+                        </button>
+                      </td>
+                      <td className="py-3">
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => openEditModal(p)}
+                            title="Editar Jugador"
+                            className="p-1 hover:text-accent-cyan text-gray-400 transition-colors"
+                          >
+                            ✏️
+                          </button>
+                          <button
+                            onClick={() => handleDelete(p.rut)}
+                            title="Eliminar Jugador"
+                            className="p-1 hover:text-red-500 text-gray-400 transition-colors"
+                          >
+                            🗑️
+                          </button>
+                        </div>
+                      </td>
+                    </>
                   )}
                 </tr>
               ))
@@ -146,6 +271,133 @@ export default function PlayersTable() {
           </tbody>
         </table>
       </div>
+
+      {/* Modal de Registro / Edición */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="bg-surface border border-surface-border rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden animate-scale-up">
+            {/* Modal Header */}
+            <div className="border-b border-surface-border px-6 py-4 flex items-center justify-between">
+              <h3 className="text-lg font-bold text-white">
+                {editingPlayer ? 'Editar Jugador' : 'Registrar Nuevo Jugador'}
+              </h3>
+              <button
+                onClick={closeModal}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Modal Body / Form */}
+            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+              <div>
+                <label className="block text-xs font-semibold text-gray-400 uppercase mb-1">RUT *</label>
+                <input
+                  type="text"
+                  required
+                  disabled={!!editingPlayer}
+                  placeholder="12.345.678-9"
+                  value={formData.rut}
+                  onChange={(e) => setFormData({ ...formData, rut: e.target.value })}
+                  className="w-full bg-surface-hover border border-surface-border rounded-xl px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-brand/50 disabled:opacity-50"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-gray-400 uppercase mb-1">Nombre Completo *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Juan Pérez"
+                  value={formData.nombre}
+                  onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
+                  className="w-full bg-surface-hover border border-surface-border rounded-xl px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-brand/50"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-400 uppercase mb-1">Discord / WhatsApp</label>
+                  <input
+                    type="text"
+                    placeholder="user#1234 o +569..."
+                    value={formData.discord}
+                    onChange={(e) => setFormData({ ...formData, discord: e.target.value })}
+                    className="w-full bg-surface-hover border border-surface-border rounded-xl px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-brand/50"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-gray-400 uppercase mb-1">Juego Propuesto</label>
+                  <input
+                    type="text"
+                    placeholder="Minecraft, Valorant, etc."
+                    value={formData.juegosPropuesto}
+                    onChange={(e) => setFormData({ ...formData, juegosPropuesto: e.target.value })}
+                    className="w-full bg-surface-hover border border-surface-border rounded-xl px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-brand/50"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-400 uppercase mb-1">Plataforma</label>
+                  <input
+                    type="text"
+                    placeholder="PC, PS4, Switch, etc."
+                    value={formData.plataforma}
+                    onChange={(e) => setFormData({ ...formData, plataforma: e.target.value })}
+                    className="w-full bg-surface-hover border border-surface-border rounded-xl px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-brand/50"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-gray-400 uppercase mb-1">Horas Jugadas</label>
+                  <input
+                    type="number"
+                    min="0"
+                    placeholder="0"
+                    value={formData.horasJugadas}
+                    onChange={(e) => setFormData({ ...formData, horasJugadas: e.target.value })}
+                    className="w-full bg-surface-hover border border-surface-border rounded-xl px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-brand/50"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 pt-2">
+                <input
+                  type="checkbox"
+                  id="traeEquipo"
+                  checked={formData.traeEquipo}
+                  onChange={(e) => setFormData({ ...formData, traeEquipo: e.target.checked })}
+                  className="w-4 h-4 rounded border-gray-300 text-brand focus:ring-brand"
+                />
+                <label htmlFor="traeEquipo" className="text-sm text-gray-300 cursor-pointer select-none">
+                  Trae su propio equipo (Mouse, Teclado, Control, etc.)
+                </label>
+              </div>
+
+              {/* Modal Actions */}
+              <div className="flex justify-end gap-3 pt-4 border-t border-surface-border mt-6">
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="px-4 py-2 rounded-xl text-sm font-semibold text-gray-400 hover:text-white hover:bg-surface-hover transition-colors"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-xl text-sm font-semibold text-white bg-brand hover:bg-brand-hover shadow-lg shadow-brand/20 transition-all"
+                >
+                  {editingPlayer ? 'Guardar Cambios' : 'Registrar'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
