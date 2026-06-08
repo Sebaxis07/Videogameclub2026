@@ -46,6 +46,10 @@ if (passport) {
 }
 
 // ─── Rutas ────────────────────────────────────────────────────────────────────
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", timestamp: Date.now() });
+});
+
 // ⚠️ sessionsRouter ANTES de apiRouter: Express evalúa de arriba a abajo.
 //    Si apiRouter va primero, captura /api/sessions/* antes de llegar aquí.
 app.use("/api/sessions",   sessionsRouter);

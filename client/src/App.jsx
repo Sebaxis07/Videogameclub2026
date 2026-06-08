@@ -41,6 +41,7 @@ import TimelineModule from './components/TimelineModule'
 import useStore from './store/useStore'
 import { fetchSettings } from './api/api'
 import { getSocket } from './api/socket'
+import config from './config/env'
 
 const VIEW_TITLES = {
   debate:            { title: 'Fase de Debate',         sub: 'Votos por Juego Propuesto · 8 Abril 2026' },
@@ -134,6 +135,23 @@ export default function App() {
       }
     }
   }, [user, setVisibleModules])
+
+  // Keep-alive ping for Render backend to prevent sleep when client is active
+  useEffect(() => {
+    if (!user) return;
+
+    const ping = () => {
+      fetch(`${config.API_URL}/health`)
+        .then(res => res.json())
+        .then(data => console.log('[Keep-Alive] Server is awake:', data))
+        .catch(err => console.error('[Keep-Alive] Failed to ping server:', err));
+    };
+
+    ping(); // Ping immediately on load/login
+
+    const interval = setInterval(ping, 300000); // Ping every 5 minutes
+    return () => clearInterval(interval);
+  }, [user]);
 
   // ─── Global Login Gate ────────────────────────────────────────────────────────
   if (!user) {
