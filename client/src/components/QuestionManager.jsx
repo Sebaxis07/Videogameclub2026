@@ -363,10 +363,50 @@ export default function QuestionManager() {
   const [filter, setFilter] = useState({ tipo: 'all', dif: 'all', search: '' });
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState(null);
+  const [isImportOpen, setIsImportOpen] = useState(false);
+  const [jsonInput, setJsonInput] = useState('');
 
   const showToast = (msg, type = 'success') => {
     setToast({ msg, type });
     setTimeout(() => setToast(null), 2500);
+  };
+
+  const handleImportBulk = async () => {
+    let parsed;
+    try {
+      parsed = JSON.parse(jsonInput);
+    } catch (err) {
+      showToast('JSON inválido. Revisa la sintaxis.', 'error');
+      return;
+    }
+
+    if (!Array.isArray(parsed)) {
+      showToast('El JSON debe ser un arreglo de objetos.', 'error');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const res = await fetch('/api/trivia/questions/bulk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(parsed),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setIsImportOpen(false);
+        setJsonInput('');
+        fetchQuestions();
+        showToast(`¡Se importaron ${data.count} preguntas con éxito!`);
+      } else {
+        const errData = await res.json();
+        showToast(errData.error || 'Error al importar.', 'error');
+      }
+    } catch {
+      showToast('Error de conexión al servidor.', 'error');
+    }
+    setSaving(false);
   };
 
   const fetchQuestions = useCallback(async () => {
@@ -473,6 +513,10 @@ export default function QuestionManager() {
             <button onClick={handleShuffle} disabled={questions.length < 2 || saving}
               className="flex items-center justify-center gap-2 px-4 py-2 bg-surface border border-surface-border text-gray-300 text-xs font-bold rounded-xl hover:bg-surface-border/40 transition-all focus:outline-none">
               🔀 Mezclar
+            </button>
+            <button onClick={() => setIsImportOpen(true)}
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-surface border border-surface-border text-gray-300 text-xs font-bold rounded-xl hover:bg-surface-border/40 transition-all focus:outline-none">
+              📥 Importar JSON
             </button>
             <button onClick={() => setEditingQuestion(EMPTY_QUESTION('alternativas'))}
               className="flex items-center justify-center gap-2 px-4 py-2 bg-brand text-white text-xs font-bold rounded-xl hover:bg-brand/80 transition-all shadow-lg hover:shadow-brand/30">
@@ -586,6 +630,88 @@ export default function QuestionManager() {
           </div>
         )}
       </div>
+
+      {/* Modal de Importar JSON */}
+      {isImportOpen && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in">
+          <div className="bg-[#0f1117] border border-surface-border/60 rounded-2xl overflow-hidden shadow-2xl max-w-2xl w-full">
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-surface-border/40 bg-surface-card">
+              <h4 className="font-bold text-white text-sm flex items-center gap-2">
+                <span className="text-brand-light">📥</span>
+                Importar Preguntas en Lote (JSON)
+              </h4>
+              <button 
+                type="button" 
+                onClick={() => { setIsImportOpen(false); setJsonInput(''); }}
+                className="text-gray-500 hover:text-white text-lg leading-none transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="p-5 flex flex-col gap-4">
+              <p className="text-xs text-gray-400">
+                Pega un arreglo JSON de preguntas. Cada objeto debe tener al menos un enunciado (<code className="text-brand-light">pregunta</code>) y una categoría (<code className="text-brand-light">categoria</code>).
+              </p>
+              
+              {/* Formato de ejemplo */}
+              <div className="bg-surface border border-surface-border p-3 rounded-lg">
+                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-2">Formato de Ejemplo:</p>
+                <pre className="text-[10px] text-brand-light font-mono overflow-x-auto max-h-32 custom-scrollbar">
+{`[
+  {
+    "pregunta": "¿En qué año se lanzó Minecraft?",
+    "categoria": "Minecraft",
+    "tipo_pregunta": "alternativas",
+    "tipo_dificultad": "Casual",
+    "opciones": ["2009", "2011", "2013", "2015"],
+    "respuesta_correcta": 1
+  },
+  {
+    "pregunta": "El escudo de Elden Ring mitiga 100% de daño físico.",
+    "categoria": "Elden Ring",
+    "tipo_pregunta": "verdadero_falso",
+    "tipo_dificultad": "Competitiva",
+    "respuesta_correcta": 0
+  }
+]`}
+                </pre>
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-400 font-semibold uppercase tracking-wider mb-2">Código JSON</label>
+                <textarea
+                  rows={8}
+                  placeholder="[{ ... }, { ... }]"
+                  className="w-full bg-surface border border-surface-border focus:border-brand focus:ring-1 focus:ring-brand/20 focus:outline-none p-3 rounded-xl text-white text-xs font-mono resize-none transition-all"
+                  value={jsonInput}
+                  onChange={(e) => setJsonInput(e.target.value)}
+                />
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="flex gap-2 justify-end px-5 py-4 border-t border-surface-border/40 bg-surface-card">
+              <button 
+                type="button" 
+                onClick={() => { setIsImportOpen(false); setJsonInput(''); }}
+                className="px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-surface-border/20"
+              >
+                Cancelar
+              </button>
+              <button 
+                type="button"
+                onClick={handleImportBulk}
+                disabled={saving || !jsonInput.trim()}
+                className="px-5 py-2 text-sm bg-brand text-white rounded-lg hover:bg-brand/80 font-bold transition-all shadow-lg hover:shadow-brand/25 disabled:opacity-40 disabled:pointer-events-none flex items-center gap-2"
+              >
+                <span>📥</span> {saving ? 'Importando...' : 'Importar en Lote'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

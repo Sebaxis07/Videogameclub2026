@@ -89,4 +89,63 @@ router.post('/questions/shuffle', (req, res) => {
   }
 });
 
+// POST /api/trivia/questions/bulk
+router.post('/questions/bulk', (req, res) => {
+  try {
+    const list = req.body;
+    if (!Array.isArray(list)) {
+      return res.status(400).json({ error: 'Body must be a JSON array of questions' });
+    }
+
+    const questions = getQuestions();
+    let maxId = questions.reduce((max, q) => (q.id > max ? q.id : max), 0);
+
+    const imported = [];
+    for (const item of list) {
+      if (!item.pregunta || !item.categoria) continue;
+
+      maxId++;
+      const q = {
+        id: maxId,
+        pregunta: item.pregunta,
+        categoria: item.categoria,
+        tipo_dificultad: item.tipo_dificultad || 'Casual',
+        tipo_pregunta: item.tipo_pregunta || 'alternativas',
+        desactivada: item.desactivada === true
+      };
+
+      if (q.tipo_pregunta === 'alternativas' || q.tipo_pregunta === 'ordenamiento') {
+        q.opciones = Array.isArray(item.opciones) ? item.opciones : ['', '', '', ''];
+        if (q.tipo_pregunta === 'alternativas') {
+          q.respuesta_correcta = typeof item.respuesta_correcta === 'number' ? item.respuesta_correcta : 0;
+        } else {
+          q.orden_correcto = Array.isArray(item.orden_correcto) ? item.orden_correcto : [0, 1, 2, 3];
+        }
+      } else if (q.tipo_pregunta === 'verdadero_falso') {
+        q.opciones = ['Verdadero', 'Falso'];
+        q.respuesta_correcta = typeof item.respuesta_correcta === 'number' ? item.respuesta_correcta : 0;
+      } else if (q.tipo_pregunta === 'texto_libre') {
+        q.respuesta_texto = item.respuesta_texto || '';
+        q.pistas = item.pistas || '';
+      } else if (q.tipo_pregunta === 'rango_numerico') {
+        q.rango_min = typeof item.rango_min === 'number' ? item.rango_min : 0;
+        q.rango_max = typeof item.rango_max === 'number' ? item.rango_max : 100;
+        q.respuesta_numero = typeof item.respuesta_numero === 'number' ? item.respuesta_numero : 50;
+      }
+
+      questions.push(q);
+      imported.push(q);
+    }
+
+    if (imported.length === 0) {
+      return res.status(400).json({ error: 'No valid questions found to import' });
+    }
+
+    saveQuestions(questions);
+    res.status(201).json({ success: true, count: imported.length, questions: imported });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to import bulk questions' });
+  }
+});
+
 module.exports = router;
