@@ -29,6 +29,7 @@ const mortalKombatEvalRouter = require("./routes/mortalKombatEval");
 const mortalKombatTournamentRouter = require("./routes/mortalKombatTournament");
 const gauntletRouter    = require("./routes/gauntlet");
 const mcTournamentRouter = require("./routes/mcTournament");
+const publicRegisterRouter = require("./routes/publicRegister");
 const pixelQuiz         = require("./modules/trivia-engine");
 
 const app = express();
@@ -64,6 +65,7 @@ app.use("/api/mk-eval",       mortalKombatEvalRouter);
 app.use("/api/mk-tournament", mortalKombatTournamentRouter);
 app.use("/api/gauntlet", gauntletRouter);
 app.use("/api/mctournament", mcTournamentRouter);
+app.use("/api/public-register", publicRegisterRouter);
 app.use("/api/pixel-quiz", pixelQuiz.router);
 app.use("/api",            apiRouter);
 

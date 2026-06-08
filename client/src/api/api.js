@@ -243,3 +243,14 @@ export const deletePlayer = (rut) =>
 
 export const seedPlayers = () => request('/seed-players')
 
+export const publicRegisterPlayer = (data) =>
+  fetch(`${BASE_URL}/public-register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  }).then(async (r) => {
+    const res = await r.json()
+    if (!r.ok) throw new Error(res.error || 'Error al registrar jugador')
+    return res
+  })
+

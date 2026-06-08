@@ -2491,14 +2491,12 @@ function SpectatorView({ snapshot, onAfter, onClose, settings }) {
         )}
 
         <div className="flex items-center gap-3">
-          {settings?.minecraftFormUrl && (
-            <button
-              onClick={() => setShowSpectatorQr(true)}
-              className="px-3.5 py-1.5 bg-green-600/20 border border-green-500/30 rounded-xl text-[10px] font-black text-green-300 uppercase tracking-widest hover:bg-green-600/35 transition-colors cursor-pointer mr-1"
-            >
-              📱 Inscribirse
-            </button>
-          )}
+          <button
+            onClick={() => setShowSpectatorQr(true)}
+            className="px-3.5 py-1.5 bg-green-600/20 border border-green-500/30 rounded-xl text-[10px] font-black text-green-300 uppercase tracking-widest hover:bg-green-600/35 transition-colors cursor-pointer mr-1"
+          >
+            📱 Inscribirse
+          </button>
           {snapshot?.tabla && snapshot.tabla.length > 0 && (
             <button
               onClick={() => {
@@ -2701,7 +2699,7 @@ function SpectatorView({ snapshot, onAfter, onClose, settings }) {
         </div>
       )}
 
-      {showSpectatorQr && settings?.minecraftFormUrl && (
+      {showSpectatorQr && (
         <div className="fixed inset-0 z-[10005] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
           <div
             className="w-full max-w-sm rounded-3xl border-2 p-6 flex flex-col items-center text-center shadow-2xl relative"
@@ -2718,14 +2716,14 @@ function SpectatorView({ snapshot, onAfter, onClose, settings }) {
             </button>
             <div className="p-4 bg-white rounded-3xl shadow-2xl mb-4">
               <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(settings.minecraftFormUrl)}`}
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(window.location.origin + '/?register=minecraft')}`}
                 alt="Form QR Code"
                 className="w-[200px] h-[200px]"
               />
             </div>
             <h3 className="text-lg font-black text-white uppercase tracking-wider">¡Inscríbete al Torneo!</h3>
             <p className="text-xs text-gray-400 mt-2 leading-relaxed">
-              Escanea este código QR con tu celular para registrarte. Ingresarás automáticamente al <span className="text-amber-400 font-bold">Tier B (Intermedio)</span>.
+              Escanea este código QR con tu celular para registrarte directamente en el torneo.
             </p>
           </div>
         </div>
@@ -3044,10 +3042,8 @@ function MinecraftRegistrationModal({ isOpen, onClose, settings, onSaveSettings,
     };
     reader.readAsDataURL(file);
   };
-
-  const qrCodeUrl = formUrl
-    ? `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(formUrl)}`
-    : null;
+  const localRegisterUrl = `${window.location.origin}/?register=minecraft`;
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(localRegisterUrl)}`;
 
   return (
     <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">

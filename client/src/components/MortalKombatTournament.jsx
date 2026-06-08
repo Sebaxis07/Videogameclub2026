@@ -1324,10 +1324,8 @@ function MKSpectatorView({ tournament, onSetWinner, onClose, settings, isAdmin }
     }
   };
 
-  const formUrl = settings?.mortalKombatFormUrl || '';
-  const qrCodeUrl = formUrl
-    ? `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(formUrl)}`
-    : null;
+  const localRegisterUrl = `${window.location.origin}/?register=mortalkombat`;
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(localRegisterUrl)}`;
 
   const activePhaseInfo = FASES.find(f => f.id === tournament.estado) || FASES[0];
 
@@ -1676,7 +1674,7 @@ function MKSpectatorView({ tournament, onSetWinner, onClose, settings, isAdmin }
             <div className="bg-white p-4 rounded-2xl inline-block shadow-inner mx-auto mb-4 border border-gray-200">
               <img src={qrCodeUrl} alt="Form QR Code" className="w-[220px] h-[220px]" />
             </div>
-            <p className="text-[10px] text-red-500 font-semibold uppercase tracking-wider">{formUrl}</p>
+            <p className="text-[10px] text-red-500 font-semibold uppercase tracking-wider">{localRegisterUrl}</p>
           </div>
         </div>
       )}

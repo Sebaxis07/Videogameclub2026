@@ -38,6 +38,7 @@ import PixelQuizArena from './components/PixelQuizArena'
 import AdminPixelQuiz from './components/AdminPixelQuiz'
 import TournamentPlanner from './components/TournamentPlanner'
 import TimelineModule from './components/TimelineModule'
+import PublicRegisterForm from './components/PublicRegisterForm'
 import useStore from './store/useStore'
 import { fetchSettings } from './api/api'
 import { getSocket } from './api/socket'
@@ -106,6 +107,16 @@ export default function App() {
   const { title, sub } = VIEW_TITLES[activeView] || VIEW_TITLES.debate
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isPwdModalOpen, setIsPwdModalOpen] = useState(false)
+  const [registerGame, setRegisterGame] = useState(null)
+
+  // Check url parameters for registration QR code scans
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const reg = params.get('register');
+    if (reg === 'minecraft' || reg === 'mortal_kombat' || reg === 'mortalkombat' || reg === 'mk') {
+      setRegisterGame(reg === 'minecraft' ? 'minecraft' : 'mortalkombat');
+    }
+  }, []);
 
   // Fetch settings on load if user is logged in
   useEffect(() => {
@@ -152,6 +163,21 @@ export default function App() {
     const interval = setInterval(ping, 300000); // Ping every 5 minutes
     return () => clearInterval(interval);
   }, [user]);
+
+  // ─── QR Registration Form Gate ───────────────────────────────────────────────
+  if (registerGame) {
+    return (
+      <PublicRegisterForm 
+        game={registerGame} 
+        onCancel={() => {
+          setRegisterGame(null);
+          const url = new URL(window.location);
+          url.searchParams.delete('register');
+          window.history.replaceState({}, '', url);
+        }} 
+      />
+    );
+  }
 
   // ─── Global Login Gate ────────────────────────────────────────────────────────
   if (!user) {
