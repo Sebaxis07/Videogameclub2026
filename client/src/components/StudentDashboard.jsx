@@ -26,7 +26,10 @@ export default function StudentDashboard() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    if (!user?.nombre) return;
+    if (!user?.nombre || user?.role === 'guest') {
+      setLoading(false);
+      return;
+    }
     
     setLoading(true);
     fetchStudentHistory(user.nombre)
@@ -48,6 +51,47 @@ export default function StudentDashboard() {
   // Contadores para resumen rápido
   const totalAsistencias = history.filter(s => s.present).length;
   const totalEquiposPuestos = history.reduce((acc, s) => acc + (s.equipment?.length || 0), 0);
+
+  if (user?.role === 'guest') {
+    return (
+      <div className="animate-fade-in flex flex-col items-center min-h-[60vh] px-2 md:px-0 text-center">
+        <div className="w-full max-w-2xl bg-surface-card border border-surface-border rounded-2xl shadow-lg p-8 mb-8">
+          <div className="w-24 h-24 rounded-full bg-brand/20 border-4 border-brand/40 flex items-center justify-center shadow-[0_0_20px_rgba(var(--brand-rgb),0.3)] mx-auto mb-6">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-12 h-12 text-brand-light">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A11.386 11.386 0 0110.089 18M15 12a5 5 0 11-10 0 5 5 0 0110 0z" />
+            </svg>
+          </div>
+          
+          <h2 className="text-3xl font-extrabold text-white mb-2 tracking-tight">¡Bienvenido, {user.nombre}!</h2>
+          <p className="text-gray-400 mb-6 max-w-md mx-auto">
+            Te has registrado correctamente como <strong className="text-brand-light">Invitado</strong> en el Club de Videojuegos.
+          </p>
+
+          <div className="bg-surface border border-surface-border/50 rounded-xl p-6 mb-6">
+            <h3 className="text-lg font-bold text-white mb-3">¿Qué puedes hacer como Invitado?</h3>
+            <ul className="text-sm text-gray-400 space-y-3 text-left max-w-md mx-auto">
+              <li className="flex items-start gap-2">
+                <span className="text-brand-light mt-0.5">🎮</span>
+                <span>Participar en la <strong>Arena de Trivia</strong> en tiempo real junto al resto del club.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-brand-light mt-0.5">🗳️</span>
+                <span>Votar por tus videojuegos favoritos en el módulo de votaciones para decidir la temática de la trivia.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-brand-light mt-0.5">💬</span>
+                <span>Chatear en la sala global de mensajería.</span>
+              </li>
+            </ul>
+          </div>
+
+          <p className="text-xs text-gray-500">
+            Utiliza el menú lateral para acceder a las distintas actividades cuando el encargado las active.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="animate-fade-in flex flex-col items-center min-h-[60vh] px-2 md:px-0">

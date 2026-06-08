@@ -563,6 +563,19 @@ export default function TriviaArena() {
           </div>
 
           <div className="w-full h-0.5 bg-surface-border animate-pulse rounded mt-2" />
+          
+          <div className="bg-surface/30 border border-surface-border/50 rounded-xl p-3 w-full flex items-center gap-3">
+            <img 
+              src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(window.location.origin)}`}
+              alt="Share QR"
+              className="w-12 h-12 bg-white p-1 rounded-lg shrink-0"
+            />
+            <div className="text-left">
+              <p className="text-xs font-bold text-white leading-tight">¿Tienes un compañero al lado?</p>
+              <p className="text-[10px] text-gray-500 mt-0.5 leading-tight">Muéstrale este código QR para que ingrese y se registre en la trivia.</p>
+            </div>
+          </div>
+
           <p className="text-xs text-gray-500 flex items-center justify-center gap-1.5 animate-pulse mt-1">
             <span className="w-2 h-2 rounded-full bg-green-400 inline-block drop-shadow-[0_0_8px_rgba(74,222,128,0.8)]" />
             Esperando al administrador…

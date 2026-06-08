@@ -11,18 +11,12 @@ import { getSocket } from '../api/socket';
 import useStore from '../store/useStore';
 
 const GAME_THEMES = {
-  'League of Legends':     { emoji: '⚔️',  color: '#c89b3c' },
-  'Mortal Kombat XL':      { emoji: '🩸',  color: '#cc2222' },
-  'Ultrakill':             { emoji: '💀',  color: '#ff4444' },
-  'Mobile Legends':        { emoji: '📱',  color: '#00b4ff' },
-  'Overwatch':             { emoji: '🎯',  color: '#f99e1a' },
   'Minecraft':             { emoji: '⛏️',  color: '#5d9e3f' },
-  'Valorant':              { emoji: '🔫',  color: '#ff4655' },
-  'Pokemon':               { emoji: '⚡',  color: '#f5c518' },
-  'Team Fortress 2':       { emoji: '🎪',  color: '#cf6a32' },
-  'Terraria':              { emoji: '🌳',  color: '#52a832' },
-  'Marvel Rivals':         { emoji: '🦸',  color: '#d62828' },
-  'Dragon Ball FighterZ':  { emoji: '🐉',  color: '#ff9000' },
+  'Fortnite':              { emoji: '🚌',  color: '#eab308' },
+  'Mortal Kombat XL':      { emoji: '🩸',  color: '#cc2222' },
+  'League of Legends':     { emoji: '⚔️',  color: '#c89b3c' },
+  'Roblox':                { emoji: '🧱',  color: '#ef4444' },
+  'Elden Ring':            { emoji: '💍',  color: '#eab308' },
 };
 
 export default function AdminVoting() {

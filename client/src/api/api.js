@@ -71,6 +71,17 @@ export const loginUser = (username, password) =>
     return data
   })
 
+export const loginGuest = (nombre) =>
+  fetch(`${BASE_URL}/auth/guest`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nombre }),
+  }).then(async (r) => {
+    const data = await r.json()
+    if (!r.ok) throw new Error(data.error || 'Error autenticando como invitado')
+    return data
+  })
+
 export const changePassword = (rut, oldPassword, newPassword) =>
   fetch(`${BASE_URL}/auth/change-password`, {
     method: 'POST',
@@ -229,4 +240,6 @@ export const deletePlayer = (rut) =>
     if (!r.ok) throw new Error(res.error || 'Error al eliminar jugador')
     return res
   })
+
+export const seedPlayers = () => request('/seed-players')
 

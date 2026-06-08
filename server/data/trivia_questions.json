@@ -12,7 +12,7 @@
       "Activision"
     ],
     "respuesta_correcta": 1,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 2,
@@ -27,7 +27,7 @@
       "Avión de la Tormenta"
     ],
     "respuesta_correcta": 2,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 3,
@@ -42,7 +42,7 @@
       "Metal"
     ],
     "respuesta_correcta": 1,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 4,
@@ -57,7 +57,7 @@
       "150"
     ],
     "respuesta_correcta": 2,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 5,
@@ -72,7 +72,7 @@
       "Barras de Oro"
     ],
     "respuesta_correcta": 1,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 6,
@@ -87,7 +87,7 @@
       "Trampa de Baile"
     ],
     "respuesta_correcta": 2,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 7,
@@ -102,7 +102,7 @@
       "Marshmello"
     ],
     "respuesta_correcta": 3,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 8,
@@ -117,7 +117,7 @@
       "Verde"
     ],
     "respuesta_correcta": 1,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 9,
@@ -132,7 +132,7 @@
       "Salpicón Saludable"
     ],
     "respuesta_correcta": 1,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 10,
@@ -147,7 +147,7 @@
       "Deja caer todas sus armas"
     ],
     "respuesta_correcta": 2,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 11,
@@ -162,7 +162,7 @@
       "Gary"
     ],
     "respuesta_correcta": 1,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 12,
@@ -177,7 +177,7 @@
       "Pisos Picados (Tilted Towers)"
     ],
     "respuesta_correcta": 3,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 13,
@@ -192,7 +192,7 @@
       "Botiquín"
     ],
     "respuesta_correcta": 0,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 14,
@@ -207,7 +207,7 @@
       "Lego Fortnite"
     ],
     "respuesta_correcta": 2,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 15,
@@ -222,7 +222,7 @@
       "Un Taco"
     ],
     "respuesta_correcta": 2,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 16,
@@ -237,7 +237,7 @@
       "Plataforma de Salto"
     ],
     "respuesta_correcta": 1,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 17,
@@ -252,7 +252,7 @@
       "Burro"
     ],
     "respuesta_correcta": 1,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 18,
@@ -267,7 +267,7 @@
       "El Moonwalk"
     ],
     "respuesta_correcta": 0,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 19,
@@ -282,7 +282,7 @@
       "Obsidiana"
     ],
     "respuesta_correcta": 2,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 20,
@@ -297,7 +297,7 @@
       "Es expulsado de la partida"
     ],
     "respuesta_correcta": 2,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 21,
@@ -312,7 +312,7 @@
       "6"
     ],
     "respuesta_correcta": 2,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 22,
@@ -327,7 +327,7 @@
       "Riot Points"
     ],
     "respuesta_correcta": 1,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 23,
@@ -342,7 +342,7 @@
       "Centinela"
     ],
     "respuesta_correcta": 0,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 24,
@@ -357,7 +357,7 @@
       "Yorick"
     ],
     "respuesta_correcta": 1,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 25,
@@ -372,7 +372,7 @@
       "Bot"
     ],
     "respuesta_correcta": 3,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 26,
@@ -387,7 +387,7 @@
       "6"
     ],
     "respuesta_correcta": 1,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 27,
@@ -402,7 +402,7 @@
       "Cuidado!"
     ],
     "respuesta_correcta": 0,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 28,
@@ -417,7 +417,7 @@
       "Sivir"
     ],
     "respuesta_correcta": 0,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 29,
@@ -432,7 +432,7 @@
       "La Taberna"
     ],
     "respuesta_correcta": 2,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 30,
@@ -447,7 +447,7 @@
       "14"
     ],
     "respuesta_correcta": 2,
-    "desactivada": true
+    "desactivada": false
   },
   {
     "id": 31,
@@ -2098,5 +2098,1055 @@
     ],
     "respuesta_correcta": 2,
     "desactivada": true
+  },
+  {
+    "id": 141,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama la dimensión a la que viajas usando un portal de obsidiana?",
+    "opciones": [
+      "El End",
+      "El Nether",
+      "El Vacío",
+      "El Aether"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 142,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué objeto necesitas para domesticar a un lobo en Minecraft?",
+    "opciones": [
+      "Pescado crudo",
+      "Carne podrida",
+      "Hueso",
+      "Manzana"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 143,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cuál es el bloque más resistente a las explosiones en Minecraft que se puede obtener en supervivencia?",
+    "opciones": [
+      "Piedra base (Bedrock)",
+      "Obsidiana",
+      "Bloque de hierro",
+      "Ladrillos de piedra"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 144,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué criatura le teme a los gatos en Minecraft?",
+    "opciones": [
+      "Zombie",
+      "Creeper",
+      "Skeleton",
+      "Enderman"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 145,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Qué mineral se necesita para mejorar herramientas de diamante a su versión definitiva en la mesa de herrería?",
+    "opciones": [
+      "Nethertila (Netherite)",
+      "Esmeralda",
+      "Redstone",
+      "Cuarzo"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 146,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama el jefe volador que se encuentra en la dimensión del End?",
+    "opciones": [
+      "Wither",
+      "Dragón del End (Ender Dragon)",
+      "Warden",
+      "Eldritch"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 147,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Qué bloque se utiliza para atraer y hacer aparecer al Warden?",
+    "opciones": [
+      "Sculk Sensor",
+      "Sculk Shrieker (Aullador)",
+      "Sculk Catalyst",
+      "Bloque de carbón"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 148,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Cuántos lingotes de hierro se necesitan para craftear un yunque?",
+    "opciones": [
+      "3 lingotes y 3 bloques",
+      "4 lingotes y 3 bloques",
+      "3 lingotes y 4 bloques",
+      "5 lingotes y 2 bloques"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 149,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué poción necesitas para curar a un aldeano zombie?",
+    "opciones": [
+      "Poción de Daño",
+      "Poción de Debilidad arrojadiza",
+      "Poción de Fuerza",
+      "Poción de Regeneración"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 150,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Minecraft",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué criatura de Minecraft fue creada originalmente por un error de código al intentar diseñar un cerdo?",
+    "opciones": [
+      "Creeper",
+      "Zombie Pigman",
+      "Enderman",
+      "Slime"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 151,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Quién es el líder del clan ninja Shirai Ryu en Mortal Kombat XL?",
+    "opciones": [
+      "Sub-Zero",
+      "Scorpion",
+      "Takeda",
+      "Tremor"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 152,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama el ataque especial de Mortal Kombat XL que muestra una radiografía de los huesos rompiéndose?",
+    "opciones": [
+      "Fatality",
+      "Brutality",
+      "X-Ray",
+      "Babality"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 153,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cuál de los siguientes personajes invitados de películas de terror aparece en Mortal Kombat XL?",
+    "opciones": [
+      "Freddy Krueger",
+      "Jason Voorhees",
+      "Chucky",
+      "Michael Myers"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 154,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Qué personaje de Mortal Kombat XL es un cyborg que combina a Cyrax, Sektor y Smoke?",
+    "opciones": [
+      "Sub-Zero Cyborg",
+      "Triborg",
+      "Jax Cyber",
+      "Frost"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 155,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué personaje femenino de Mortal Kombat XL utiliza abanicos afilados de metal como arma?",
+    "opciones": [
+      "Mileena",
+      "Kitana",
+      "Jade",
+      "Jacqui Briggs"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 156,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama el Dios Antiguo caído que actúa como el jefe final de Mortal Kombat X/XL?",
+    "opciones": [
+      "Shao Kahn",
+      "Shinnok",
+      "Quan Chi",
+      "Kotal Kahn"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 157,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Qué estilo de variación de Scorpion le otorga dos espadas ninjato?",
+    "opciones": [
+      "Ninjutsu",
+      "Hellfire",
+      "Inferno",
+      "Shirai Ryu"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 158,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué personaje de Mortal Kombat XL es el emperador de Outworld al inicio de la historia de MKX?",
+    "opciones": [
+      "Shao Kahn",
+      "Kotal Kahn",
+      "Mileena",
+      "Reiko"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 159,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Cuál de los siguientes luchadores es el hijo de Kenshi en Mortal Kombat XL?",
+    "opciones": [
+      "Kung Jin",
+      "Takeda Takahashi",
+      "Cassie Cage",
+      "Erron Black"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 160,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Mortal Kombat XL",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cuál es el nombre del mercenario de la Tierra que viste como vaquero en Mortal Kombat XL?",
+    "opciones": [
+      "Kano",
+      "Kabal",
+      "Erron Black",
+      "Tremor"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 161,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama el mapa clásico de 5 contra 5 en League of Legends?",
+    "opciones": [
+      "El Abismo de los Lamentos",
+      "La Grieta del Invocador",
+      "La Cicatriz de Cristal",
+      "El Bosque Retorcido"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 162,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cuál de estos campeones es conocido como el 'Ciego' y usa artes marciales en la jungla?",
+    "opciones": [
+      "Lee Sin",
+      "Yasuo",
+      "Master Yi",
+      "Jax"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 163,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué criatura neutral en la jungla otorga el 'Buff Azul' de regeneración de maná al ser derrotada?",
+    "opciones": [
+      "Rojo Brambleback",
+      "Azul Sentinel",
+      "Gromp",
+      "Murk Wolf"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 164,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Cómo se llama la región helada y del norte de Runaterra de donde provienen Ashe y Sejuani?",
+    "opciones": [
+      "Noxus",
+      "Demacia",
+      "Freljord",
+      "Jonia"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 165,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué campeona de League of Legends es una tiradora lunática de Zaun que usa un cañón de tiburón llamado Espinas?",
+    "opciones": [
+      "Vi",
+      "Jinx",
+      "Caitlyn",
+      "Zeri"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 166,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Cuál es la cantidad máxima de acumulaciones que puede tener el dragón elemental antes del Alma de Dragón?",
+    "opciones": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 167,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué objeto legendario te revive con un porcentaje de vida y maná tras morir en combate?",
+    "opciones": [
+      "Filo del Infinito",
+      "Ángel Guardián",
+      "Reloj de Arena de Zhonya",
+      "Sombrero Mortal de Rabadon"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 168,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué campeón grita 'Demacia!' al girar con su espada gigante?",
+    "opciones": [
+      "Lux",
+      "Fiora",
+      "Garen",
+      "Riven"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 169,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama el torneo mundial anual de League of Legends organizado por Riot Games?",
+    "opciones": [
+      "LCS",
+      "Worlds",
+      "Mid-Season Invitational",
+      "The International"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 170,
+    "tipo_pregunta": "alternativas",
+    "categoria": "League of Legends",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Qué rol en League of Legends se encarga principalmente de controlar los objetivos neutrales del mapa usando el hechizo 'Castigo' (Smite)?",
+    "opciones": [
+      "Soporte",
+      "Jungla",
+      "Carrilero Central",
+      "Carrilero Superior"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 171,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿En qué año fue lanzado oficialmente el juego Roblox?",
+    "opciones": [
+      "2004",
+      "2006",
+      "2009",
+      "2012"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 172,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama la moneda virtual utilizada para comprar artículos en el catálogo de Roblox?",
+    "opciones": [
+      "R-Coins",
+      "Robux",
+      "Tix",
+      "RobloBucks"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 173,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Cómo se llamaba el cofundador de Roblox que falleció en 2013 y tiene un memorial en el juego?",
+    "opciones": [
+      "David Baszucki",
+      "Erik Cassel",
+      "John Shedletsky",
+      "Keith Lucas"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 174,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cuál de estos juegos de Roblox consiste en adoptar mascotas, decorar tu casa y explorar una isla?",
+    "opciones": [
+      "Blox Fruits",
+      "Adopt Me!",
+      "Murder Mystery 2",
+      "Brookhaven"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 175,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué popular juego de Roblox está inspirado en el anime One Piece y consiste en obtener frutas con poderes?",
+    "opciones": [
+      "Shindo Life",
+      "Blox Fruits",
+      "Anime Fighting Simulator",
+      "Grand Piece Online"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 176,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama la herramienta oficial que se utiliza para crear y programar juegos en Roblox?",
+    "opciones": [
+      "Roblox Creator",
+      "Roblox Studio",
+      "Roblox Engine",
+      "Luau Studio"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 177,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Qué lenguaje de programación se utiliza para escribir scripts dentro de Roblox Studio?",
+    "opciones": [
+      "Python",
+      "JavaScript",
+      "Lua (Luau)",
+      "C#"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 178,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se le conoce popularmente al avatar por defecto de Roblox con torso azul, piernas verdes y cabeza amarilla?",
+    "opciones": [
+      "Guest",
+      "Noob",
+      "Bacon Hair",
+      "Robloxian"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 179,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué famoso sonido de muerte de Roblox fue removido en 2022 debido a derechos de autor?",
+    "opciones": [
+      "Oof",
+      "Ugh",
+      "Ah!",
+      "Oh!"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 180,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama el juego de rol en Roblox donde los jugadores compran casas y simulan una vida en la ciudad Brookhaven?",
+    "opciones": [
+      "Adopt Me!",
+      "Brookhaven RP",
+      "Welcome to Bloxburg",
+      "MeepCity"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 181,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué juego de Roblox consiste en sobrevivir a desastres como tornados o terremotos en diferentes mapas?",
+    "opciones": [
+      "Natural Disaster Survival",
+      "Survive the Killer",
+      "Flood Escape",
+      "Disaster Island"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 182,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Cuál era la antigua moneda gratuita de Roblox que fue eliminada en 2016?",
+    "opciones": [
+      "Robux",
+      "Tickets (Tix)",
+      "Credits",
+      "RobloPoints"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 183,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué juego de Roblox recrea una pizzería donde trabajas como cajero, cocinero o repartidor?",
+    "opciones": [
+      "Pizza Factory",
+      "Work at a Pizza Place",
+      "Pizza Tycoon",
+      "Robloxian Pizza"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 184,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama la suscripción mensual de Roblox que otorga Robux mensuales y beneficios?",
+    "opciones": [
+      "Roblox Plus",
+      "Builders Club",
+      "Roblox Premium",
+      "Club Roblo"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 185,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué tipo de juego en Roblox se caracteriza por pistas de obstáculos que el jugador debe saltar?",
+    "opciones": [
+      "Tycoon",
+      "Obby",
+      "RPG",
+      "Simulator"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 186,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Cuál de los siguientes es el nombre del creador principal de Roblox, apodado 'Builderman'?",
+    "opciones": [
+      "David Baszucki",
+      "Erik Cassel",
+      "Craig Sherman",
+      "John Shedletsky"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 187,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué juego de Roblox te permite construir tu propio barco para llegar al final de un río?",
+    "opciones": [
+      "Build a Boat for Treasure",
+      "Raft Survival",
+      "Boat Tycoon",
+      "Build and Sail"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 188,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Cómo se les llama a los sombreros y accesorios creados por la propia comunidad de Roblox?",
+    "opciones": [
+      "DLC",
+      "UGC (User Generated Content)",
+      "Catalog Items",
+      "Custom Assets"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 189,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué juego de Roblox consiste en un juego de deducción social con un asesino, un sheriff e inocentes?",
+    "opciones": [
+      "Piggy",
+      "Murder Mystery 2",
+      "Among Us Roblox",
+      "Flee the Facility"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 190,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Roblox",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué juego de Roblox de terror cooperativo se ambienta en un hotel con puertas numeradas y monstruos?",
+    "opciones": [
+      "Piggy",
+      "Doors",
+      "The Mimic",
+      "Rainbow Friends"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 191,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Quién es el desarrollador del aclamado juego Elden Ring?",
+    "opciones": [
+      "Bethesda Game Studios",
+      "FromSoftware",
+      "Team Cherry",
+      "Ubisoft"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 192,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué famoso escritor de fantasía colaboró en la creación del trasfondo (lore) de Elden Ring?",
+    "opciones": [
+      "J.R.R. Tolkien",
+      "George R.R. Martin",
+      "Brandon Sanderson",
+      "Neil Gaiman"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 193,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama el mundo abierto donde se desarrolla Elden Ring?",
+    "opciones": [
+      "Lothric",
+      "Las Tierras Intermedias (Lands Between)",
+      "Lordran",
+      "Yharnam"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 194,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama el corcel espectral que el jugador puede invocar para viajar?",
+    "opciones": [
+      "Torrent (Torrentera)",
+      "Melina",
+      "Epona",
+      "Shadowmere"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 195,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué doncella le ofrece el acuerdo al Sinluz para convertir las runas en poder?",
+    "opciones": [
+      "Ranni",
+      "Melina",
+      "Marika",
+      "Malenia"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 196,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama el gran árbol dorado gigante que domina el cielo de las Tierras Intermedias?",
+    "opciones": [
+      "Árbol del Mundo",
+      "Árbol Áureo (Erdtree)",
+      "Yggdrasil",
+      "Árbol Sagrado de Miquella"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 197,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Quién es el primer semidiós portador de runas que los jugadores suelen enfrentar en el Castillo de Velo Tormentoso?",
+    "opciones": [
+      "Margit",
+      "Godrick el Injertado",
+      "Radahn",
+      "Rykard"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 198,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Qué jefa de Elden Ring es conocida por decir: 'Yo soy Malenia, la espada de Miquella'?",
+    "opciones": [
+      "Rennala",
+      "Marika",
+      "Malenia",
+      "Ranni"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 199,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué semidiós sostiene el cielo y las estrellas y debe ser combatido en un festival en Caelid?",
+    "opciones": [
+      "Morgott",
+      "Radahn, el Azote de las Estrellas",
+      "Godwyn",
+      "Miquella"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 200,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama la bruja de cuatro brazos de piel azul que te entrega la campana de invocación?",
+    "opciones": [
+      "Fia",
+      "Sellen",
+      "Ranni",
+      "Millicent"
+    ],
+    "respuesta_correcta": 2,
+    "desactivada": false
+  },
+  {
+    "id": 201,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué estado perjudicial teñido de rojo cubre la región de Caelid?",
+    "opciones": [
+      "Ponzoña",
+      "Putrefacción Roja (Scarlet Rot)",
+      "Congelación",
+      "Hemorragia"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 202,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué objeto sustituye a las hogueras de Dark Souls para descansar y reaparecer?",
+    "opciones": [
+      "Faroles",
+      "Sitios de Gracia (Sites of Grace)",
+      "Altares de Sangre",
+      "Estatua de Marika"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 203,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Cómo se llama el jefe final de Elden Ring que reside dentro del Árbol Áureo?",
+    "opciones": [
+      "Radagon",
+      "La Bestia de Elden (Elden Beast)",
+      "Gideon Ofnir",
+      "Maliketh"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 204,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cuál de las siguientes es una ceniza de invocación que hace una copia exacta del equipamiento del jugador?",
+    "opciones": [
+      "Lágrima Mimética (Mimic Tear)",
+      "Tiche, la Cuchilla Negra",
+      "Lhutel la Sin Cabeza",
+      "Caballero Oleg"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
+  },
+  {
+    "id": 205,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué personaje te pide un abrazo en la Mesa Redonda a cambio de una bendición que reduce un 5% tu vida?",
+    "opciones": [
+      "Roderika",
+      "Fia",
+      "Nepheli Loux",
+      "Melina"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 206,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Qué espadón legendario, otorgado por Ranni, escala principalmente con Inteligencia?",
+    "opciones": [
+      "Espada de la Noche y la Llama",
+      "Espada del Claro de Luna Sombrío (Dark Moon)",
+      "Ríos de Sangre",
+      "Espadón de Ruinas"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 207,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Competitiva",
+    "pregunta": "¿Cuál es el título que ostenta Godfrey, el primer esposo de la Reina Marika?",
+    "opciones": [
+      "Señor del Rayo",
+      "El Primer Señor de Elden (First Elden Lord)",
+      "El Rey Injertado",
+      "El Devorador de Dioses"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 208,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Cómo se llama el santuario central donde los Sinluz se reúnen fuera del mapa?",
+    "opciones": [
+      "Santuario de Enlace",
+      "Mesa Redonda (Roundtable Hold)",
+      "El Sueño del Cazador",
+      "Castillo de la Tempestad"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 209,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Quién es el director principal y creador de Elden Ring?",
+    "opciones": [
+      "Hideo Kojima",
+      "Hidetaka Miyazaki",
+      "Shinji Mikami",
+      "Yoko Taro"
+    ],
+    "respuesta_correcta": 1,
+    "desactivada": false
+  },
+  {
+    "id": 210,
+    "tipo_pregunta": "alternativas",
+    "categoria": "Elden Ring",
+    "tipo_dificultad": "Casual",
+    "pregunta": "¿Qué consumible restaura principalmente tus Puntos de Salud (PS)?",
+    "opciones": [
+      "Vial de Lágrimas Carmesíes",
+      "Vial de Lágrimas Cerúleas",
+      "Frasco de Perfume",
+      "Lágrima Sagrada"
+    ],
+    "respuesta_correcta": 0,
+    "desactivada": false
   }
 ]

@@ -286,8 +286,21 @@ module.exports = function (io) {
     socket.on("admin:trivia:start", () => {
       if (role !== "admin") return;
       
-      const allQuestions = loadQuestions();
-      state.deck = shuffle(allQuestions);
+      const votingHandler = require("./votingHandler");
+      const votingState = votingHandler.getState ? votingHandler.getState() : {};
+      const top3 = votingState.top3 || [];
+      
+      let allQuestions = loadQuestions();
+      allQuestions = allQuestions.filter(q => q.desactivada !== true);
+
+      if (top3 && top3.length > 0) {
+        console.log(`[Trivia] Filtrando preguntas para el Top 3 de votación: ${top3.join(", ")}`);
+        allQuestions = allQuestions.filter(q => top3.includes(q.categoria));
+      }
+      
+      const shuffled = shuffle(allQuestions);
+      state.deck = shuffled.slice(0, 20);
+      
       state.currentQuestionIndex = -1;
       state.answers = {};
       state.status  = "lobby";

@@ -12,18 +12,12 @@ import useStore from '../store/useStore';
 
 // Emojis / colores temáticos por juego
 const GAME_THEMES = {
-  'League of Legends':     { emoji: '⚔️',  color: '#c89b3c', bg: 'from-[#1a1200] to-[#2a1f00]', border: 'border-[#c89b3c]/40' },
-  'Mortal Kombat XL':      { emoji: '🩸',  color: '#cc2222', bg: 'from-[#1a0000] to-[#2a0000]', border: 'border-red-700/40' },
-  'Ultrakill':             { emoji: '💀',  color: '#ff4444', bg: 'from-[#1a0000] to-[#1f0505]', border: 'border-red-500/40' },
-  'Mobile Legends':        { emoji: '📱',  color: '#00b4ff', bg: 'from-[#001220] to-[#00192d]', border: 'border-sky-500/40' },
-  'Overwatch':             { emoji: '🎯',  color: '#f99e1a', bg: 'from-[#1a1000] to-[#251800]', border: 'border-orange-500/40' },
   'Minecraft':             { emoji: '⛏️',  color: '#5d9e3f', bg: 'from-[#071200] to-[#0a1a00]', border: 'border-green-600/40' },
-  'Valorant':              { emoji: '🔫',  color: '#ff4655', bg: 'from-[#1a0005] to-[#200007]', border: 'border-rose-500/40' },
-  'Pokemon':               { emoji: '⚡',  color: '#f5c518', bg: 'from-[#1a1600] to-[#251f00]', border: 'border-yellow-400/40' },
-  'Team Fortress 2':       { emoji: '🎪',  color: '#cf6a32', bg: 'from-[#1a0d00] to-[#221100]', border: 'border-orange-600/40' },
-  'Terraria':              { emoji: '🌳',  color: '#52a832', bg: 'from-[#061200] to-[#0a1800]', border: 'border-lime-600/40' },
-  'Marvel Rivals':         { emoji: '🦸',  color: '#d62828', bg: 'from-[#1a0005] to-[#200007]', border: 'border-red-600/40' },
-  'Dragon Ball FighterZ':  { emoji: '🐉',  color: '#ff9000', bg: 'from-[#1a0e00] to-[#241200]', border: 'border-amber-500/40' },
+  'Fortnite':              { emoji: '🚌',  color: '#eab308', bg: 'from-[#1a1500] to-[#251f00]', border: 'border-yellow-500/40' },
+  'Mortal Kombat XL':      { emoji: '🩸',  color: '#cc2222', bg: 'from-[#1a0000] to-[#2a0000]', border: 'border-red-700/40' },
+  'League of Legends':     { emoji: '⚔️',  color: '#c89b3c', bg: 'from-[#1a1200] to-[#2a1f00]', border: 'border-[#c89b3c]/40' },
+  'Roblox':                { emoji: '🧱',  color: '#ef4444', bg: 'from-[#1a0000] to-[#250000]', border: 'border-red-500/40' },
+  'Elden Ring':            { emoji: '💍',  color: '#eab308', bg: 'from-[#1b1502] to-[#2c2203]', border: 'border-amber-500/40' },
 };
 
 function GameCard({ game, votes, totalVotes, selected, myVote, isOpen, onVote }) {

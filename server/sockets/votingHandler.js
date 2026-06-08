@@ -8,18 +8,12 @@
 "use strict";
 
 const GAMES_LIST = [
-  "League of Legends",
-  "Mortal Kombat XL",
-  "Ultrakill",
-  "Mobile Legends",
-  "Overwatch",
   "Minecraft",
-  "Valorant",
-  "Pokemon",
-  "Team Fortress 2",
-  "Terraria",
-  "Marvel Rivals",
-  "Dragon Ball FighterZ"
+  "Fortnite",
+  "Mortal Kombat XL",
+  "League of Legends",
+  "Roblox",
+  "Elden Ring"
 ];
 
 function createInitialState() {

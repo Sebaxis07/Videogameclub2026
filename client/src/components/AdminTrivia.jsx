@@ -404,6 +404,38 @@ export default function AdminTrivia() {
             />
           </div>
 
+          {/* ── 📱 QR CODE DE ACCESO ── */}
+          {(status === 'idle' || status === 'lobby' || status === 'finished') && (
+            <div className="bg-surface-card border border-surface-border rounded-3xl p-6 flex flex-col md:flex-row items-center gap-6 animate-fade-in">
+              <div className="bg-white p-3 rounded-2xl shrink-0 shadow-lg border-2 border-brand-light">
+                <img 
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.origin)}`}
+                  alt="Acceso QR"
+                  className="w-40 h-40 object-contain"
+                />
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h4 className="text-white font-black text-xl mb-1 flex items-center gap-2 justify-center md:justify-start">
+                  <span>📱 Acceso Rápido para Estudiantes & Invitados</span>
+                </h4>
+                <p className="text-gray-400 text-sm mb-4">
+                  Escanea este código QR con tu celular para ingresar al Dashboard, registrarte y participar en la Trivia.
+                </p>
+                <div className="bg-surface border border-surface-border/50 py-2 px-4 rounded-xl inline-block max-w-full">
+                  <p className="text-[10px] text-brand-light font-black uppercase tracking-wider mb-0.5">Enlace de Conexión</p>
+                  <a 
+                    href={window.location.origin} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-white hover:text-brand transition-colors text-sm break-all font-mono"
+                  >
+                    {window.location.origin}
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* ── 📝 PREPARACIÓN AUTOMÁTICA NOTICE ─────────────────────────────── */}
           {snapshot?.preparationInfo && (
             <div className="bg-brand/10 border-2 border-brand/40 rounded-3xl p-6 flex flex-col md:flex-row items-center gap-6 animate-fade-in relative overflow-hidden">

@@ -71,4 +71,39 @@ router.post("/role", wrap((req, res) => {
   }
 }));
 
+// POST /api/auth/guest
+router.post("/guest", (req, res) => {
+  const { nombre } = req.body;
+  if (!nombre || nombre.trim().length === 0) {
+    return res.status(400).json({ error: "Falta nombre completo" });
+  }
+
+  try {
+    const settingsService = require("../services/settingsService");
+    const settings = settingsService.getSettings();
+    const isLoginActive = settings.loginActive === true;
+    
+    const now = new Date();
+    const day = now.getDay();
+    const time = now.getHours() + (now.getMinutes() / 60);
+    const isAllowedTime = day === 5 && time >= 16.5 && time <= 19.5;
+
+    if (!isLoginActive && !isAllowedTime) {
+      return res.status(403).json({ error: "LOGIN_NOT_AVAILABLE" });
+    }
+
+    const tempRut = `INV-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
+    const user = {
+      rut: tempRut,
+      nombre: nombre.trim(),
+      role: "guest"
+    };
+
+    res.json({ user });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;

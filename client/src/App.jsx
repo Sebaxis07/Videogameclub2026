@@ -70,7 +70,7 @@ const VIEW_TITLES = {
 
 function ContentView({ view, user }) {
   switch (view) {
-    case 'debate':          return user?.role === 'student' ? <StudentDebate /> : <DebateChart />
+    case 'debate':          return (user?.role === 'student' || user?.role === 'guest') ? <StudentDebate /> : <DebateChart />
     case 'bracket':         return <BracketBoard />
     case 'leaderboard':     return <Leaderboard />
     case 'players':         return <PlayersTable />
@@ -79,7 +79,7 @@ function ContentView({ view, user }) {
     case 'timeline':        return <TimelineModule />
     case 'config':          return <ConfigModule />
     case 'student-history': return <StudentDashboard />
-    case 'trivia':          return user?.role === 'student' ? <TriviaArena /> : <AdminTrivia />
+    case 'trivia':          return (user?.role === 'student' || user?.role === 'guest') ? <TriviaArena /> : <AdminTrivia />
     case 'chat':            return <ChatModule />
     case 'waiting-room':    return <WaitingRoom />
     case 'form-qr':         return <FormQR />
@@ -87,11 +87,11 @@ function ContentView({ view, user }) {
     case 'minecraft-torneo': return <MinecraftTournament />
     case 'mk-eval':         return <MortalKombatEvaluation />
     case 'mk-torneo':       return <MortalKombatTournament />
-    case 'gartic':          return user?.role === 'student' ? <GarticArena /> : <AdminGartic />
-    case 'infiltrado':      return user?.role === 'student' ? <InfiltradoArena /> : <AdminInfiltrado />
+    case 'gartic':          return (user?.role === 'student' || user?.role === 'guest') ? <GarticArena /> : <AdminGartic />
+    case 'infiltrado':      return (user?.role === 'student' || user?.role === 'guest') ? <InfiltradoArena /> : <AdminInfiltrado />
     case 'direct-messages': return <DirectMessages />
-    case 'voting':          return user?.role === 'student' ? <VotingArena /> : <AdminVoting />
-    case 'pixel-quiz':      return user?.role === 'student' ? <PixelQuizArena /> : <AdminPixelQuiz />
+    case 'voting':          return (user?.role === 'student' || user?.role === 'guest') ? <VotingArena /> : <AdminVoting />
+    case 'pixel-quiz':      return (user?.role === 'student' || user?.role === 'guest') ? <PixelQuizArena /> : <AdminPixelQuiz />
     case 'planner':         return <TournamentPlanner />
     default:                return <StudentDashboard />
   }
@@ -120,7 +120,7 @@ export default function App() {
           } else {
             if (payload.visibleModules) setVisibleModules(payload.visibleModules);
             // Si el admin bloqueó el login, echamos a los estudiantes en vivo
-            if (payload.loginActive === false && user.role === 'student' && !isTesting) {
+            if (payload.loginActive === false && (user.role === 'student' || user.role === 'guest') && !isTesting) {
               logout();
             }
           }

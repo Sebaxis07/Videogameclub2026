@@ -431,7 +431,7 @@ export default function Sidebar({ isOpen, setIsOpen, currentView }) {
           </div>
           <div className="mt-1">
             <span className="badge bg-brand/15 text-brand-light text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-md">
-              {isAdmin ? "Admin" : (isAssistant ? "Asistente" : "Student")}
+              {isAdmin ? "Admin" : (isAssistant ? "Asistente" : (user?.role === 'guest' ? "Invitado" : "Student"))}
             </span>
           </div>
         </div>
